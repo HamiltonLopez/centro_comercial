@@ -15,4 +15,5 @@ public class Venta {
     private List<Producto> productos;
     private Cliente cliente;
     private Date fechaVenta;
+    private double totalCompra;
 }

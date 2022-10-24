@@ -10,6 +10,7 @@ package modelos;
  */
 public class Cliente extends Usuario {
     private Multa multa;
+    
 
     public Cliente(String nombre, String documento, String telefono, String correo, String contrasena, String apellido, String direccion, String sexo) {
         super(nombre, documento, telefono, correo, contrasena, apellido, direccion, sexo);
