@@ -28,8 +28,8 @@ public class ControladorCasilla {
         for (int i = 0; i < casillas.length; i++) {
             for (int j = 0; j < casillas[i].length; j++) {
                 casillas[i][j] = new Casilla();
-                Local local = new Local();
-                casillas[i][j].setLocal(local);
+                //Local local = new Local();
+              //  casillas[i][j].setLocal(local);
                // SingletonCasillas.getINSTANCIA().escribirObjeto();
 
             }

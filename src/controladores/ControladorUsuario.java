@@ -14,19 +14,21 @@ import modelos.Cliente;
 import modelos.EmpleadoInterno;
 
 import modelos.Usuario;
+import util.Lista;
 
 /**
  *
  * @author aleca
  */
 public class ControladorUsuario {
-
-    ArrayList<Usuario> usuarios;
+    Lista<Usuario> usuarios;
+    ArrayList<Usuario> usuarios1;
     Administrador admin1 = new Administrador("Alejandro", "1", "313529085", "alejandro@gmail.com", "123", "Cañón", "Quimbaya", "Viudo");
     Administrador admin2 = new Administrador("Hamilton", "2", "3135451977", "hamilton@gmail.com", "123", "Lopez", "Armenia", "Soltero");
 
     public ControladorUsuario() {
-          usuarios = new ArrayList<>();
+          usuarios1 = new ArrayList<>();
+          usuarios = new Lista<>();
         // usuarios = SingletonUsuario.getINSTANCIA().getUsuarios();
         usuarios.add(admin1);
         usuarios.add(admin2);
@@ -42,7 +44,27 @@ public class ControladorUsuario {
      * contrario null
      */
     public Usuario ValidarAcceso(String documento, String contraseña) {
-        for (Usuario user : usuarios) {
+        for (int i = 0; i < usuarios.Size(); i++) {
+              if (usuarios.obtener(i).getDocumento().equals(documento) && usuarios.obtener(i).getContrasena().equals(contraseña)) {
+                if (usuarios.obtener(i) instanceof AdminLocal) {
+                    AdminLocal admin = (AdminLocal) usuarios.obtener(i);
+                    return admin;
+                }
+                if (usuarios.obtener(i) instanceof EmpleadoInterno) {
+                    EmpleadoInterno interno = (EmpleadoInterno) usuarios.obtener(i);
+                    return interno;
+                }
+                if (usuarios.obtener(i) instanceof Cliente) {
+                    Cliente cliente = (Cliente) usuarios.obtener(i);
+                    return cliente;
+                }
+                if (usuarios.obtener(i) instanceof Administrador) {
+                    Administrador admin = (Administrador) usuarios.obtener(i);
+                    return admin;
+                }
+            }
+        }
+        /*for (Usuario user : usuarios1) {
             if (user.getDocumento().equals(documento) && user.getContrasena().equals(contraseña)) {
                 if (user instanceof AdminLocal) {
                     AdminLocal admin = (AdminLocal) user;
@@ -61,7 +83,7 @@ public class ControladorUsuario {
                     return admin;
                 }
             }
-        }
+        }*/
         return null;
     }
 
@@ -74,7 +96,27 @@ public class ControladorUsuario {
      * contrario null
      */
     public Usuario buscarUsuario(String documento) {
-        for (Usuario user : usuarios) {
+        for (int i = 0; i < usuarios.Size(); i++) {
+           if (usuarios.obtener(i).getDocumento().equals(documento)) {
+                if (usuarios.obtener(i) instanceof AdminLocal) {
+                    AdminLocal doc = (AdminLocal) usuarios.obtener(i);
+                    return doc;
+                }
+                if (usuarios.obtener(i) instanceof EmpleadoInterno) {
+                    EmpleadoInterno sec = (EmpleadoInterno) usuarios.obtener(i);
+                    return sec;
+                }
+                if (usuarios.obtener(i) instanceof Cliente) {
+                    Cliente pac = (Cliente) usuarios.obtener(i);
+                    return pac;
+                }
+                if (usuarios.obtener(i) instanceof Administrador) {
+                    Administrador admin = (Administrador) usuarios.obtener(i);
+                    return admin;
+                }
+            } 
+        }
+        /*for (Usuario user : usuarios) {
             if (user.getDocumento().equals(documento)) {
                 if (user instanceof AdminLocal) {
                     AdminLocal doc = (AdminLocal) user;
@@ -93,7 +135,7 @@ public class ControladorUsuario {
                     return admin;
                 }
             }
-        }
+        }*/
         return null;
     }
 
@@ -134,9 +176,9 @@ public class ControladorUsuario {
      * @return true si lo elimina, de lo contrario false
      */
     public boolean eliminarUsuario(String documento) {
-        for (int i = 0; i < usuarios.size(); i++) {
-            if (usuarios.get(i).getDocumento().equals(documento)) {
-                usuarios.remove(i);
+        for (int i = 0; i < usuarios.Size(); i++) {
+            if (usuarios.obtener(i).getDocumento().equals(documento)) {
+                usuarios.eliminar(i);
                 // SingletonUsuario.getINSTANCIA().escribirObjeto();
                 return true;
             }
@@ -144,9 +186,9 @@ public class ControladorUsuario {
         return false;
     }
 
-    public ArrayList<Usuario> getUsuarios() {
+   /* public ArrayList<Usuario> getUsuarios() {
         return usuarios;
-    }
+    }*/
 
     /**
      * Este metodo nos permite editar un usuario
@@ -156,35 +198,35 @@ public class ControladorUsuario {
      */
     public boolean editarUsuario(Usuario usuario) {
 
-        for (int i = 0; i < usuarios.size(); i++) {
-            if (usuarios.get(i).getDocumento().equals(usuario.getDocumento())) {
+        for (int i = 0; i < usuarios.Size(); i++) {
+            if (usuarios.obtener(i).getDocumento().equals(usuario.getDocumento())) {
 
-                usuarios.get(i).setNombre(usuario.getNombre());
-                usuarios.get(i).setContrasena(usuario.getContrasena());
-                usuarios.get(i).setCorreo(usuario.getCorreo());
-                usuarios.get(i).setTelefono(usuario.getTelefono());
-                usuarios.get(i).setDocumento(usuario.getDocumento());
-                usuarios.get(i).setDireccion(usuario.getDireccion());
-                usuarios.get(i).setSexo(usuario.getSexo());
-                usuarios.get(i).setApellido(usuario.getApellido());
+                usuarios.obtener(i).setNombre(usuario.getNombre());
+                usuarios.obtener(i).setContrasena(usuario.getContrasena());
+                usuarios.obtener(i).setCorreo(usuario.getCorreo());
+                usuarios.obtener(i).setTelefono(usuario.getTelefono());
+                usuarios.obtener(i).setDocumento(usuario.getDocumento());
+                usuarios.obtener(i).setDireccion(usuario.getDireccion());
+                usuarios.obtener(i).setSexo(usuario.getSexo());
+                usuarios.obtener(i).setApellido(usuario.getApellido());
 
-                if (usuarios.get(i) instanceof AdminLocal) {
-                    AdminLocal admin = (AdminLocal) usuarios.get(i);
+                if (usuarios.obtener(i) instanceof AdminLocal) {
+                    AdminLocal admin = (AdminLocal) usuarios.obtener(i);
                     AdminLocal usuarioN = (AdminLocal) usuario;
                     //doctor.setEspecialidad(usuarioN.getEspecialidad());
                     //SingletonUsuario.getINSTANCIA().escribirObjeto();
                     return true;
                 }
-                if (usuarios.get(i) instanceof EmpleadoInterno) {
-                    EmpleadoInterno secreta = (EmpleadoInterno) usuarios.get(i);
+                if (usuarios.obtener(i) instanceof EmpleadoInterno) {
+                    EmpleadoInterno secreta = (EmpleadoInterno) usuarios.obtener(i);
                     EmpleadoInterno usuarioN = (EmpleadoInterno) usuario;
                     //secreta.setExperiencia(usuarioN.getExperiencia());
                     //SingletonUsuario.getINSTANCIA().escribirObjeto();
                     return true;
                 }
 
-                if (usuarios.get(i) instanceof Cliente) {
-                    Cliente pacient = (Cliente) usuarios.get(i);
+                if (usuarios.obtener(i) instanceof Cliente) {
+                    Cliente pacient = (Cliente) usuarios.obtener(i);
                     Cliente usuarioN = (Cliente) usuario;
                     // pacient.setSisbenOEps(usuarioN.getEntidad());
                     // pacient.setAltura(usuarioN.getAltura());
@@ -211,8 +253,8 @@ public class ControladorUsuario {
      * false
      */
     public boolean ValidarCorreo(Usuario usuario) {
-        for (int i = 0; i < usuarios.size(); i++) {
-            if (usuarios.get(i).getCorreo().equals(usuario.getCorreo())) {
+        for (int i = 0; i < usuarios.Size(); i++) {
+            if (usuarios.obtener(i).getCorreo().equals(usuario.getCorreo())) {
                 return true;
             }
         }

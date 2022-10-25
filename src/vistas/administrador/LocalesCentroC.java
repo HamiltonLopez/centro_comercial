@@ -88,11 +88,11 @@ public class LocalesCentroC extends javax.swing.JFrame implements ActionListener
         panelBotones.setLayout(panelBotonesLayout);
         panelBotonesLayout.setHorizontalGroup(
             panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 587, Short.MAX_VALUE)
         );
         panelBotonesLayout.setVerticalGroup(
             panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 381, Short.MAX_VALUE)
+            .addGap(0, 414, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -151,6 +151,8 @@ public class LocalesCentroC extends javax.swing.JFrame implements ActionListener
                 if (e.getSource().equals(botones[i][j])) {
                     Casilla casilla = controlador.obtenerCasilla(i, j);
                     if (casilla.getEstado().equals(Casilla.DISPONIBLE)) {
+                        VistaLocal vista = new VistaLocal(i,j);
+                        vista.setVisible(rootPaneCheckingEnabled);
                         //GestionProducto ventana = new GestionProducto(casilla, this);
                         //ventana.setVisible(true);
                         this.dispose();
