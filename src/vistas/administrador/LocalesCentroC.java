@@ -151,8 +151,8 @@ public class LocalesCentroC extends javax.swing.JFrame implements ActionListener
                 if (e.getSource().equals(botones[i][j])) {
                     Casilla casilla = controlador.obtenerCasilla(i, j);
                     if (casilla.getEstado().equals(Casilla.DISPONIBLE)) {
-                        VistaLocal vista = new VistaLocal(i,j);
-                        vista.setVisible(rootPaneCheckingEnabled);
+                        VistaLocal vista = new VistaLocal(this,i,j);
+                        vista.setVisible(true);
                         //GestionProducto ventana = new GestionProducto(casilla, this);
                         //ventana.setVisible(true);
                         this.dispose();

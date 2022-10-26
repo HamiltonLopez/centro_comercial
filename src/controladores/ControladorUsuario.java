@@ -22,12 +22,10 @@ import util.Lista;
  */
 public class ControladorUsuario {
     Lista<Usuario> usuarios;
-    ArrayList<Usuario> usuarios1;
     Administrador admin1 = new Administrador("Alejandro", "1", "313529085", "alejandro@gmail.com", "123", "Cañón", "Quimbaya", "Viudo");
     Administrador admin2 = new Administrador("Hamilton", "2", "3135451977", "hamilton@gmail.com", "123", "Lopez", "Armenia", "Soltero");
 
     public ControladorUsuario() {
-          usuarios1 = new ArrayList<>();
           usuarios = new Lista<>();
         // usuarios = SingletonUsuario.getINSTANCIA().getUsuarios();
         usuarios.add(admin1);

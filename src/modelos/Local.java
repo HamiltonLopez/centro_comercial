@@ -17,14 +17,22 @@ public class Local {
     private AdminLocal admin;
     private Date fechaInicio;
     private Date fechaFinal;
-    private double precioArriendo;
+    private double precioArriendo ;
 
     public Local(String nombre, AdminLocal admin, Date fechaInicio, Date fechaFinal) {
         this.nombre = nombre;
         this.admin = admin;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
-        precioArriendo = 500.000;
+
+    }
+
+    public Local() {
+        this.nombre = null;
+        this.admin = null;
+        this.fechaInicio = null;
+        this.fechaFinal = null;
+        precioArriendo= 500.000;
     }
 
     public String getNombre() {
@@ -66,7 +74,5 @@ public class Local {
     public void setPrecioArriendo(double precioArriendo) {
         this.precioArriendo = precioArriendo;
     }
-    
-    
 
 }
