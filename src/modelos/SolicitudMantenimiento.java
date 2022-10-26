@@ -4,11 +4,13 @@
  */
 package modelos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Asus
  */
-public class SolicitudMantenimiento {
+public class SolicitudMantenimiento implements Serializable{
     private AdminLocal admin;
     private String detallesSolicitud;
 

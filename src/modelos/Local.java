@@ -4,6 +4,7 @@
  */
 package modelos;
 
+import java.io.Serializable;
 import java.util.Date;
 import util.Lista;
 
@@ -11,21 +12,28 @@ import util.Lista;
  *
  * @author Asus
  */
-public class Local {
+public class Local  implements Serializable{
 
     private String nombre;
     private AdminLocal admin;
     private Date fechaInicio;
     private Date fechaFinal;
     private double precioArriendo;
+    private Lista<EmpleadoInterno> empleados;
 
     public Local(String nombre, AdminLocal admin, Date fechaInicio, Date fechaFinal) {
         this.nombre = nombre;
         this.admin = admin;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
-        precioArriendo = 500.000;
+        empleados = new Lista<>();
+       
     }
+
+    public Local() {
+       precioArriendo = 500.000;
+    }
+    
 
     public String getNombre() {
         return nombre;

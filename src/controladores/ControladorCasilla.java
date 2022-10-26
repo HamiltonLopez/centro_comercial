@@ -4,6 +4,7 @@
  */
 package controladores;
 
+import Singleton.SingletonCasillas;
 import modelos.Casilla;
 import modelos.Local;
 
@@ -16,8 +17,8 @@ public class ControladorCasilla {
     Casilla[][] casillas;
 
     public ControladorCasilla() {
-        // casillas = SingletonCasillas.getINSTANCIA().getLista();   
-        casillas = new Casilla[5][4];
+         casillas = SingletonCasillas.getINSTANCIA().getLista();   
+       
         if (casillas[0][0] == null) {
             initCasillas();
         }
@@ -28,23 +29,23 @@ public class ControladorCasilla {
         for (int i = 0; i < casillas.length; i++) {
             for (int j = 0; j < casillas[i].length; j++) {
                 casillas[i][j] = new Casilla();
-                //Local local = new Local();
-              //  casillas[i][j].setLocal(local);
-               // SingletonCasillas.getINSTANCIA().escribirObjeto();
+               Local local = new Local();
+               casillas[i][j].setLocal(local);
+                SingletonCasillas.getINSTANCIA().escribirObjeto();
 
             }
         }
-        //SingletonCasillas.getINSTANCIA().escribirObjeto();
+        SingletonCasillas.getINSTANCIA().escribirObjeto();
 
     }
      public void agregarLocal(Local local, int fila, int columna){
         casillas[fila][columna].setLocal(local);
         casillas[fila][columna].setEstado(Casilla.OCUPADO);
-       // SingletonCasillas.getINSTANCIA().escribirObjeto();
+        SingletonCasillas.getINSTANCIA().escribirObjeto();
      
     }
     public Casilla obtenerCasilla(int fila, int columna){
-        //SingletonCasillas.getINSTANCIA().escribirObjeto();
+        SingletonCasillas.getINSTANCIA().escribirObjeto();
 
         return casillas[fila][columna];
         

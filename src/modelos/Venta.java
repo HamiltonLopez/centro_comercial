@@ -4,6 +4,7 @@
  */
 package modelos;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  *
  * @author Asus
  */
-public class Venta {
+public class Venta implements Serializable{
     private List<Producto> productos;
     private Cliente cliente;
     private Date fechaVenta;

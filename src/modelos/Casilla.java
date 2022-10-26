@@ -4,11 +4,13 @@
  */
 package modelos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Asus
  */
-public class Casilla {
+public class Casilla implements Serializable {
 
     public static final String DISPONIBLE = " Disponible ";
     public static final String OCUPADO = " Ocupado ";

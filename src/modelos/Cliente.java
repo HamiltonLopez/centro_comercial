@@ -4,11 +4,13 @@
  */
 package modelos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Asus
  */
-public class Cliente extends Usuario {
+public class Cliente extends Usuario implements Serializable{
     private Multa multa;
     
 

@@ -4,13 +4,14 @@
  */
 package modelos;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Asus
  */
-public class Producto {
+public class Producto  implements Serializable{
 
     private String nombreProducto;
     private String identificador;

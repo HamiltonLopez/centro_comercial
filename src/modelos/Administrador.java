@@ -4,11 +4,13 @@
  */
 package modelos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Asus
  */
-public class Administrador extends Usuario {
+public class Administrador extends Usuario implements Serializable {
 
     public Administrador(String nombre, String documento, String telefono, String correo, String contrasena, String apellido, String direccion, String sexo) {
         super(nombre, documento, telefono, correo, contrasena, apellido, direccion, sexo);

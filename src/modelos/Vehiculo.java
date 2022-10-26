@@ -4,9 +4,10 @@
  */
 package modelos;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Vehiculo {
+public class Vehiculo implements Serializable {
     private String tipo;
     private String marca;
     private String placa;

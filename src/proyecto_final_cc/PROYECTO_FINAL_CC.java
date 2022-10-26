@@ -7,6 +7,7 @@ package proyecto_final_cc;
 import exepciones.ListaVaciaException;
 import modelos.Usuario;
 import util.Lista;
+import vistas.InicioSesion;
 
 /**
  *
@@ -18,11 +19,8 @@ public class PROYECTO_FINAL_CC {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Lista<Usuario>  usuarios = new Lista<>();
-       
-            System.out.println(usuarios.obtener(1)); 
-       
-       
+        InicioSesion inicio = new InicioSesion();
+        inicio.setVisible(true);
     }
     
 }

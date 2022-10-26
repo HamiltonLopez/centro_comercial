@@ -7,8 +7,11 @@ package vistas;
 import controladores.ControladorUsuario;
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import modelos.AdminLocal;
 import modelos.Administrador;
+import modelos.Local;
 import modelos.Usuario;
+import vistas.adminLocal.GestionarLocal;
 import vistas.administrador.LocalesCentroC;
 
 /**
@@ -198,7 +201,12 @@ public class InicioSesion extends javax.swing.JFrame {
             Usuario usuario = controlador.ValidarAcceso(documento, contraseña);
 
             if (usuario instanceof Administrador) {
-                new LocalesCentroC().setVisible(true);
+                Administrador admin = (Administrador) usuario;
+                new LocalesCentroC(admin).setVisible(true);
+                this.dispose();
+            }else if (usuario instanceof AdminLocal) {
+                AdminLocal admin = (AdminLocal) usuario;
+                new GestionarLocal(admin).setVisible(true);
                 this.dispose();
             }
             /* if (usuario instanceof Doctor) {

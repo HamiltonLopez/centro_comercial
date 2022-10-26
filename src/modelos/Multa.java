@@ -4,11 +4,13 @@
  */
 package modelos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Asus
  */
-public class Multa {
+public class Multa implements Serializable{
     private String detalles;
     private Cliente cliente;
 
