@@ -4,6 +4,7 @@
  */
 package vistas.administrador;
 
+import ValidarCampos.ValidarCampos;
 import controladores.ControladorCasilla;
 import controladores.ControladorUsuario;
 import excepciones.CorreoExistenteException;
@@ -11,7 +12,7 @@ import excepciones.TelefonoInvalidoException;
 import excepciones.UsuarioExistenteException;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import modelo.ValidarCampos;
+
 import modelos.AdminLocal;
 import modelos.Casilla;
 import modelos.Local;
@@ -25,11 +26,11 @@ public class VistaLocal extends javax.swing.JFrame {
 
     private int fila;
     private int columna;
-    private LocalesCentroC ventana;
+    private GestionAdministrador ventana;
     private ControladorCasilla controlador;
     private ControladorUsuario controladorU;
 
-    public VistaLocal(LocalesCentroC ventana, int fila, int columna) {
+    public VistaLocal(GestionAdministrador ventana, int fila, int columna) {
         initComponents();
         setLocationRelativeTo(this);
         this.ventana = ventana;
@@ -38,7 +39,7 @@ public class VistaLocal extends javax.swing.JFrame {
         panelAsignar.setVisible(false);
         controladorU = new ControladorUsuario();
        
-        lblPrecio.setText(String.valueOf(casilla.getLocal().getPrecioArriendo()));
+        txtPrecio.setText(casilla.getLocal().getPrecioArriendo());
         this.columna = columna;
         this.fila = fila;
     }
@@ -56,8 +57,8 @@ public class VistaLocal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        lblPrecio = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
+        txtPrecio = new javax.swing.JTextField();
         panelAsignar = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -111,9 +112,6 @@ public class VistaLocal extends javax.swing.JFrame {
             }
         });
 
-        lblPrecio.setForeground(new java.awt.Color(0, 0, 0));
-        lblPrecio.setText("jLabel15");
-
         btnRegresar.setBackground(new java.awt.Color(204, 0, 51));
         btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegresar.setText("REGRESAR");
@@ -123,6 +121,9 @@ public class VistaLocal extends javax.swing.JFrame {
             }
         });
 
+        txtPrecio.setBackground(new java.awt.Color(255, 255, 255));
+        txtPrecio.setBorder(null);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -130,35 +131,36 @@ public class VistaLocal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(jLabel1))
+                        .addContainerGap()
+                        .addComponent(btnRegresar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
+                        .addGap(150, 150, 150)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(154, 154, 154)
+                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnRegresar)))
-                .addContainerGap(55, Short.MAX_VALUE))
+                        .addGap(116, 116, 116)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(209, 209, 209)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnRegresar)
-                .addGap(56, 56, 56)
+                .addGap(36, 36, 36)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(lblPrecio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(59, 59, 59)
                 .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         panelAsignar.setBackground(new java.awt.Color(255, 255, 255));
@@ -282,7 +284,7 @@ public class VistaLocal extends javax.swing.JFrame {
                 btnRegistrarActionPerformed(evt);
             }
         });
-        panelAsignar.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 394, 171, -1));
+        panelAsignar.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 360, 171, -1));
         panelAsignar.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 92, 196, 10));
         panelAsignar.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 148, 196, 10));
         panelAsignar.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(268, 148, 195, 10));
@@ -349,15 +351,15 @@ public class VistaLocal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(panelAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelAsignar, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelAsignar, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE))
         );
 
         pack();
@@ -510,7 +512,6 @@ public class VistaLocal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JLabel lblPrecio;
     private javax.swing.JPanel panelAsignar;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtContra;
@@ -519,6 +520,7 @@ public class VistaLocal extends javax.swing.JFrame {
     private javax.swing.JTextField txtDocumento;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNombreLocal;
+    private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import modelos.AdminLocal;
 import modelos.Administrador;
 import modelos.Cliente;
+import modelos.EmpleadoGeneral;
 import modelos.EmpleadoInterno;
 
 import modelos.Usuario;
@@ -22,15 +23,16 @@ import util.Lista;
  * @author aleca
  */
 public class ControladorUsuario {
+
     Lista<Usuario> usuarios;
-   
+
     Administrador admin1 = new Administrador("Alejandro", "1", "313529085", "alejandro@gmail.com", "123", "Cañón", "Quimbaya", "Viudo");
     Administrador admin2 = new Administrador("Hamilton", "2", "3135451977", "hamilton@gmail.com", "123", "Lopez", "Armenia", "Soltero");
 
     public ControladorUsuario() {
-          
-          usuarios = SingletonUsuario.getINSTANCIA().getUsuarios();
-      
+
+        usuarios = SingletonUsuario.getINSTANCIA().getUsuarios();
+
         usuarios.add(admin1);
         usuarios.add(admin2);
     }
@@ -46,45 +48,26 @@ public class ControladorUsuario {
      */
     public Usuario ValidarAcceso(String documento, String contraseña) {
         for (int i = 0; i < usuarios.Size(); i++) {
-              if (usuarios.obtener(i).getDocumento().equals(documento) && usuarios.obtener(i).getContrasena().equals(contraseña)) {
+            if (usuarios.obtener(i).getDocumento().equals(documento) && usuarios.obtener(i).getContrasena().equals(contraseña)) {
                 if (usuarios.obtener(i) instanceof AdminLocal) {
                     AdminLocal admin = (AdminLocal) usuarios.obtener(i);
                     return admin;
-                }
-                else if (usuarios.obtener(i) instanceof EmpleadoInterno) {
+                } else if (usuarios.obtener(i) instanceof EmpleadoInterno) {
                     EmpleadoInterno interno = (EmpleadoInterno) usuarios.obtener(i);
                     return interno;
-                }
-               else if (usuarios.obtener(i) instanceof Cliente) {
+                } else if (usuarios.obtener(i) instanceof Cliente) {
                     Cliente cliente = (Cliente) usuarios.obtener(i);
                     return cliente;
-                }
-               else if (usuarios.obtener(i) instanceof Administrador) {
+                } else if (usuarios.obtener(i) instanceof Administrador) {
                     Administrador admin = (Administrador) usuarios.obtener(i);
                     return admin;
+                }  else if (usuarios.obtener(i) instanceof EmpleadoGeneral) {
+                    EmpleadoGeneral empleado = (EmpleadoGeneral) usuarios.obtener(i);
+                    return empleado;
                 }
             }
         }
-        /*for (Usuario user : usuarios1) {
-            if (user.getDocumento().equals(documento) && user.getContrasena().equals(contraseña)) {
-                if (user instanceof AdminLocal) {
-                    AdminLocal admin = (AdminLocal) user;
-                    return admin;
-                }
-                if (user instanceof EmpleadoInterno) {
-                    EmpleadoInterno interno = (EmpleadoInterno) user;
-                    return interno;
-                }
-                if (user instanceof Cliente) {
-                    Cliente cliente = (Cliente) user;
-                    return cliente;
-                }
-                if (user instanceof Administrador) {
-                    Administrador admin = (Administrador) user;
-                    return admin;
-                }
-            }
-        }*/
+        
         return null;
     }
 
@@ -98,7 +81,7 @@ public class ControladorUsuario {
      */
     public Usuario buscarUsuario(String documento) {
         for (int i = 0; i < usuarios.Size(); i++) {
-           if (usuarios.obtener(i).getDocumento().equals(documento)) {
+            if (usuarios.obtener(i).getDocumento().equals(documento)) {
                 if (usuarios.obtener(i) instanceof AdminLocal) {
                     AdminLocal doc = (AdminLocal) usuarios.obtener(i);
                     return doc;
@@ -115,28 +98,13 @@ public class ControladorUsuario {
                     Administrador admin = (Administrador) usuarios.obtener(i);
                     return admin;
                 }
-            } 
-        }
-        /*for (Usuario user : usuarios) {
-            if (user.getDocumento().equals(documento)) {
-                if (user instanceof AdminLocal) {
-                    AdminLocal doc = (AdminLocal) user;
-                    return doc;
-                }
-                if (user instanceof EmpleadoInterno) {
-                    EmpleadoInterno sec = (EmpleadoInterno) user;
-                    return sec;
-                }
-                if (user instanceof Cliente) {
-                    Cliente pac = (Cliente) user;
-                    return pac;
-                }
-                if (user instanceof Administrador) {
-                    Administrador admin = (Administrador) user;
-                    return admin;
+                  if (usuarios.obtener(i) instanceof EmpleadoGeneral) {
+                    EmpleadoGeneral empleado = (EmpleadoGeneral) usuarios.obtener(i);
+                    return empleado;
                 }
             }
-        }*/
+        }
+      
         return null;
     }
 
@@ -164,7 +132,7 @@ public class ControladorUsuario {
             throw new TelefonoInvalidoException();
         } else {
             usuarios.add(usuario);
-            //SingletonUsuario.getINSTANCIA().escribirObjeto();
+            SingletonUsuario.getINSTANCIA().escribirUsuarios();
             return true;
         }
     }
@@ -178,19 +146,19 @@ public class ControladorUsuario {
      */
     public boolean eliminarUsuario(String documento) {
         for (int i = 0; i < usuarios.Size(); i++) {
+            
             if (usuarios.obtener(i).getDocumento().equals(documento)) {
                 usuarios.eliminar(i);
-                // SingletonUsuario.getINSTANCIA().escribirObjeto();
+                SingletonUsuario.getINSTANCIA().escribirUsuarios();
                 return true;
             }
         }
         return false;
     }
 
-   /* public ArrayList<Usuario> getUsuarios() {
+     public Lista<Usuario> getUsuarios() {
         return usuarios;
-    }*/
-
+    }
     /**
      * Este metodo nos permite editar un usuario
      *
@@ -203,6 +171,7 @@ public class ControladorUsuario {
             if (usuarios.obtener(i).getDocumento().equals(usuario.getDocumento())) {
 
                 usuarios.obtener(i).setNombre(usuario.getNombre());
+                usuarios.obtener(i).setDocumento(usuario.getDocumento());
                 usuarios.obtener(i).setContrasena(usuario.getContrasena());
                 usuarios.obtener(i).setCorreo(usuario.getCorreo());
                 usuarios.obtener(i).setTelefono(usuario.getTelefono());
@@ -213,32 +182,35 @@ public class ControladorUsuario {
 
                 if (usuarios.obtener(i) instanceof AdminLocal) {
                     AdminLocal admin = (AdminLocal) usuarios.obtener(i);
-                    AdminLocal usuarioN = (AdminLocal) usuario;
-                    //doctor.setEspecialidad(usuarioN.getEspecialidad());
-                    //SingletonUsuario.getINSTANCIA().escribirObjeto();
+                    //AdminLocal usuarioN = (AdminLocal) usuario;
+                   
+                    SingletonUsuario.getINSTANCIA().escribirUsuarios();
+                  
                     return true;
                 }
                 if (usuarios.obtener(i) instanceof EmpleadoInterno) {
                     EmpleadoInterno secreta = (EmpleadoInterno) usuarios.obtener(i);
                     EmpleadoInterno usuarioN = (EmpleadoInterno) usuario;
-                    //secreta.setExperiencia(usuarioN.getExperiencia());
-                    //SingletonUsuario.getINSTANCIA().escribirObjeto();
+                  
+                    SingletonUsuario.getINSTANCIA().escribirUsuarios();
+                  
                     return true;
                 }
 
                 if (usuarios.obtener(i) instanceof Cliente) {
                     Cliente pacient = (Cliente) usuarios.obtener(i);
                     Cliente usuarioN = (Cliente) usuario;
-                    // pacient.setSisbenOEps(usuarioN.getEntidad());
-                    // pacient.setAltura(usuarioN.getAltura());
-                    // pacient.setTipoSangre(usuarioN.getTipoSangre());
-                    // pacient.setPeso(usuarioN.getPeso());
-                    // SingletonUsuario.getINSTANCIA().escribirObjeto();
+                    SingletonUsuario.getINSTANCIA().escribirUsuarios();
+                   
+                     SingletonUsuario.getINSTANCIA().escribirUsuarios();
                     return true;
 
                 }
 
-                // SingletonUsuario.getINSTANCIA().escribirObjeto();
+                
+                 SingletonUsuario.getINSTANCIA().escribirUsuarios();
+                 return true;
+                 
             }
         }
         return false;

@@ -9,10 +9,13 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 import modelos.AdminLocal;
 import modelos.Administrador;
+import modelos.EmpleadoGeneral;
 import modelos.Local;
 import modelos.Usuario;
 import vistas.adminLocal.GestionarLocal;
-import vistas.administrador.LocalesCentroC;
+import vistas.administrador.GestionAdministrador;
+import vistas.cliente.RegistrarCliente;
+import vistas.parqueadero.VistaParqueadero;
 
 /**
  *
@@ -49,6 +52,7 @@ public class InicioSesion extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
+        lblError = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -127,6 +131,10 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel5.setText("USUARIO");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, -1, -1));
 
+        lblError.setForeground(new java.awt.Color(255, 255, 255));
+        lblError.setText("jLabel6");
+        jPanel3.add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
+
         jPanel4.setBackground(new java.awt.Color(0, 153, 153));
         jPanel4.setForeground(new java.awt.Color(0, 153, 153));
 
@@ -202,12 +210,25 @@ public class InicioSesion extends javax.swing.JFrame {
 
             if (usuario instanceof Administrador) {
                 Administrador admin = (Administrador) usuario;
-                new LocalesCentroC(admin).setVisible(true);
+                new GestionAdministrador(admin).setVisible(true);
                 this.dispose();
-            }else if (usuario instanceof AdminLocal) {
+            }else if (usuario instanceof AdminLocal ) {
                 AdminLocal admin = (AdminLocal) usuario;
                 new GestionarLocal(admin).setVisible(true);
                 this.dispose();
+            }else if(usuario instanceof EmpleadoGeneral){
+                EmpleadoGeneral empleado = (EmpleadoGeneral) usuario;
+                if(empleado.getCargo().equalsIgnoreCase("Administrador Parquedaero")){
+                    new VistaParqueadero().setVisible(true);
+                    this.dispose();
+                }else{
+                    lblError.setText("Tu cargo no condece nigun permiso");
+                     lblError.setForeground(Color.red);
+                  
+                }
+            }else{
+                 lblError.setText("El documento o la contraseña no son correctas");
+                 lblError.setForeground(Color.red);
             }
             /* if (usuario instanceof Doctor) {
                 Doctor doctor = (Doctor) usuario;
@@ -231,9 +252,9 @@ public class InicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
-        // TODO add your handling code here:
-        //new RegistrarPaciente().setVisible(true);
-        // this.dispose();
+       
+       new RegistrarCliente().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     /**
@@ -284,6 +305,7 @@ public class InicioSesion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblError;
     private javax.swing.JPasswordField txtContra;
     private javax.swing.JTextField txtDocumento;
     // End of variables declaration//GEN-END:variables
