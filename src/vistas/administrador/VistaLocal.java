@@ -10,6 +10,7 @@ import controladores.ControladorUsuario;
 import excepciones.CorreoExistenteException;
 import excepciones.TelefonoInvalidoException;
 import excepciones.UsuarioExistenteException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -38,8 +39,8 @@ public class VistaLocal extends javax.swing.JFrame {
         Casilla casilla = controlador.obtenerCasilla(fila, columna);
         panelAsignar.setVisible(false);
         controladorU = new ControladorUsuario();
-       
-        txtPrecio.setText(casilla.getLocal().getPrecioArriendo());
+
+        txtPrecio.setText("$"+casilla.getLocal().getPrecioArriendo());
         this.columna = columna;
         this.fila = fila;
     }
@@ -101,7 +102,7 @@ public class VistaLocal extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("PRECIO");
+        jLabel1.setText("PRECIO DE RENTA :");
 
         jButton2.setBackground(new java.awt.Color(0, 153, 153));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
@@ -122,7 +123,14 @@ public class VistaLocal extends javax.swing.JFrame {
         });
 
         txtPrecio.setBackground(new java.awt.Color(255, 255, 255));
+        txtPrecio.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtPrecio.setForeground(new java.awt.Color(0, 0, 0));
         txtPrecio.setBorder(null);
+        txtPrecio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrecioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -130,20 +138,20 @@ public class VistaLocal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnRegresar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btnRegresar))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(150, 150, 150)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(116, 116, 116)
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(209, 209, 209)
+                        .addGap(182, 182, 182)
                         .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -158,9 +166,9 @@ public class VistaLocal extends javax.swing.JFrame {
                 .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
+                .addGap(26, 26, 26)
                 .addComponent(jButton2)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         panelAsignar.setBackground(new java.awt.Color(255, 255, 255));
@@ -359,7 +367,7 @@ public class VistaLocal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelAsignar, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE))
+                .addComponent(panelAsignar, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE))
         );
 
         pack();
@@ -400,6 +408,8 @@ public class VistaLocal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
 
         } else {
+
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/YYYY");
             String nombreLocal = txtNombreLocal.getText();
             String nombre = txtNombre.getText();
             String documento = txtDocumento.getText();
@@ -409,25 +419,30 @@ public class VistaLocal extends javax.swing.JFrame {
             String correo = txtCorreo.getText();
             String contraseña = txtContra.getText();
             String sexo = comboSexo.getSelectedItem().toString();
-          
+            Date fechaInicio = new Date(inicio.getYear(), inicio.getMonth(), inicio.getDay());
+            Date fechaFinal = new Date(fin.getYear(), fin.getMonth(), fin.getDay());
+            //  Date ini =(Date) formatoFecha.format(inicio).;
             String apellido = txtApellido.getText();
             String direccion = txtDireccion.getText();
 
             Usuario admin1 = new AdminLocal(nombre, documento, telefono, correo, contraseña, apellido, direccion, sexo);
             AdminLocal admin = (AdminLocal) admin1;
-            Local local = new Local(nombre, admin, inicio, fin);
+            Local local = new Local(nombreLocal, admin, fechaInicio, fechaFinal);
             admin.setLocal(local);
             try {
                 controlador.agregarLocal(local, fila, columna);
                 controladorU.registrarUsuario(admin1);
                 JOptionPane.showMessageDialog(null, "El local" + nombreLocal + " se ha registrado con éxito");
                 limpiar();
+                ventana.validarPosiciones();
+                ventana.setVisible(true);
+                this.dispose();
             } catch (UsuarioExistenteException ex) {
 
                 ex.getMessage();
             } catch (TelefonoInvalidoException ex) {
                 ex.getMessage();
-            } catch(CorreoExistenteException ex){
+            } catch (CorreoExistenteException ex) {
                 ex.getMessage();
 
             }
@@ -461,8 +476,13 @@ public class VistaLocal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      panelAsignar.setVisible(true);
+
+        panelAsignar.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrecioActionPerformed
 
     public void limpiar() {
         txtDocumento.setText("");
@@ -472,7 +492,7 @@ public class VistaLocal extends javax.swing.JFrame {
         txtCorreo.setText("");
         txtContra.setText("");
         txtDireccion.setText("");
-        
+
         comboSexo.setSelectedIndex(0);
     }
     /**

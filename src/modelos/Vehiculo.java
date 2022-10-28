@@ -13,6 +13,7 @@ public class Vehiculo implements Serializable {
     private String placa;
     private Date horaEntrada;
     private Date horaSalida;
+    private double precio;
 
     public Vehiculo(String tipo, String marca, String placa, Date horaEntrada) {
         this.tipo = tipo;
@@ -61,6 +62,15 @@ public class Vehiculo implements Serializable {
     public void setHoraSalida(Date horaSalida) {
         this.horaSalida = horaSalida;
     }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+    
     
     
 }

@@ -15,7 +15,7 @@ public class Cola<T> implements Serializable {
         this.primero = null;
     }
 
-    public void enQueve(T dato) {
+    public void enQueue(T dato) {
         Nodo<T> nuevo = new Nodo(dato);
         if (isEmpty()) {
             primero = nuevo;
@@ -30,7 +30,7 @@ public class Cola<T> implements Serializable {
         }
     }
 
-    public T deQueve() throws ColaVaciaException {
+    public T deQueue() throws ColaVaciaException {
         if (isEmpty()) {
             throw new ColaVaciaException();
         }

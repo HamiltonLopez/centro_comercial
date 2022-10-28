@@ -20,6 +20,7 @@ public class Local implements Serializable{
     private Date fechaFinal;
     private String precioArriendo;
     private Lista<EmpleadoInterno> empleados;
+    private Lista<Producto> productos;
 
     public Local(String nombre, AdminLocal admin, Date fechaInicio, Date fechaFinal) {
         this.nombre = nombre;
@@ -27,7 +28,7 @@ public class Local implements Serializable{
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
         empleados = new Lista<>();
-       
+        productos = new Lista<>();
     }
 
     public Local() {
@@ -82,6 +83,15 @@ public class Local implements Serializable{
     public void setEmpleados(Lista<EmpleadoInterno> empleados) {
         this.empleados = empleados;
     }
+
+    public Lista<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(Lista<Producto> productos) {
+        this.productos = productos;
+    }
+    
     
     
     

@@ -9,13 +9,17 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 import modelos.AdminLocal;
 import modelos.Administrador;
+import modelos.Cliente;
 import modelos.EmpleadoGeneral;
+import modelos.EmpleadoInterno;
 import modelos.Local;
 import modelos.Usuario;
 import vistas.adminLocal.GestionarLocal;
 import vistas.administrador.GestionAdministrador;
 import vistas.cliente.RegistrarCliente;
+import vistas.cliente.VentanaCliente;
 import vistas.parqueadero.VistaParqueadero;
+import vistas.vendedor.Vendedor;
 
 /**
  *
@@ -69,6 +73,11 @@ public class InicioSesion extends javax.swing.JFrame {
         txtDocumento.setForeground(new java.awt.Color(204, 204, 204));
         txtDocumento.setText("Ingrese el número de documento");
         txtDocumento.setBorder(null);
+        txtDocumento.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                txtDocumentoMouseMoved(evt);
+            }
+        });
         txtDocumento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 txtDocumentoMousePressed(evt);
@@ -128,7 +137,7 @@ public class InicioSesion extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("USUARIO");
+        jLabel5.setText("USUARIO/DOCUMENTO");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, -1, -1));
 
         lblError.setForeground(new java.awt.Color(255, 255, 255));
@@ -212,50 +221,47 @@ public class InicioSesion extends javax.swing.JFrame {
                 Administrador admin = (Administrador) usuario;
                 new GestionAdministrador(admin).setVisible(true);
                 this.dispose();
-            }else if (usuario instanceof AdminLocal ) {
+            } else if (usuario instanceof AdminLocal) {
                 AdminLocal admin = (AdminLocal) usuario;
                 new GestionarLocal(admin).setVisible(true);
                 this.dispose();
-            }else if(usuario instanceof EmpleadoGeneral){
+            } else if (usuario instanceof EmpleadoGeneral) {
                 EmpleadoGeneral empleado = (EmpleadoGeneral) usuario;
-                if(empleado.getCargo().equalsIgnoreCase("Administrador Parquedaero")){
+                if (empleado.getCargo().equalsIgnoreCase("Administrador Parqueadero")) {
                     new VistaParqueadero().setVisible(true);
                     this.dispose();
-                }else{
+                } else {
                     lblError.setText("Tu cargo no condece nigun permiso");
-                     lblError.setForeground(Color.red);
-                  
+                    lblError.setForeground(Color.red);
+
                 }
-            }else{
-                 lblError.setText("El documento o la contraseña no son correctas");
-                 lblError.setForeground(Color.red);
-            }
-            /* if (usuario instanceof Doctor) {
-                Doctor doctor = (Doctor) usuario;
-                new PanelDoctor(doctor).setVisible(true);
+            } else if (usuario instanceof Cliente) {
+                Cliente cliente = (Cliente) usuario;
+                new VentanaCliente(cliente).setVisible(true);
                 this.dispose();
-            } else if (usuario instanceof Secretaria) {
-                new MenuSecretaria().setVisible(true);
-                this.dispose();
-            } else if (usuario instanceof Paciente) {
-                Paciente paciente = (Paciente) usuario;
-                new PanelPaciente(paciente).setVisible(true);
-                this.dispose();
-            } else if (usuario instanceof Administrador) {
-                new PanelAdministrador().setVisible(true);
-                this.dispose();
+            } else if (usuario instanceof EmpleadoInterno) {
+                EmpleadoInterno empleado = (EmpleadoInterno) usuario;
+                if (empleado.getCargo().equalsIgnoreCase("Vendedor")) {
+                    new Vendedor(empleado).setVisible(true);
+                    this.dispose();
+                }
             } else {
 
-                JOptionPane.showMessageDialog(null, "Los datos ingresados no corresponden\na ningún usuario.");
-            }*/
+                lblError.setText("El documento o la contraseña no son correctas");
+                lblError.setForeground(Color.red);
+            }
         }
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
-       
-       new RegistrarCliente().setVisible(true);
+
+        new RegistrarCliente().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegistrarseActionPerformed
+
+    private void txtDocumentoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDocumentoMouseMoved
+
+    }//GEN-LAST:event_txtDocumentoMouseMoved
 
     /**
      * @param args the command line arguments

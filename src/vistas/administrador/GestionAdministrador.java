@@ -13,6 +13,7 @@ import excepciones.UsuarioExistenteException;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -46,6 +47,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         controlador = new ControladorCasilla();
         admin = administrador;
         lblNombre.setText(admin.getNombre());
+        
         controladorU = new ControladorUsuario();
         btnEditar5.setVisible(false);
         btnEliminar5.setVisible(false);
@@ -75,14 +77,14 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
             for (int j = 0; j < botones[i].length; j++) {
                 Casilla casilla = controlador.obtenerCasilla(i, j);
                 if (casilla.getEstado().equals(Casilla.DISPONIBLE)) {
-                    botones[i][j].setBackground(Color.green);
-                    botones[i][j].setForeground(Color.black);
+                    botones[i][j].setBackground(new Color(73,156,61));
+                    botones[i][j].setForeground(Color.white);
                 } else {
-                    botones[i][j].setBackground(Color.red);
+                      
+                    botones[i][j].setBackground(new Color(204,0,51));
+                    botones[i][j].setText(casilla.getLocal().getNombre());
                 }
-
             }
-
         }
 
     }
@@ -90,7 +92,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     public void cargarBotones() {
         int ancho = 180;
         int alto = 80;
-        int separado = 60;
+        int separado = 90;
         int num = 1;
         char texto = 'A';
         for (int i = 0; i < botones.length; i++) {
@@ -121,6 +123,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     private void initComponents() {
 
         jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         panelBtnLocales = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -128,6 +131,11 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         jLabel3 = new javax.swing.JLabel();
         panelBtnEmpleados = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        lblNombre = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnRegresar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
         pestañas = new javax.swing.JTabbedPane();
         panelBotones2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -204,11 +212,6 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         jSeparator28 = new javax.swing.JSeparator();
         comboCargo = new javax.swing.JComboBox<>();
         jLabel83 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        lblNombre = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        btnRegresar = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -223,9 +226,23 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel6.setBackground(new java.awt.Color(0, 153, 153));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1025, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 67, Short.MAX_VALUE)
+        );
+
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
-        panelBtnLocales.setBackground(new java.awt.Color(255, 255, 51));
+        panelBtnLocales.setBackground(new java.awt.Color(0, 153, 153));
+        panelBtnLocales.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelBtnLocales.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 panelBtnLocalesMouseMoved(evt);
@@ -241,7 +258,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         });
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("LOCALES");
 
         javax.swing.GroupLayout panelBtnLocalesLayout = new javax.swing.GroupLayout(panelBtnLocales);
@@ -261,7 +278,8 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelBtnClientes.setBackground(new java.awt.Color(255, 255, 51));
+        panelBtnClientes.setBackground(new java.awt.Color(0, 153, 153));
+        panelBtnClientes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelBtnClientes.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 panelBtnClientesMouseMoved(evt);
@@ -279,7 +297,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
             }
         });
 
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("GESTIONAR CLIENTES");
 
         javax.swing.GroupLayout panelBtnClientesLayout = new javax.swing.GroupLayout(panelBtnClientes);
@@ -299,7 +317,8 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelBtnEmpleados.setBackground(new java.awt.Color(255, 255, 51));
+        panelBtnEmpleados.setBackground(new java.awt.Color(0, 153, 153));
+        panelBtnEmpleados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelBtnEmpleados.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 panelBtnEmpleadosMouseMoved(evt);
@@ -317,7 +336,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
             }
         });
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("GESTIONAR EMPLEADOS");
 
         javax.swing.GroupLayout panelBtnEmpleadosLayout = new javax.swing.GroupLayout(panelBtnEmpleados);
@@ -357,9 +376,39 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                 .addContainerGap(325, Short.MAX_VALUE))
         );
 
-        pestañas.setBackground(new java.awt.Color(255, 255, 0));
+        jPanel2.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelBotones2.setBackground(new java.awt.Color(102, 102, 102));
+        lblNombre.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombre.setText("Name");
+        jPanel2.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
+
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/administrador/punto verde.jpg"))); // NOI18N
+        jLabel2.setText("Conectado");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 90, -1));
+
+        btnRegresar.setBackground(new java.awt.Color(204, 0, 51));
+        btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegresar.setText("CERRRAR SESIÓN");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/cliente/74472 (1).png"))); // NOI18N
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, -1));
+
+        pestañas.setBackground(new java.awt.Color(255, 255, 0));
+        pestañas.setForeground(new java.awt.Color(0, 0, 0));
+
+        panelBotones2.setBackground(new java.awt.Color(255, 255, 255));
+        panelBotones2.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout panelBotones2Layout = new javax.swing.GroupLayout(panelBotones2);
         panelBotones2.setLayout(panelBotones2Layout);
@@ -369,7 +418,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         );
         panelBotones2Layout.setVerticalGroup(
             panelBotones2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 515, Short.MAX_VALUE)
+            .addGap(0, 593, Short.MAX_VALUE)
         );
 
         pestañas.addTab("LOCALES", panelBotones2);
@@ -536,12 +585,12 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                         .addGap(142, 142, 142)
                         .addComponent(jLabel85))
                     .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel16Layout.createSequentialGroup()
                         .addGap(160, 160, 160)
-                        .addComponent(jLabel74, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addComponent(jLabel74, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -676,7 +725,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                 .addComponent(btnEditar5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEliminar5)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
             .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -842,10 +891,10 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                 .addGap(150, 150, 150)
                 .addComponent(jLabel82)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                .addGap(0, 37, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -854,10 +903,10 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                         .addGap(186, 186, 186))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
                         .addComponent(txtDocuEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(144, 144, 144))
+                        .addGap(134, 134, 134))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
                         .addComponent(jLabel84)
-                        .addGap(134, 134, 134))))
+                        .addGap(120, 120, 120))))
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -866,16 +915,16 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                 .addComponent(jLabel82)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addGap(70, 70, 70)
                 .addComponent(jLabel84)
-                .addGap(18, 18, 18)
-                .addComponent(txtDocuEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtDocuEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnBuscar5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        comboCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione el cargo", "Administrador Parquedaero", "Celador", "Area de Aseo" }));
+        comboCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione el cargo", "Administrador Parqueadero", "Celador", "Area de Aseo" }));
 
         jLabel83.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
         jLabel83.setForeground(new java.awt.Color(0, 0, 0));
@@ -1003,7 +1052,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                 .addComponent(btnEditar6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEliminar6)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
             .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -1022,43 +1071,6 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
 
         pestañas.addTab("GESTION DE EMPLEADOS", jPanel17);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblNombre.setForeground(new java.awt.Color(0, 0, 0));
-        lblNombre.setText("Name");
-        jPanel2.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
-
-        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/administrador/punto verde.jpg"))); // NOI18N
-        jLabel2.setText("Conectado");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 90, -1));
-
-        btnRegresar.setBackground(new java.awt.Color(204, 0, 51));
-        btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegresar.setText("REGRESAR");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
-        jPanel6.setBackground(new java.awt.Color(0, 153, 153));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1031, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 94, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1069,20 +1081,24 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pestañas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(pestañas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pestañas, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pestañas, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         pack();
@@ -1093,11 +1109,11 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     }//GEN-LAST:event_panelBtnLocalesMouseClicked
 
     private void panelBtnLocalesMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnLocalesMouseMoved
-        panelBtnLocales.setBackground(new Color(153, 153, 153));
+        panelBtnLocales.setBackground(new Color(0,102,102));
     }//GEN-LAST:event_panelBtnLocalesMouseMoved
 
     private void panelBtnLocalesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnLocalesMouseExited
-        panelBtnLocales.setBackground(new Color(255,255,51));
+        panelBtnLocales.setBackground(new Color(0,153,153));
     }//GEN-LAST:event_panelBtnLocalesMouseExited
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -1107,7 +1123,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void panelBtnClientesMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnClientesMouseMoved
-        panelBtnClientes.setBackground(new Color(153, 153, 153));
+        panelBtnClientes.setBackground(new Color(0,102,102));
     }//GEN-LAST:event_panelBtnClientesMouseMoved
 
     private void panelBtnClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnClientesMouseClicked
@@ -1119,11 +1135,11 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     }//GEN-LAST:event_panelBtnClientesMouseEntered
 
     private void panelBtnClientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnClientesMouseExited
-        panelBtnClientes.setBackground(new Color(255,255,51));
+        panelBtnClientes.setBackground(new Color(0,153,153));
     }//GEN-LAST:event_panelBtnClientesMouseExited
 
     private void panelBtnEmpleadosMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEmpleadosMouseMoved
-        panelBtnEmpleados.setBackground(new Color(153, 153, 153));
+        panelBtnEmpleados.setBackground(new Color(0,102,102));
     }//GEN-LAST:event_panelBtnEmpleadosMouseMoved
 
     private void panelBtnEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEmpleadosMouseClicked
@@ -1135,7 +1151,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     }//GEN-LAST:event_panelBtnEmpleadosMouseEntered
 
     private void panelBtnEmpleadosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEmpleadosMouseExited
-        panelBtnEmpleados.setBackground(new Color(255,255,51));
+        panelBtnEmpleados.setBackground(new Color(0,153,153));
     }//GEN-LAST:event_panelBtnEmpleadosMouseExited
 
     private void txtNombre5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre5KeyTyped
@@ -1459,8 +1475,17 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         txtCorreo5.setText("");
         txtContra5.setText("");
         txtDireccion5.setText("");
-
         comboSexo5.setSelectedIndex(0);
+        ///////////////////////////////
+        txtDocumento6.setText("");
+        txtNombre6.setText("");
+        txtTelefono6.setText("");
+        txtApellido6.setText("");
+        txtCorreo6.setText("");
+        txtContra6.setText("");
+        txtDireccion6.setText("");
+
+        comboSexo6.setSelectedIndex(0);
         removerTabla();
         removerTablaE();
         llenarTablaClientes();
@@ -1511,9 +1536,13 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                         VistaLocal vista = new VistaLocal(this, i, j);
                         vista.setVisible(true);
                         this.dispose();
-                    } else {
+                    /*} else {
                         botones[i][j].setText(casilla.getLocal().getAdmin().getDocumento() + " " + casilla.getLocal().getAdmin().getContrasena() + " ");
-
+*/
+                    }else{
+                        InfoLocal ventana = new InfoLocal(this, casilla);
+                        this.dispose();
+                        ventana.setVisible(true);
                     }
                 }
             }
@@ -1538,6 +1567,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;

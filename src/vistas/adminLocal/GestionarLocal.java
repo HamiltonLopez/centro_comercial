@@ -4,6 +4,7 @@
  */
 package vistas.adminLocal;
 
+import ValidarCampos.ValidarCampos;
 import controladores.ControladorLocal;
 import controladores.ControladorUsuario;
 import excepciones.TelefonoInvalidoException;
@@ -22,7 +23,7 @@ import vistas.InicioSesion;
  * @author Asus
  */
 public class GestionarLocal extends javax.swing.JFrame {
-
+    ControladorUsuario controladorU;
     ControladorLocal controlador;
     AdminLocal admin;
     private DefaultTableModel model;
@@ -30,10 +31,12 @@ public class GestionarLocal extends javax.swing.JFrame {
     public GestionarLocal(AdminLocal admin) {
         initComponents();
         setLocationRelativeTo(this);
+        controladorU = new ControladorUsuario();
         this.admin = admin;
         btnEditar6.setVisible(false);
         btnEliminar6.setVisible(false);
-        lblNombre.setText(admin.getLocal().getNombre());
+        lblNombre.setText(admin.getNombre()+" "+admin.getApellido());
+        lblNombreLocal.setText(admin.getLocal().getNombre());
         controlador = new ControladorLocal(admin.getLocal());
         model = new DefaultTableModel();
         this.tablaEmpleados.setModel(model);
@@ -93,19 +96,25 @@ public class GestionarLocal extends javax.swing.JFrame {
         jSeparator28 = new javax.swing.JSeparator();
         comboCargo = new javax.swing.JComboBox<>();
         jLabel83 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         panelBtnLocales = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        panelBtnClientes = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        panelBtnEmpleados = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblNombre = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        lblNombreLocal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        pestañas.setBackground(new java.awt.Color(255, 255, 0));
+        pestañas.setForeground(new java.awt.Color(0, 0, 0));
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -257,7 +266,7 @@ public class GestionarLocal extends javax.swing.JFrame {
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                .addContainerGap(145, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
                         .addComponent(btnBuscar5, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,7 +287,7 @@ public class GestionarLocal extends javax.swing.JFrame {
                         .addGroup(jPanel19Layout.createSequentialGroup()
                             .addGap(23, 23, 23)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,9 +367,8 @@ public class GestionarLocal extends javax.swing.JFrame {
                         .addComponent(jSeparator22, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jSeparator26, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,7 +434,7 @@ public class GestionarLocal extends javax.swing.JFrame {
                 .addComponent(btnEditar6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEliminar6)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -434,9 +442,7 @@ public class GestionarLocal extends javax.swing.JFrame {
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,6 +450,60 @@ public class GestionarLocal extends javax.swing.JFrame {
         );
 
         pestañas.addTab("GESTION EMPLEADOS", jPanel17);
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1017, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 477, Short.MAX_VALUE)
+        );
+
+        pestañas.addTab("REGISTRAR CLIENTE", jPanel4);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1017, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 477, Short.MAX_VALUE)
+        );
+
+        pestañas.addTab("INVENTARIO", jPanel5);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1017, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 477, Short.MAX_VALUE)
+        );
+
+        pestañas.addTab("GENERAR VENTA", jPanel6);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1017, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 477, Short.MAX_VALUE)
+        );
+
+        pestañas.addTab("HISTORIAL GENERAL", jPanel7);
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -463,16 +523,16 @@ public class GestionarLocal extends javax.swing.JFrame {
         });
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("LOCALES");
+        jLabel1.setText("GESTIONAR EMPLEADOS");
 
         javax.swing.GroupLayout panelBtnLocalesLayout = new javax.swing.GroupLayout(panelBtnLocales);
         panelBtnLocales.setLayout(panelBtnLocalesLayout);
         panelBtnLocalesLayout.setHorizontalGroup(
             panelBtnLocalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBtnLocalesLayout.createSequentialGroup()
-                .addGap(66, 66, 66)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         panelBtnLocalesLayout.setVerticalGroup(
             panelBtnLocalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -482,100 +542,18 @@ public class GestionarLocal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelBtnClientes.setBackground(new java.awt.Color(0, 204, 204));
-        panelBtnClientes.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                panelBtnClientesMouseMoved(evt);
-            }
-        });
-        panelBtnClientes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelBtnClientesMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                panelBtnClientesMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                panelBtnClientesMouseExited(evt);
-            }
-        });
-
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("GESTIONAR CLIENTES");
-
-        javax.swing.GroupLayout panelBtnClientesLayout = new javax.swing.GroupLayout(panelBtnClientes);
-        panelBtnClientes.setLayout(panelBtnClientesLayout);
-        panelBtnClientesLayout.setHorizontalGroup(
-            panelBtnClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBtnClientesLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelBtnClientesLayout.setVerticalGroup(
-            panelBtnClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBtnClientesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        panelBtnEmpleados.setBackground(new java.awt.Color(0, 204, 204));
-        panelBtnEmpleados.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                panelBtnEmpleadosMouseMoved(evt);
-            }
-        });
-        panelBtnEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelBtnEmpleadosMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                panelBtnEmpleadosMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                panelBtnEmpleadosMouseExited(evt);
-            }
-        });
-
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("GESTIONAR EMPLEADOS");
-
-        javax.swing.GroupLayout panelBtnEmpleadosLayout = new javax.swing.GroupLayout(panelBtnEmpleados);
-        panelBtnEmpleados.setLayout(panelBtnEmpleadosLayout);
-        panelBtnEmpleadosLayout.setHorizontalGroup(
-            panelBtnEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBtnEmpleadosLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel4)
-                .addContainerGap(40, Short.MAX_VALUE))
-        );
-        panelBtnEmpleadosLayout.setVerticalGroup(
-            panelBtnEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBtnEmpleadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelBtnLocales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelBtnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelBtnEmpleados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(panelBtnLocales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(panelBtnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(panelBtnEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(325, Short.MAX_VALUE))
+                .addContainerGap(386, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -584,23 +562,49 @@ public class GestionarLocal extends javax.swing.JFrame {
 
         lblNombre.setForeground(new java.awt.Color(0, 0, 0));
         lblNombre.setText("Name");
-        jPanel2.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
+        jPanel2.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/administrador/punto verde.jpg"))); // NOI18N
         jLabel2.setText("Conectado");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 90, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 90, -1));
 
         btnRegresar.setBackground(new java.awt.Color(204, 0, 51));
         btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegresar.setText("REGRESAR");
+        btnRegresar.setText("CERRAR SESIÓN");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarActionPerformed(evt);
             }
         });
         jPanel2.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/cliente/74472 (1).png"))); // NOI18N
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
+
+        jPanel3.setBackground(new java.awt.Color(0, 153, 153));
+
+        lblNombreLocal.setFont(new java.awt.Font("Segoe UI Black", 0, 48)); // NOI18N
+        lblNombreLocal.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombreLocal.setText("jLabel5");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(220, 220, 220)
+                .addComponent(lblNombreLocal)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblNombreLocal)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -611,18 +615,24 @@ public class GestionarLocal extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pestañas, javax.swing.GroupLayout.PREFERRED_SIZE, 1020, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pestañas)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pestañas))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(pestañas))
         );
 
         pack();
@@ -636,6 +646,7 @@ public class GestionarLocal extends javax.swing.JFrame {
         txtContra6.setText("");
         txtDireccion6.setText("");
         comboSexo6.setSelectedIndex(0);
+        comboCargo.setSelectedIndex(0);
         removerTablaE();
         llenarTablaEmpleados();
     }
@@ -670,7 +681,7 @@ public class GestionarLocal extends javax.swing.JFrame {
         }
     }
     private void txtNombre6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre6KeyTyped
-        // TODO add your handling code here:
+        new ValidarCampos().validarLetras(evt);
     }//GEN-LAST:event_txtNombre6KeyTyped
 
     private void txtApellido6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellido6KeyTyped
@@ -682,11 +693,11 @@ public class GestionarLocal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDocumento6ActionPerformed
 
     private void txtDocumento6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumento6KeyTyped
-        // TODO add your handling code here:
+        new ValidarCampos().validarNumeros(evt);
     }//GEN-LAST:event_txtDocumento6KeyTyped
 
     private void txtTelefono6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefono6KeyTyped
-        // TODO add your handling code here:
+         new ValidarCampos().validarNumeros(evt);
     }//GEN-LAST:event_txtTelefono6KeyTyped
 
     private void comboSexo6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSexo6ActionPerformed
@@ -712,8 +723,10 @@ public class GestionarLocal extends javax.swing.JFrame {
 
             try {
                 controlador.añadirEmpleado(empleado);
+                controladorU.registrarUsuario(empleado);
                 JOptionPane.showMessageDialog(null, "El empleado " + empleado.getNombre() + " se ha registrado con éxito");
-            } catch (UsuarioExistenteException | TelefonoInvalidoException ex) {
+                limpiar();
+            } catch (UsuarioExistenteException | TelefonoInvalidoException ex ) {
                 ex.getMessage();
             }
 
@@ -741,6 +754,7 @@ public class GestionarLocal extends javax.swing.JFrame {
             EmpleadoInterno empleado = new EmpleadoInterno(nombre, documento, telefono, correo, contraseña, apellido, direccion, sexo, cargo);
             boolean es = controlador.editarEmpleado(empleado);
             if (es) {
+                controladorU.editarUsuario(empleado);
                 JOptionPane.showMessageDialog(null, "El empleado se ha editado con éxito");
                 limpiar();
                 btnEditar6.setVisible(false);
@@ -759,6 +773,7 @@ public class GestionarLocal extends javax.swing.JFrame {
             String documento = txtDocumento6.getText();
             boolean resp = controlador.eliminarEmpleado(documento);
             if (resp) {
+                controladorU.eliminarUsuario(documento);
                 JOptionPane.showMessageDialog(null, "El empleado ha sido eliminado exitosamente");
                 limpiar();
                 btnEditar6.setVisible(false);
@@ -811,38 +826,6 @@ public class GestionarLocal extends javax.swing.JFrame {
         panelBtnLocales.setBackground(new Color(0, 204, 204));
     }//GEN-LAST:event_panelBtnLocalesMouseExited
 
-    private void panelBtnClientesMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnClientesMouseMoved
-        panelBtnClientes.setBackground(new Color(153, 153, 153));
-    }//GEN-LAST:event_panelBtnClientesMouseMoved
-
-    private void panelBtnClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnClientesMouseClicked
-        pestañas.setSelectedIndex(1);
-    }//GEN-LAST:event_panelBtnClientesMouseClicked
-
-    private void panelBtnClientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnClientesMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_panelBtnClientesMouseEntered
-
-    private void panelBtnClientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnClientesMouseExited
-        panelBtnClientes.setBackground(new Color(0, 204, 204));
-    }//GEN-LAST:event_panelBtnClientesMouseExited
-
-    private void panelBtnEmpleadosMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEmpleadosMouseMoved
-        panelBtnEmpleados.setBackground(new Color(153, 153, 153));
-    }//GEN-LAST:event_panelBtnEmpleadosMouseMoved
-
-    private void panelBtnEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEmpleadosMouseClicked
-        // pestañas.setSelectedIndex(2);
-    }//GEN-LAST:event_panelBtnEmpleadosMouseClicked
-
-    private void panelBtnEmpleadosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEmpleadosMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_panelBtnEmpleadosMouseEntered
-
-    private void panelBtnEmpleadosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEmpleadosMouseExited
-        panelBtnEmpleados.setBackground(new Color(0, 204, 204));
-    }//GEN-LAST:event_panelBtnEmpleadosMouseExited
-
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         InicioSesion ventana = new InicioSesion();
         ventana.setVisible(true);
@@ -863,8 +846,7 @@ public class GestionarLocal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboSexo6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel75;
@@ -882,6 +864,11 @@ public class GestionarLocal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator22;
     private javax.swing.JSeparator jSeparator23;
@@ -892,8 +879,7 @@ public class GestionarLocal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator28;
     private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblNombre;
-    private javax.swing.JPanel panelBtnClientes;
-    private javax.swing.JPanel panelBtnEmpleados;
+    private javax.swing.JLabel lblNombreLocal;
     private javax.swing.JPanel panelBtnLocales;
     private javax.swing.JTabbedPane pestañas;
     private javax.swing.JTable tablaEmpleados;

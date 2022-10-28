@@ -15,12 +15,11 @@ public class ValidarCampos {
     public void validarNumeros(java.awt.event.KeyEvent evt) {
         char validar = evt.getKeyChar();
         if ((validar < '0' || validar > '9')&&(validar != 127)) {
-
             evt.consume();
-
             JOptionPane.showMessageDialog(null, "Ingrese solo números");
         }
     }
+    
 
     public void validarLetras(java.awt.event.KeyEvent evt) {
         char validar = evt.getKeyChar();
