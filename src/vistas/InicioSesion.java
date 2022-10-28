@@ -18,6 +18,7 @@ import vistas.adminLocal.GestionarLocal;
 import vistas.administrador.GestionAdministrador;
 import vistas.cliente.RegistrarCliente;
 import vistas.cliente.VentanaCliente;
+import vistas.encargadoInventario.Encargado;
 import vistas.parqueadero.VistaParqueadero;
 import vistas.vendedor.Vendedor;
 
@@ -214,7 +215,6 @@ public class InicioSesion extends javax.swing.JFrame {
             String documento = txtDocumento.getText();
             String contraseña = txtContra.getText();
 
-            //Buscamos entre todos los usuarios la coincidencia
             Usuario usuario = controlador.ValidarAcceso(documento, contraseña);
 
             if (usuario instanceof Administrador) {
@@ -228,12 +228,11 @@ public class InicioSesion extends javax.swing.JFrame {
             } else if (usuario instanceof EmpleadoGeneral) {
                 EmpleadoGeneral empleado = (EmpleadoGeneral) usuario;
                 if (empleado.getCargo().equalsIgnoreCase("Administrador Parqueadero")) {
-                    new VistaParqueadero().setVisible(true);
+                    new VistaParqueadero(empleado).setVisible(true);
                     this.dispose();
                 } else {
                     lblError.setText("Tu cargo no condece nigun permiso");
                     lblError.setForeground(Color.red);
-
                 }
             } else if (usuario instanceof Cliente) {
                 Cliente cliente = (Cliente) usuario;
@@ -243,6 +242,9 @@ public class InicioSesion extends javax.swing.JFrame {
                 EmpleadoInterno empleado = (EmpleadoInterno) usuario;
                 if (empleado.getCargo().equalsIgnoreCase("Vendedor")) {
                     new Vendedor(empleado).setVisible(true);
+                    this.dispose();
+                }else{
+                    new Encargado(empleado).setVisible(true);
                     this.dispose();
                 }
             } else {

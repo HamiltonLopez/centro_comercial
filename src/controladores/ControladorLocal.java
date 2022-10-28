@@ -5,6 +5,7 @@
 package controladores;
 
 import Singleton.SingletonUsuario;
+import excepciones.CorreoExistenteException;
 import excepciones.TelefonoInvalidoException;
 import excepciones.UsuarioExistenteException;
 import modelos.EmpleadoInterno;
@@ -20,14 +21,13 @@ public class ControladorLocal {
 
     Local local;
     Lista<EmpleadoInterno> empleados;
-   ControladorUsuario controlador;
-   
+    ControladorUsuario controlador;
 
     public ControladorLocal(Local local) {
         this.local = local;
         empleados = local.getEmpleados();
         controlador = new ControladorUsuario();
-      
+
     }
 
     /**
@@ -40,15 +40,19 @@ public class ControladorLocal {
      * @throws TelefonoInvalidoException esta excepcion le permite al usuario
      * dar un manejo cuando ingresa un numero de telefono invalido
      */
-    public boolean añadirEmpleado(EmpleadoInterno empleado) throws UsuarioExistenteException, TelefonoInvalidoException {
+    public boolean añadirEmpleado(EmpleadoInterno empleado) throws UsuarioExistenteException, TelefonoInvalidoException, CorreoExistenteException {
+        Usuario usu = (Usuario) empleado;
         Usuario aux = controlador.buscarUsuario(empleado.getDocumento());
-        
+        boolean corre = controlador.ValidarCorreo(usu);
         String x = "0123456789";
         if (aux != null) {
             throw new UsuarioExistenteException();
+        } else if (corre) {
+            throw new CorreoExistenteException();
+
         } else if (empleado.getTelefono().length() != x.length()) {
             throw new TelefonoInvalidoException();
-        } else {  
+        } else {
             empleados.add(empleado);
             SingletonUsuario.getINSTANCIA().escribirUsuarios();
             return true;
@@ -90,7 +94,7 @@ public class ControladorLocal {
             aux.setNombre(empleado.getNombre());
             aux.setSexo(empleado.getSexo());
             aux.setTelefono(empleado.getTelefono());
-        
+
             SingletonUsuario.getINSTANCIA().escribirUsuarios();
             return true;
         }
@@ -109,7 +113,7 @@ public class ControladorLocal {
         for (int i = 0; i < empleados.Size(); i++) {
             if (empleados.obtener(i) != null && empleados.obtener(i).getDocumento().equals(documento)) {
                 empleados.eliminar(i);
-               
+
                 SingletonUsuario.getINSTANCIA().escribirUsuarios();
                 return true;
             }

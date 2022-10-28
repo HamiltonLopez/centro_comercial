@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import modelos.Casilla;
+import modelos.EmpleadoGeneral;
 import vistas.InicioSesion;
 
 /**
@@ -20,11 +21,14 @@ public class VistaParqueadero extends javax.swing.JFrame implements ActionListen
 
     JButton[][] botones;
     ControladorParking controlador;
+    EmpleadoGeneral empleado;
 
-    public VistaParqueadero() {
+    public VistaParqueadero(EmpleadoGeneral empleado) {
         botones = new JButton[7][15];
         initComponents();
         this.setLocationRelativeTo(this);
+        this.empleado = empleado;
+        lblNombre.setText(empleado.getNombre() +" "+ empleado.getApellido());
         controlador = new ControladorParking();
         cargarBotones();
         validarPosiciones();
@@ -87,6 +91,7 @@ public class VistaParqueadero extends javax.swing.JFrame implements ActionListen
         lblNombre = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         lblNombreLocal = new javax.swing.JLabel();
 
@@ -487,56 +492,31 @@ public class VistaParqueadero extends javax.swing.JFrame implements ActionListen
         jPanel2.add(btnRegresar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setForeground(new java.awt.Color(153, 153, 153));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/administrador/punto verde.jpg"))); // NOI18N
         jLabel2.setText("Conectado");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 90, -1));
 
         lblNombre.setForeground(new java.awt.Color(0, 0, 0));
         lblNombre.setText("Name");
+        jPanel1.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
 
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/cliente/74472 (1).png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, 115));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 33, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addGap(0, 2, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(lblNombre))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNombre)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addGap(15, 15, 15))
-        );
+        jLabel4.setBackground(new java.awt.Color(0, 204, 204));
+        jLabel4.setForeground(new java.awt.Color(153, 0, 153));
+        jLabel4.setText("ENC. PARQUEADERO");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 110, 190));
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 180, 220));
 
         jPanel5.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -774,6 +754,7 @@ public class VistaParqueadero extends javax.swing.JFrame implements ActionListen
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;

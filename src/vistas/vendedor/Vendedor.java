@@ -47,6 +47,7 @@ public class Vendedor extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         pestañas = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
@@ -109,6 +110,10 @@ public class Vendedor extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/cliente/74472 (1).png"))); // NOI18N
 
+        jLabel4.setBackground(new java.awt.Color(0, 204, 204));
+        jLabel4.setForeground(new java.awt.Color(153, 0, 153));
+        jLabel4.setText("VENDEDOR");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -116,28 +121,32 @@ public class Vendedor extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(lblNombre)))
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNombre)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel4)))))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                .addGap(12, 12, 12)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                .addGap(2, 2, 2)
                 .addComponent(lblNombre)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addGap(9, 9, 9))
         );
 
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 140, 170));
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 140, 190));
 
         pestañas.setBackground(new java.awt.Color(255, 255, 0));
         pestañas.setForeground(new java.awt.Color(0, 0, 0));
@@ -515,6 +524,7 @@ public class Vendedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel2;

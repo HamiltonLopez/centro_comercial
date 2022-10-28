@@ -7,6 +7,7 @@ package vistas.adminLocal;
 import ValidarCampos.ValidarCampos;
 import controladores.ControladorLocal;
 import controladores.ControladorUsuario;
+import excepciones.CorreoExistenteException;
 import excepciones.TelefonoInvalidoException;
 import excepciones.UsuarioExistenteException;
 import java.awt.Color;
@@ -108,6 +109,7 @@ public class GestionarLocal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         lblNombreLocal = new javax.swing.JLabel();
 
@@ -461,7 +463,7 @@ public class GestionarLocal extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 477, Short.MAX_VALUE)
+            .addGap(0, 523, Short.MAX_VALUE)
         );
 
         pestañas.addTab("REGISTRAR CLIENTE", jPanel4);
@@ -474,7 +476,7 @@ public class GestionarLocal extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 477, Short.MAX_VALUE)
+            .addGap(0, 523, Short.MAX_VALUE)
         );
 
         pestañas.addTab("INVENTARIO", jPanel5);
@@ -487,7 +489,7 @@ public class GestionarLocal extends javax.swing.JFrame {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 477, Short.MAX_VALUE)
+            .addGap(0, 523, Short.MAX_VALUE)
         );
 
         pestañas.addTab("GENERAR VENTA", jPanel6);
@@ -500,7 +502,7 @@ public class GestionarLocal extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 477, Short.MAX_VALUE)
+            .addGap(0, 523, Short.MAX_VALUE)
         );
 
         pestañas.addTab("HISTORIAL GENERAL", jPanel7);
@@ -562,13 +564,13 @@ public class GestionarLocal extends javax.swing.JFrame {
 
         lblNombre.setForeground(new java.awt.Color(0, 0, 0));
         lblNombre.setText("Name");
-        jPanel2.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
+        jPanel2.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/administrador/punto verde.jpg"))); // NOI18N
         jLabel2.setText("Conectado");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 90, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 90, -1));
 
         btnRegresar.setBackground(new java.awt.Color(204, 0, 51));
         btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
@@ -582,6 +584,11 @@ public class GestionarLocal extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/cliente/74472 (1).png"))); // NOI18N
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
+
+        jLabel4.setBackground(new java.awt.Color(0, 204, 204));
+        jLabel4.setForeground(new java.awt.Color(153, 0, 153));
+        jLabel4.setText("ADMIN. LOCAL");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -629,7 +636,7 @@ public class GestionarLocal extends javax.swing.JFrame {
                         .addComponent(pestañas))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -721,12 +728,13 @@ public class GestionarLocal extends javax.swing.JFrame {
 
             EmpleadoInterno empleado = new EmpleadoInterno(nombre, documento, telefono, correo, contraseña, apellido, direccion, sexo, cargo);
 
+           
             try {
                 controlador.añadirEmpleado(empleado);
                 controladorU.registrarUsuario(empleado);
                 JOptionPane.showMessageDialog(null, "El empleado " + empleado.getNombre() + " se ha registrado con éxito");
                 limpiar();
-            } catch (UsuarioExistenteException | TelefonoInvalidoException ex ) {
+            } catch (UsuarioExistenteException | TelefonoInvalidoException | CorreoExistenteException ex) {
                 ex.getMessage();
             }
 
@@ -755,10 +763,12 @@ public class GestionarLocal extends javax.swing.JFrame {
             boolean es = controlador.editarEmpleado(empleado);
             if (es) {
                 controladorU.editarUsuario(empleado);
+                
                 JOptionPane.showMessageDialog(null, "El empleado se ha editado con éxito");
                 limpiar();
                 btnEditar6.setVisible(false);
                 btnEliminar6.setVisible(false);
+                txtDocumento6.setEditable(true);
             } else {
                 JOptionPane.showMessageDialog(null, "El empleado no se ha podido modificar");
             }
@@ -774,10 +784,12 @@ public class GestionarLocal extends javax.swing.JFrame {
             boolean resp = controlador.eliminarEmpleado(documento);
             if (resp) {
                 controladorU.eliminarUsuario(documento);
+                
                 JOptionPane.showMessageDialog(null, "El empleado ha sido eliminado exitosamente");
                 limpiar();
                 btnEditar6.setVisible(false);
                 btnEliminar6.setVisible(false);
+                txtDocumento6.setEditable(true);
             } else {
                 JOptionPane.showMessageDialog(null, "No se logró eliminar.\nIntente nuevamente.");
             }
@@ -846,6 +858,7 @@ public class GestionarLocal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboSexo6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel72;
