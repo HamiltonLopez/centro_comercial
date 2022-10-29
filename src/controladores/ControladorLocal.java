@@ -77,6 +77,15 @@ public class ControladorLocal {
         return null;
     }
 
+    /*public EmpleadoInterno validarAcceso(String documento, String contraseña) {
+        for (int i = 0; i < empleados.Size(); i++) {
+            if (empleados.obtener(i) != null && empleados.obtener(i).getDocumento().equals(documento) && empleados.obtener(i).getContrasena().equals(contraseña)) {
+                return empleados.obtener(i);
+            }
+        }
+        return null;
+    }*/
+
     /**
      * Este metodo nos permite editar un empleado
      *

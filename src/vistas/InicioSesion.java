@@ -4,6 +4,7 @@
  */
 package vistas;
 
+import controladores.ControladorLocal;
 import controladores.ControladorUsuario;
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -14,6 +15,7 @@ import modelos.EmpleadoGeneral;
 import modelos.EmpleadoInterno;
 import modelos.Local;
 import modelos.Usuario;
+import util.Lista;
 import vistas.adminLocal.GestionarLocal;
 import vistas.administrador.GestionAdministrador;
 import vistas.cliente.RegistrarCliente;
@@ -33,6 +35,7 @@ public class InicioSesion extends javax.swing.JFrame {
     public InicioSesion() {
         initComponents();
         controlador = new ControladorUsuario();
+
         this.setLocationRelativeTo(null);
     }
 
@@ -58,6 +61,10 @@ public class InicioSesion extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         lblError = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -145,6 +152,30 @@ public class InicioSesion extends javax.swing.JFrame {
         lblError.setText("jLabel6");
         jPanel3.add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
 
+        jButton1.setBackground(new java.awt.Color(204, 0, 51));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("REGRESAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel6.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel6.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel6.setText("\"123\"");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 290, -1, -1));
+
+        jLabel7.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel7.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel7.setText("\"1\"");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 220, -1, -1));
+
+        jLabel8.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("\"1\"");
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 220, -1, -1));
+
         jPanel4.setBackground(new java.awt.Color(0, 153, 153));
         jPanel4.setForeground(new java.awt.Color(0, 153, 153));
 
@@ -216,7 +247,25 @@ public class InicioSesion extends javax.swing.JFrame {
             String contraseña = txtContra.getText();
 
             Usuario usuario = controlador.ValidarAcceso(documento, contraseña);
+            /*Lista<Usuario> lista = controlador.validarAccesoLista(documento, contraseña);
+            if (lista.Size() == 2) {
+                if (lista.obtener(0) instanceof EmpleadoGeneral) {
 
+                    this.dispose();
+                } else if (lista.obtener(0) instanceof EmpleadoInterno) {
+                    EmpleadoInterno empleado = (EmpleadoInterno) lista.obtener(0);
+                    new ElegirManera(empleado).setVisible(true);
+                    this.dispose();
+                } else if (lista.obtener(1) instanceof EmpleadoGeneral) {
+                } else if (lista.obtener(1) instanceof EmpleadoInterno) {
+                    EmpleadoInterno empleado = (EmpleadoInterno) lista.obtener(1);
+                    new ElegirManera(empleado).setVisible(true);
+                    this.dispose();
+                } else {
+                    lblError.setText("Tu cargo no condece nigun permiso");
+                    lblError.setForeground(Color.red);
+                }
+            } else {*/
             if (usuario instanceof Administrador) {
                 Administrador admin = (Administrador) usuario;
                 new GestionAdministrador(admin).setVisible(true);
@@ -243,7 +292,7 @@ public class InicioSesion extends javax.swing.JFrame {
                 if (empleado.getCargo().equalsIgnoreCase("Vendedor")) {
                     new Vendedor(empleado).setVisible(true);
                     this.dispose();
-                }else{
+                } else {
                     new Encargado(empleado).setVisible(true);
                     this.dispose();
                 }
@@ -252,6 +301,8 @@ public class InicioSesion extends javax.swing.JFrame {
                 lblError.setText("El documento o la contraseña no son correctas");
                 lblError.setForeground(Color.red);
             }
+            // }
+
         }
     }//GEN-LAST:event_btnInicioActionPerformed
 
@@ -265,50 +316,59 @@ public class InicioSesion extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtDocumentoMouseMoved
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new Inicio().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InicioSesion().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(InicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(InicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(InicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(InicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new InicioSesion().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnRegistrarse;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;

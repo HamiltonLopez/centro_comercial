@@ -335,7 +335,8 @@ public class RegistrarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_comboSexoActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        if (textNombre.getText().isEmpty() || textDocumento.getText().isEmpty() || textTelefono.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtCorreo.getText().isEmpty()  ) {
+        if (textNombre.getText().isEmpty() || textDocumento.getText().isEmpty() || textTelefono.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtCorreo.getText().isEmpty()
+                || comboSexo.getSelectedIndex()==0) {
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
         } else {
             String nombre = textNombre.getText();

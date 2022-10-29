@@ -5,47 +5,34 @@
 package vistas.administrador;
 
 import ValidarCampos.ValidarCampos;
-import controladores.ControladorCasilla;
 import controladores.ControladorUsuario;
-import excepciones.CorreoExistenteException;
-import excepciones.TelefonoInvalidoException;
-import excepciones.UsuarioExistenteException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.JOptionPane;
-
 import modelos.AdminLocal;
+import modelos.Administrador;
 import modelos.Casilla;
-import modelos.Contrato;
-import modelos.Local;
+import modelos.Cliente;
 import modelos.Usuario;
 
 /**
  *
  * @author Asus
  */
-public class VistaLocal extends javax.swing.JFrame {
+public class EditarAdmin extends javax.swing.JFrame {
 
-    private int fila;
-    private int columna;
-    private GestionAdministrador ventana;
-    private ControladorCasilla controlador;
-    private ControladorUsuario controladorU;
+    private Casilla casilla;
 
-    public VistaLocal(GestionAdministrador ventana, int fila, int columna) {
+    ControladorUsuario controlador;
+    InfoLocal info;
+
+    public EditarAdmin(Casilla casilla, InfoLocal info) {
         initComponents();
         setLocationRelativeTo(this);
-        this.ventana = ventana;
-        controlador = ventana.controlador;
-        Casilla casilla = controlador.obtenerCasilla(fila, columna);
-        panelAsignar.setVisible(false);
-        controladorU = new ControladorUsuario();
-
-        
-        txtPrecio.setText("$" + casilla.getLocal().getPrecioArriendo());
-        txtPrecio.setEditable(false);
-        this.columna = columna;
-        this.fila = fila;
+        this.info = info;
+        this.casilla = casilla;
+        AdminLocal admin = casilla.getLocal().getContrato().getAdmin();
+        controlador = new ControladorUsuario();
+        llenar(admin);
+        txtDocumento.setEditable(false);
     }
 
     /**
@@ -57,12 +44,6 @@ public class VistaLocal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JSeparator();
-        btnRegresar = new javax.swing.JButton();
-        txtPrecio = new javax.swing.JTextField();
         panelAsignar = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -75,15 +56,12 @@ public class VistaLocal extends javax.swing.JFrame {
         txtTelefono = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         comboSexo = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JTextField();
         txtContra = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        btnRegistrar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
@@ -95,84 +73,10 @@ public class VistaLocal extends javax.swing.JFrame {
         cbDoctores = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
-        chooserFinal = new com.toedter.calendar.JDateChooser();
-        jLabel14 = new javax.swing.JLabel();
-        chooser = new com.toedter.calendar.JDateChooser();
-        txtNombreLocal = new javax.swing.JTextField();
+        btnEditar5 = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("PRECIO DE RENTA :");
-
-        jButton2.setBackground(new java.awt.Color(0, 153, 153));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("ASIGNAR  LOCAL");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        btnRegresar.setBackground(new java.awt.Color(204, 0, 51));
-        btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegresar.setText("REGRESAR");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
-
-        txtPrecio.setBackground(new java.awt.Color(255, 255, 255));
-        txtPrecio.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        txtPrecio.setForeground(new java.awt.Color(0, 0, 0));
-        txtPrecio.setBorder(null);
-        txtPrecio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPrecioActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnRegresar))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(150, 150, 150)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(116, 116, 116)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(182, 182, 182)
-                        .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnRegresar)
-                .addGap(36, 36, 36)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jButton2)
-                .addContainerGap(63, Short.MAX_VALUE))
-        );
 
         panelAsignar.setBackground(new java.awt.Color(255, 255, 255));
         panelAsignar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -180,8 +84,8 @@ public class VistaLocal extends javax.swing.JFrame {
         jLabel11.setBackground(new java.awt.Color(0, 0, 0));
         jLabel11.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel11.setText("ASIGNAR LOCAL");
-        panelAsignar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
+        jLabel11.setText("EDITAR ADMINISTRADOR");
+        panelAsignar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -253,11 +157,6 @@ public class VistaLocal extends javax.swing.JFrame {
         });
         panelAsignar.add(comboSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 298, 196, -1));
 
-        jLabel6.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("Fecha Final");
-        panelAsignar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, -1, -1));
-
         jLabel7.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Correo:");
@@ -281,21 +180,6 @@ public class VistaLocal extends javax.swing.JFrame {
 
         txtDireccion.setBorder(null);
         panelAsignar.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(267, 244, 196, -1));
-
-        jLabel12.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setText("Nombre del Negocio :");
-        panelAsignar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(267, 277, -1, -1));
-
-        btnRegistrar.setBackground(new java.awt.Color(0, 153, 153));
-        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrar.setText("REGISTRAR");
-        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarActionPerformed(evt);
-            }
-        });
-        panelAsignar.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 360, 171, -1));
         panelAsignar.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 92, 196, 10));
         panelAsignar.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 148, 196, 10));
         panelAsignar.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(268, 148, 195, 10));
@@ -349,37 +233,44 @@ public class VistaLocal extends javax.swing.JFrame {
         );
 
         panelAsignar.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(489, 0, 0, 20));
-        panelAsignar.add(chooserFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 100, -1));
 
-        jLabel14.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel14.setText("Fecha Inicio");
-        panelAsignar.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(267, 43, -1, -1));
-        panelAsignar.add(chooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 100, -1));
-        panelAsignar.add(txtNombreLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, 190, -1));
+        btnEditar5.setBackground(new java.awt.Color(0, 153, 153));
+        btnEditar5.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditar5.setText("EDITAR");
+        btnEditar5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditar5ActionPerformed(evt);
+            }
+        });
+        panelAsignar.add(btnEditar5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, 140, -1));
+
+        btnRegresar.setBackground(new java.awt.Color(204, 0, 0));
+        btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegresar.setText("REGRESAR");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+        panelAsignar.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 518, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelAsignar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelAsignar, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE))
+            .addGap(0, 431, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelAsignar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        ventana.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         new ValidarCampos().validarLetras(evt);
@@ -405,112 +296,76 @@ public class VistaLocal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboSexoActionPerformed
 
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-
-        if (txtNombre.getText().isEmpty() || txtDocumento.getText().isEmpty()
-                || txtCorreo.getText().isEmpty() || txtTelefono.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtContra.getText().isEmpty() || txtNombreLocal.getText().isEmpty()
-                || comboSexo.getSelectedIndex() == 0 || txtApellido.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
-
-        } else {
-
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/YYYY");
-            String nombreLocal = txtNombreLocal.getText();
-            String nombre = txtNombre.getText();
-            String documento = txtDocumento.getText();
-            String telefono = txtTelefono.getText();
-            Date inicio = chooser.getDate();
-            Date fin = chooserFinal.getDate();
-            String correo = txtCorreo.getText();
-            String contraseña = txtContra.getText();
-            String sexo = comboSexo.getSelectedItem().toString();
-            Date fechaInicio = new Date(inicio.getYear(), inicio.getMonth(), inicio.getDay());
-            Date fechaFinal = new Date(fin.getYear(), fin.getMonth(), fin.getDay());
-
-            String apellido = txtApellido.getText();
-            String direccion = txtDireccion.getText();
-
-            Usuario admin1 = new AdminLocal(nombre, documento, telefono, correo, contraseña, apellido, direccion, sexo);
-            AdminLocal admin = (AdminLocal) admin1;
-            Contrato contrato = new Contrato(nombre, admin, fechaInicio, fechaFinal);
-            Local local = new Local(nombreLocal, contrato);
-            admin.setLocal(local);
-            try {
-                controlador.agregarLocal(local, fila, columna);
-                controladorU.registrarUsuario(admin1);
-                JOptionPane.showMessageDialog(null, "El local" + nombreLocal + " se ha registrado con éxito");
-                limpiar();
-                ventana.validarPosiciones();
-                ventana.setVisible(true);
-                this.dispose();
-            } catch (UsuarioExistenteException ex) {
-
-                ex.getMessage();
-            } catch (TelefonoInvalidoException ex) {
-                ex.getMessage();
-            } catch (CorreoExistenteException ex) {
-                ex.getMessage();
-
-            }
-
-        }
-    }//GEN-LAST:event_btnRegistrarActionPerformed
-
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnEditar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar5ActionPerformed
+        if (txtNombre.getText().isEmpty() || txtDocumento.getText().isEmpty() || txtTelefono.getText().isEmpty() || comboSexo.getSelectedIndex() == 0
+                || txtCorreo.getText().isEmpty() || txtTelefono.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtContra.getText().isEmpty()) {
 
-        panelAsignar.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
 
-    private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPrecioActionPerformed
+        } else {
+            String nombre = txtNombre.getText();
+            String documento = txtDocumento.getText();
+            String telefono = txtTelefono.getText();
+            String correo = txtCorreo.getText();
+            String contraseña = txtContra.getText();
+            String sexo = comboSexo.getSelectedItem().toString();
 
-    public void limpiar() {
-        txtDocumento.setText("");
-        txtNombre.setText("");
-        txtTelefono.setText("");
-        txtApellido.setText("");
-        txtCorreo.setText("");
-        txtContra.setText("");
-        txtDireccion.setText("");
+            String apellido = txtApellido.getText();
+            String direccion = txtDireccion.getText();
 
-        comboSexo.setSelectedIndex(0);
+            Usuario cliente = new Cliente(nombre, documento, telefono, correo, contraseña, apellido, direccion, sexo);
+            boolean es = controlador.editarUsuario(cliente);
+            if (es) {
+                JOptionPane.showMessageDialog(null, "El administrador se ha editado con éxito");
+            } else {
+                JOptionPane.showMessageDialog(null, "El administrador no se ha podido modificar");
+            }
+        }
+    }//GEN-LAST:event_btnEditar5ActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        info.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    public void llenar(AdminLocal admin) {
+
+        txtApellido.setText(admin.getApellido());
+        txtContra.setText(admin.getContrasena());
+        txtCorreo.setText(admin.getCorreo());
+        txtDireccion.setText(admin.getDireccion());
+        txtDocumento.setText(admin.getDocumento());
+        txtNombre.setText(admin.getNombre());
+        txtTelefono.setText(admin.getTelefono());
+        comboSexo.setSelectedItem(admin.getSexo());
     }
     /**
      * @param args the command line arguments
      */
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnEditar5;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<String> cbDoctores;
-    private com.toedter.calendar.JDateChooser chooser;
-    private com.toedter.calendar.JDateChooser chooserFinal;
     private javax.swing.JComboBox<String> comboSexo;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
@@ -524,8 +379,6 @@ public class VistaLocal extends javax.swing.JFrame {
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtDocumento;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtNombreLocal;
-    private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

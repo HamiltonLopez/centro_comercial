@@ -28,7 +28,7 @@ public class Vendedor extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(this);
         this.empleado = empleado;
-        lblNombre.setText(empleado.getNombre()+" "+empleado.getApellido());
+        lblNombre.setText(empleado.getNombre() + " " + empleado.getApellido());
         controlador = new ControladorUsuario();
     }
 
@@ -471,7 +471,9 @@ public class Vendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_comboSexoActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        if (textNombre.getText().isEmpty() || textDocumento.getText().isEmpty() || textTelefono.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtCorreo.getText().isEmpty()) {
+        if (textNombre.getText().isEmpty() || textDocumento.getText().isEmpty() || textTelefono.getText().isEmpty() 
+                || comboSexo.getSelectedIndex() == 0
+                || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtContra.getText().isEmpty() || txtApellido.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
         } else {
             String nombre = textNombre.getText();

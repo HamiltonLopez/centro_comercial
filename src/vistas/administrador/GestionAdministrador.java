@@ -1179,7 +1179,8 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     }//GEN-LAST:event_comboSexo5ActionPerformed
 
     private void btnRegistrar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrar5ActionPerformed
-        if (txtNombre5.getText().isEmpty() || txtDocumento5.getText().isEmpty() || txtTelefono5.getText().isEmpty() || comboSexo5.getSelectedIndex() == 0) {
+        if (txtNombre5.getText().isEmpty() || txtDocumento5.getText().isEmpty() || txtTelefono5.getText().isEmpty() || comboSexo5.getSelectedIndex() == 0
+                || txtCorreo5.getText().isEmpty() || txtTelefono5.getText().isEmpty() || txtDireccion5.getText().isEmpty() || txtContra5.getText().isEmpty()) {
 
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
 
@@ -1207,7 +1208,8 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     }//GEN-LAST:event_btnRegistrar5ActionPerformed
 
     private void btnEditar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar5ActionPerformed
-        if (txtNombre5.getText().isEmpty() || txtDocumento5.getText().isEmpty() || txtTelefono5.getText().isEmpty() || comboSexo5.getSelectedIndex() == 0) {
+        if (txtNombre5.getText().isEmpty() || txtDocumento5.getText().isEmpty() || txtTelefono5.getText().isEmpty() || comboSexo5.getSelectedIndex() == 0
+                || txtCorreo5.getText().isEmpty() || txtTelefono5.getText().isEmpty() || txtDireccion5.getText().isEmpty() || txtContra5.getText().isEmpty()) {
 
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
 
@@ -1225,24 +1227,27 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
             Usuario cliente = new Cliente(nombre, documento, telefono, correo, contraseña, apellido, direccion, sexo);
             boolean es = controladorU.editarUsuario(cliente);
             if (es) {
-                JOptionPane.showMessageDialog(null, "La secretaria se ha editado con éxito");
+                JOptionPane.showMessageDialog(null, "El cliente se ha editado con éxito");
                 limpiar();
+                  txtDocumento5.setEditable(true);
                 btnEditar5.setVisible(false);
                 btnEliminar5.setVisible(false);
             } else {
-                JOptionPane.showMessageDialog(null, "La secretaria no se ha podido modificar");
+                JOptionPane.showMessageDialog(null, "El cliente no se ha podido modificar");
             }
     }//GEN-LAST:event_btnEditar5ActionPerformed
     }
     private void btnEliminar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar5ActionPerformed
+        
         if (txtDocumento5.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Vefique que campo de documento sea valido");
         } else {
             String documento = txtDocumento5.getText();
             boolean resp = controladorU.eliminarUsuario(documento);
             if (resp) {
-                JOptionPane.showMessageDialog(null, "La secretaria ha sido eliminado exitosamente");
+                JOptionPane.showMessageDialog(null, "El cliente ha sido eliminado exitosamente");
                 limpiar();
+                  txtDocumento5.setEditable(true);
                 btnEditar5.setVisible(false);
                 btnEliminar5.setVisible(false);
             } else {
@@ -1257,9 +1262,9 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         } else {
             String buscado = txtDocuEliminar.getText();
 
-            Cliente busc = (Cliente) controladorU.buscarUsuario(buscado);
+            Cliente busc = (Cliente) controladorU.validarCliente(buscado);
             if (busc != null) {
-
+                txtDocumento5.setEditable(false);
                 btnEditar5.setVisible(true);
                 btnEliminar5.setVisible(true);
                 txtDocumento5.setText(busc.getDocumento());
@@ -1300,7 +1305,8 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     }//GEN-LAST:event_comboSexo6ActionPerformed
 
     private void btnRegistrar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrar6ActionPerformed
-        if (txtNombre6.getText().isEmpty() || txtDocumento6.getText().isEmpty() || txtTelefono6.getText().isEmpty() || comboSexo6.getSelectedIndex() == 0 || comboCargo.getSelectedIndex() == 0) {
+        if (txtNombre6.getText().isEmpty() || txtDocumento6.getText().isEmpty() || txtTelefono6.getText().isEmpty() || comboSexo6.getSelectedIndex() == 0 || comboCargo.getSelectedIndex() == 0
+                || txtCorreo6.getText().isEmpty() || txtTelefono6.getText().isEmpty() || txtDireccion6.getText().isEmpty() || txtContra6.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
         } else {
             String nombre = txtNombre6.getText();
@@ -1335,7 +1341,8 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     }//GEN-LAST:event_btnRegistrar6ActionPerformed
 
     private void btnEditar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar6ActionPerformed
-        if (txtNombre6.getText().isEmpty() || txtDocumento6.getText().isEmpty() || txtTelefono6.getText().isEmpty() || comboSexo6.getSelectedIndex() == 0) {
+        if (txtNombre6.getText().isEmpty() || txtDocumento6.getText().isEmpty() || txtTelefono6.getText().isEmpty() || comboSexo6.getSelectedIndex() == 0
+                || txtCorreo6.getText().isEmpty() || txtTelefono6.getText().isEmpty() || txtDireccion6.getText().isEmpty() || txtContra6.getText().isEmpty() || comboCargo.getSelectedIndex()==0) {
 
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
 
@@ -1356,6 +1363,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
             if (es) {
                 JOptionPane.showMessageDialog(null, "El empleado se ha editado con éxito");
                 limpiar();
+                  txtDocumento5.setEditable(true);
                 btnEditar6.setVisible(false);
                 btnEliminar6.setVisible(false);
             } else {
@@ -1374,6 +1382,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
             if (resp) {
                 JOptionPane.showMessageDialog(null, "El empleado ha sido eliminado exitosamente");
                 limpiar();
+                  txtDocumento5.setEditable(true);
                 btnEditar6.setVisible(false);
                 btnEliminar6.setVisible(false);
             } else {
@@ -1388,9 +1397,10 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         } else {
             String buscado = txtDocuEliminar1.getText();
 
-            EmpleadoGeneral busc = (EmpleadoGeneral) controladorU.buscarUsuario(buscado);
+            EmpleadoGeneral busc = (EmpleadoGeneral) controladorU.validarEmpleadoGeneral(buscado);
             if (busc != null) {
 
+                  txtDocumento6.setEditable(false);
                 btnEditar6.setVisible(true);
                 btnEliminar6.setVisible(true);
                 txtDocumento6.setText(busc.getDocumento());
@@ -1484,7 +1494,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         txtCorreo6.setText("");
         txtContra6.setText("");
         txtDireccion6.setText("");
-
+        comboCargo.setSelectedIndex(0);
         comboSexo6.setSelectedIndex(0);
         removerTabla();
         removerTablaE();
@@ -1536,9 +1546,6 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                         VistaLocal vista = new VistaLocal(this, i, j);
                         vista.setVisible(true);
                         this.dispose();
-                    /*} else {
-                        botones[i][j].setText(casilla.getLocal().getAdmin().getDocumento() + " " + casilla.getLocal().getAdmin().getContrasena() + " ");
-*/
                     }else{
                         InfoLocal ventana = new InfoLocal(this, casilla);
                         this.dispose();

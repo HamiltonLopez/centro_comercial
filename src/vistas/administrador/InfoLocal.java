@@ -36,6 +36,7 @@ public class InfoLocal extends javax.swing.JFrame {
         btnInfo = new javax.swing.JButton();
         btnCance = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
+        btnInfo1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,7 +53,7 @@ public class InfoLocal extends javax.swing.JFrame {
 
         btnCance.setBackground(new java.awt.Color(0, 153, 153));
         btnCance.setForeground(new java.awt.Color(255, 255, 255));
-        btnCance.setText("ELIMINAR");
+        btnCance.setText("MARCAR COMO DESOCUPADO");
         btnCance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCanceActionPerformed(evt);
@@ -68,31 +69,44 @@ public class InfoLocal extends javax.swing.JFrame {
             }
         });
 
+        btnInfo1.setBackground(new java.awt.Color(0, 153, 153));
+        btnInfo1.setForeground(new java.awt.Color(255, 255, 255));
+        btnInfo1.setText("EDITAR INFORMACIÓN DEL ADMINISTRADOR");
+        btnInfo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInfo1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(btnInfo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addComponent(btnCance, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnRegresar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnRegresar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnRegresar)
-                .addGap(54, 54, 54)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnInfo)
-                    .addComponent(btnCance))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(btnInfo)
+                .addGap(30, 30, 30)
+                .addComponent(btnInfo1)
+                .addGap(33, 33, 33)
+                .addComponent(btnCance)
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -103,7 +117,7 @@ public class InfoLocal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -111,28 +125,28 @@ public class InfoLocal extends javax.swing.JFrame {
 
     private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
         String mensaje = "Nombre del Local : " + casilla.getLocal().getNombre()
-                + "\nNombre del administrado : " + casilla.getLocal().getAdmin().getNombre()
-                + "\nInicio de contrato : " + casilla.getLocal().getFechaInicio()
-                + "\nFin de contrato : " + casilla.getLocal().getFechaFinal();
+                + "\nNombre del administrador : " + casilla.getLocal().getContrato().getAdmin().getNombre()
+                + "\nInicio de contrato : " + casilla.getLocal().getContrato().getFechaInicio()
+                + "\nFin de contrato : " + casilla.getLocal().getContrato().getFechaFinal()
+                + "\nPrecio acordado : $" + casilla.getLocal().getPrecioArriendo();
+        
         JOptionPane.showMessageDialog(null, mensaje);
     }//GEN-LAST:event_btnInfoActionPerformed
 
     private void btnCanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanceActionPerformed
-        /* int num = JOptionPane.showConfirmDialog(null, "¿Seguro que desea cancelar la reserva?");
-        if (JOptionPane.OK_OPTION == num) {
-            ventana.getControlador().cancelarAsiento(casilla);
-            ventana.validarPosiciones();
-            JOptionPane.showMessageDialog(null, "¡Asiento libre!");
-            ventana.setVisible(true);
-            this.dispose();
-        }*/
-
+  
     }//GEN-LAST:event_btnCanceActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         ventana.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfo1ActionPerformed
+        EditarAdmin admin = new EditarAdmin(casilla, this);
+        admin.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnInfo1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -141,6 +155,7 @@ public class InfoLocal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCance;
     private javax.swing.JButton btnInfo;
+    private javax.swing.JButton btnInfo1;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
