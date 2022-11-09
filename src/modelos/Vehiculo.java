@@ -9,15 +9,15 @@ import java.util.Date;
 
 public class Vehiculo implements Serializable {
     private String tipo;
-    private String marca;
+  
     private String placa;
     private Date horaEntrada;
     private Date horaSalida;
     private double precio;
 
-    public Vehiculo(String tipo, String marca, String placa, Date horaEntrada) {
+    public Vehiculo(String tipo, String placa, Date horaEntrada) {
         this.tipo = tipo;
-        this.marca = marca;
+       
         this.placa = placa;
         this.horaEntrada = horaEntrada;
         horaSalida =null;
@@ -29,14 +29,6 @@ public class Vehiculo implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
     }
 
     public String getPlaca() {

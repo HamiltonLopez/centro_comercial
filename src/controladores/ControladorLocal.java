@@ -4,12 +4,17 @@
  */
 package controladores;
 
+import Singleton.SingletonCC;
+import Singleton.SingletonCasillas;
 import Singleton.SingletonUsuario;
 import excepciones.CorreoExistenteException;
+import excepciones.ProductoExistente;
 import excepciones.TelefonoInvalidoException;
 import excepciones.UsuarioExistenteException;
+import modelos.CentroComercial;
 import modelos.EmpleadoInterno;
 import modelos.Local;
+import modelos.Producto;
 import modelos.Usuario;
 import util.Lista;
 
@@ -21,12 +26,19 @@ public class ControladorLocal {
 
     Local local;
     Lista<EmpleadoInterno> empleados;
+    Lista<Producto> productosGeneral;
+    Lista<Producto> productosLocal;
     ControladorUsuario controlador;
+    CentroComercial cComercial;
 
     public ControladorLocal(Local local) {
         this.local = local;
+        productosLocal = local.getProductos();
         empleados = local.getEmpleados();
         controlador = new ControladorUsuario();
+
+        cComercial = SingletonCC.getINSTANCIA().getInstancia();
+        productosGeneral = cComercial.getProductos();
 
     }
 
@@ -85,7 +97,6 @@ public class ControladorLocal {
         }
         return null;
     }*/
-
     /**
      * Este metodo nos permite editar un empleado
      *
@@ -136,6 +147,88 @@ public class ControladorLocal {
 
     public Lista<EmpleadoInterno> getEmpleados() {
         return empleados;
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public boolean añadirProducto(Producto producto) throws ProductoExistente {
+        Producto aux = buscarProductoLocal(producto.getIdentificador());
+        if (aux != null) {
+            throw new ProductoExistente();
+        }
+
+        productosLocal.add(producto);
+        productosGeneral.add(producto);
+        SingletonCasillas.getINSTANCIA().escribirObjeto();
+        SingletonUsuario.getINSTANCIA().escribirUsuarios();
+        SingletonCC.getINSTANCIA().escribirObjeto();
+        return true;
+    }
+
+    public boolean eliminarProducto(String identificador, int cantidad) {
+        for (int i = 0; i < productosLocal.Size(); i++) {
+            if (productosLocal.obtener(i) != null && productosLocal.obtener(i).getIdentificador().equals(identificador)) {
+                int total = productosLocal.obtener(i).getCantBodega() - cantidad;
+                productosLocal.obtener(i).setCantBodega(total);
+                if (productosLocal.obtener(i).getCantBodega() <= 0) {
+                    productosLocal.eliminar(i);
+                }
+                ////////////////////////////
+                for (int j = 0; j < productosGeneral.Size(); j++) {
+                    if (productosGeneral.obtener(j) != null && productosGeneral.obtener(j).getIdentificador().equals(identificador)) {
+                        int tota = productosGeneral.obtener(j).getCantBodega() - cantidad;
+                        productosGeneral.obtener(i).setCantBodega(total);
+                        if (productosGeneral.obtener(i).getCantBodega() <= 0) {
+                            productosGeneral.eliminar(i);
+
+                        }
+
+                    }
+                }
+                SingletonCC.getINSTANCIA().escribirObjeto();
+                SingletonCasillas.getINSTANCIA().escribirObjeto();
+                SingletonUsuario.getINSTANCIA().escribirUsuarios();
+                return true;
+
+            }
+
+        }
+        SingletonCC.getINSTANCIA().escribirObjeto();
+        SingletonCasillas.getINSTANCIA().escribirObjeto();
+        SingletonUsuario.getINSTANCIA().escribirUsuarios();
+        return false;
+
+    }
+
+    public Producto buscarProductoLocal(String identificador) {
+        for (int i = 0; i < productosLocal.Size(); i++) {
+            if (productosLocal.obtener(i) != null && productosLocal.obtener(i).getIdentificador().equals(identificador)) {
+                return productosLocal.obtener(i);
+            }
+        }
+        return null;
+    }
+
+    public Lista<Producto> getProductosLocal() {
+        return productosLocal;
+    }
+
+    public boolean editarProducto(Producto producto) {
+        Producto aux = buscarProductoLocal(producto.getIdentificador());
+        if (aux != null) {
+            aux.setNombreProducto(producto.getNombreProducto());
+            aux.setCategoria(producto.getCategoria());
+            aux.setMarca(producto.getMarca());
+            aux.setPesoBruto(producto.getPesoBruto());
+            aux.setCantBodega(producto.getCantBodega());
+            aux.setPrecio(producto.getPrecio());
+            SingletonUsuario.getINSTANCIA().escribirUsuarios();
+            SingletonCC.getINSTANCIA().escribirObjeto();
+            return true;
+        }
+        return false;
+
     }
 
 }

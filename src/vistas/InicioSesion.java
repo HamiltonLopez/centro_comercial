@@ -78,8 +78,7 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel4.setText("INICIO DE SESIÓN");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, -1));
 
-        txtDocumento.setForeground(new java.awt.Color(204, 204, 204));
-        txtDocumento.setText("Ingrese el número de documento");
+        txtDocumento.setForeground(new java.awt.Color(0, 0, 0));
         txtDocumento.setBorder(null);
         txtDocumento.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -99,8 +98,7 @@ public class InicioSesion extends javax.swing.JFrame {
         jPanel3.add(txtDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 228, -1));
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, -1));
 
-        txtContra.setForeground(new java.awt.Color(204, 204, 204));
-        txtContra.setText("*******");
+        txtContra.setForeground(new java.awt.Color(0, 0, 0));
         txtContra.setBorder(null);
         txtContra.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -145,7 +143,7 @@ public class InicioSesion extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("USUARIO/DOCUMENTO");
+        jLabel5.setText("CORREO ELECTRONICO");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, -1, -1));
 
         lblError.setForeground(new java.awt.Color(255, 255, 255));
@@ -209,14 +207,14 @@ public class InicioSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtDocumentoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDocumentoMousePressed
-        if (txtDocumento.getText().equals("Ingrese el número de documento")) {
+      /*  if (txtDocumento.getText().equals("Ingrese el número de documento")) {
             txtDocumento.setText("");
             txtDocumento.setForeground(Color.black);
         }
         if (String.valueOf(txtContra.getPassword()).isEmpty()) {
             txtContra.setText("*******");
             txtContra.setForeground(Color.gray);
-        }
+        }*/
 
     }//GEN-LAST:event_txtDocumentoMousePressed
 
@@ -225,7 +223,7 @@ public class InicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDocumentoActionPerformed
 
     private void txtContraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtContraMousePressed
-        if (String.valueOf(txtContra.getPassword()).equals("*******")) {
+      /*  if (String.valueOf(txtContra.getPassword()).equals("*******")) {
             txtContra.setText("");
             txtContra.setForeground(Color.black);
 
@@ -233,7 +231,7 @@ public class InicioSesion extends javax.swing.JFrame {
         if (txtDocumento.getText().isEmpty()) {
             txtDocumento.setText("Ingrese el número de documento");
             txtDocumento.setForeground(Color.gray);
-        }
+        }*/
 
     }//GEN-LAST:event_txtContraMousePressed
 

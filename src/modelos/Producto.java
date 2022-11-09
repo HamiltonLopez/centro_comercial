@@ -11,22 +11,24 @@ import java.util.Date;
  *
  * @author Asus
  */
-public class Producto  implements Serializable{
+public class Producto implements Serializable {
 
+    private int cantBodega;
     private String nombreProducto;
     private String identificador;
-    private String materialPresentacion;
-    private String precio;
-    private String pesoNeto;
-    private Date fechaVencimiento;
+    private String categoria;
+    private int precio;
+    private String pesoBruto;
+    private String marca;
 
-    public Producto(String nombreProducto, String identificador, String materialPresentacion, String precio, String pesoNeto, Date fechaVencimiento) {
+    public Producto(String nombreProducto, String identificador, String categoria, int precio, String pesoNeto, int cantBodega, String marca) {
         this.nombreProducto = nombreProducto;
         this.identificador = identificador;
-        this.materialPresentacion = materialPresentacion;
+        this.categoria = categoria;
         this.precio = precio;
-        this.pesoNeto = pesoNeto;
-        this.fechaVencimiento = fechaVencimiento;
+        this.pesoBruto = pesoNeto;
+        this.cantBodega = cantBodega;
+        this.marca = marca;
     }
 
     public String getNombreProducto() {
@@ -45,36 +47,44 @@ public class Producto  implements Serializable{
         this.identificador = identificador;
     }
 
-    public String getMaterialPresentacion() {
-        return materialPresentacion;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setMaterialPresentacion(String materialPresentacion) {
-        this.materialPresentacion = materialPresentacion;
+    public void setCategoria(String materialPresentacion) {
+        this.categoria = materialPresentacion;
     }
 
-    public String getPrecio() {
+    public int getPrecio() {
         return precio;
     }
 
-    public void setPrecio(String precio) {
+    public void setPrecio(int precio) {
         this.precio = precio;
     }
 
-    public String getPesoNeto() {
-        return pesoNeto;
+    public String getPesoBruto() {
+        return pesoBruto;
     }
 
-    public void setPesoNeto(String pesoNeto) {
-        this.pesoNeto = pesoNeto;
+    public void setPesoBruto(String pesoBruto) {
+        this.pesoBruto = pesoBruto;
     }
 
-    public Date getFechaVencimiento() {
-        return fechaVencimiento;
+    public int getCantBodega() {
+        return cantBodega;
     }
 
-    public void setFechaVencimiento(Date fechaVencimiento) {
-        this.fechaVencimiento = fechaVencimiento;
+    public void setCantBodega(int cantBodega) {
+        this.cantBodega = cantBodega;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
 }

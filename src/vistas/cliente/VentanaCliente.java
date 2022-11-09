@@ -4,7 +4,13 @@
  */
 package vistas.cliente;
 
+import Singleton.SingletonCC;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelos.CentroComercial;
 import modelos.Cliente;
+import modelos.Producto;
+import util.Lista;
 import vistas.InicioSesion;
 
 /**
@@ -13,13 +19,59 @@ import vistas.InicioSesion;
  */
 public class VentanaCliente extends javax.swing.JFrame {
 
+    private DefaultTableModel modelo;
     Cliente cliente;
+    CentroComercial centro;
+
     public VentanaCliente(Cliente cliente) {
         initComponents();
-       setLocationRelativeTo(this);
-       
+        setLocationRelativeTo(this);
+        centro = SingletonCC.getINSTANCIA().getInstancia();
+        modelo = new DefaultTableModel();
+        this.tablaProductos.setModel(modelo);
+        modelo.addColumn("Cantidad");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Identificador");
+        modelo.addColumn("Precio");
+        limpiar();
+
         this.cliente = cliente;
-        lblNombre.setText(cliente.getNombre() +" " +cliente.getApellido());
+        lblNombre.setText(cliente.getNombre() + " " + cliente.getApellido());
+    }
+
+    public void removerTablaProductos() {
+
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            modelo.removeRow(i);
+        }
+
+    }
+
+    public void limpiar() {
+        removerTablaProductos();
+        llenarTablaProductos();
+    }
+
+    public void llenarTablaProductos() {
+        removerTablaProductos();
+        Lista<Producto> productos = centro.getProductos();
+        for (int i = 0; i < productos.Size(); i++) {
+            Producto producto = productos.obtener(i);
+            if (producto != null) {
+
+                String[] info = new String[4];
+                info[0] = String.valueOf(producto.getCantBodega());
+                info[1] = producto.getNombreProducto();
+                info[2] = producto.getIdentificador();
+                info[3] = String.valueOf(producto.getPrecio());
+
+                modelo.addRow(info);
+
+            } else {
+
+            }
+
+        }
     }
 
     /**
@@ -41,6 +93,13 @@ public class VentanaCliente extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         pestañas = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tablaProductos = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        comboFiltro = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        btnAplicarFiltro = new javax.swing.JButton();
         jPanel17 = new javax.swing.JPanel();
         panelBotones2 = new javax.swing.JPanel();
 
@@ -91,15 +150,75 @@ public class VentanaCliente extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
+        tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(tablaProductos);
+
+        jButton1.setText("IR AL CARRITO");
+
+        jButton2.setText("AGREGAR AL CARRITO");
+
+        comboFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione la categoria", "Mercado", "Electrodomesticos", "Hogar y muebles", "Deportes", "Licores" }));
+        comboFiltro.setBorder(null);
+
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("FILTRAR POR TIPO DE ARTICULO");
+
+        btnAplicarFiltro.setText("APLICAR FILTRO");
+        btnAplicarFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAplicarFiltroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 979, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(btnAplicarFiltro))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comboFiltro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 593, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(comboFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAplicarFiltro)
+                        .addGap(119, 119, 119)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(160, Short.MAX_VALUE))
         );
 
         pestañas.addTab("COMPRA VIRTUAL", jPanel3);
@@ -158,23 +277,64 @@ public class VentanaCliente extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void btnAplicarFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarFiltroActionPerformed
+        limpiarFiltro();
+    }//GEN-LAST:event_btnAplicarFiltroActionPerformed
+
+    public void limpiarFiltro() {
+        removerTablaProductos();
+        llenarFiltro();
+    }
+
+    public void llenarFiltro() {
+        if (comboFiltro.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione el tipo del articulo.\nIntente nuevamente.");
+        } else {
+            removerTablaProductos();
+            String filtro = comboFiltro.getSelectedItem().toString();
+            Lista<Producto> productos = centro.getProductos();
+            for (int i = 0; i < productos.Size(); i++) {
+                Producto producto = productos.obtener(i);
+                if (producto != null && producto.getCategoria().equals(filtro)) {
+
+                    String[] info = new String[4];
+                    info[0] = String.valueOf(producto.getCantBodega());
+                    info[1] = producto.getNombreProducto();
+                    info[2] = producto.getIdentificador();
+                    info[3] = String.valueOf(producto.getPrecio());
+
+                    modelo.addRow(info);
+
+                } else {
+
+                }
+
+            }
+        }
+    }
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAplicarFiltro;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JComboBox<String> comboFiltro;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JPanel panelBotones2;
     private javax.swing.JTabbedPane pestañas;
+    private javax.swing.JTable tablaProductos;
     // End of variables declaration//GEN-END:variables
 }

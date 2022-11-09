@@ -30,6 +30,7 @@ public class Vendedor extends javax.swing.JFrame {
         this.empleado = empleado;
         lblNombre.setText(empleado.getNombre() + " " + empleado.getApellido());
         controlador = new ControladorUsuario();
+        txtCorrAdicional.setEditable(false);
     }
 
     /**
@@ -77,6 +78,7 @@ public class Vendedor extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JSeparator();
         jSeparator7 = new javax.swing.JSeparator();
         jSeparator10 = new javax.swing.JSeparator();
+        txtCorrAdicional = new javax.swing.JTextField();
         panelBotones2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -271,6 +273,16 @@ public class Vendedor extends javax.swing.JFrame {
         jLabel27.setForeground(new java.awt.Color(0, 0, 0));
         jLabel27.setText("Direccion:");
 
+        txtCorrAdicional.setBackground(new java.awt.Color(255, 255, 255));
+        txtCorrAdicional.setForeground(new java.awt.Color(0, 0, 0));
+        txtCorrAdicional.setText("cliente.com");
+        txtCorrAdicional.setBorder(null);
+        txtCorrAdicional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCorrAdicionalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -313,14 +325,16 @@ public class Vendedor extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCorrAdicional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(181, 181, 181)
                         .addComponent(jLabel3))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(213, 213, 213)
                         .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(400, Short.MAX_VALUE))
+                .addContainerGap(330, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,7 +374,8 @@ public class Vendedor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCorrAdicional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(3, 3, 3)
                         .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -471,7 +486,7 @@ public class Vendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_comboSexoActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        if (textNombre.getText().isEmpty() || textDocumento.getText().isEmpty() || textTelefono.getText().isEmpty() 
+        if (textNombre.getText().isEmpty() || textDocumento.getText().isEmpty() || textTelefono.getText().isEmpty()
                 || comboSexo.getSelectedIndex() == 0
                 || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtContra.getText().isEmpty() || txtApellido.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
@@ -479,15 +494,15 @@ public class Vendedor extends javax.swing.JFrame {
             String nombre = textNombre.getText();
             String documento = textDocumento.getText();
             String telef = textTelefono.getText();
-            String correo = txtCorreo.getText();
+            String correo = txtCorreo.getText() + txtCorrAdicional.getText();
             String contraseña = txtContra.getText();
             String sexo = comboSexo.getSelectedItem().toString();
             String apellido = txtApellido.getText();
             String direccion = txtDireccion.getText();
-
+            String adicional = txtCorrAdicional.getText();
             Usuario cliente = new Cliente(nombre, documento, telef, correo, contraseña, apellido, direccion, sexo);
             try {
-                controlador.registrarUsuario(cliente);
+                controlador.registrarUsuario(cliente, adicional);
                 JOptionPane.showMessageDialog(null, "El cliente " + cliente.getNombre() + " se ha registrado con éxito");
                 limpiar();
 
@@ -497,6 +512,10 @@ public class Vendedor extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void txtCorrAdicionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorrAdicionalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCorrAdicionalActionPerformed
     public void limpiar() {
         textDocumento.setText("");
         textNombre.setText("");
@@ -547,6 +566,7 @@ public class Vendedor extends javax.swing.JFrame {
     private javax.swing.JTextField textTelefono;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtContra;
+    private javax.swing.JTextField txtCorrAdicional;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDireccion;
     // End of variables declaration//GEN-END:variables

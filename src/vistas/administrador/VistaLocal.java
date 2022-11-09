@@ -40,8 +40,8 @@ public class VistaLocal extends javax.swing.JFrame {
         Casilla casilla = controlador.obtenerCasilla(fila, columna);
         panelAsignar.setVisible(false);
         controladorU = new ControladorUsuario();
+        txtCorrAdicional.setEditable(false);
 
-        
         txtPrecio.setText("$" + casilla.getLocal().getPrecioArriendo());
         txtPrecio.setEditable(false);
         this.columna = columna;
@@ -99,6 +99,8 @@ public class VistaLocal extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         chooser = new com.toedter.calendar.JDateChooser();
         txtNombreLocal = new javax.swing.JTextField();
+        txtCorrAdicional = new javax.swing.JTextField();
+        jSeparator9 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -264,7 +266,7 @@ public class VistaLocal extends javax.swing.JFrame {
         panelAsignar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(267, 108, -1, -1));
 
         txtCorreo.setBorder(null);
-        panelAsignar.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(267, 129, 196, -1));
+        panelAsignar.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(267, 129, 110, -1));
 
         txtContra.setBorder(null);
         panelAsignar.add(txtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(268, 185, 195, -1));
@@ -302,7 +304,7 @@ public class VistaLocal extends javax.swing.JFrame {
         panelAsignar.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 207, 197, 10));
         panelAsignar.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(268, 207, 195, 10));
         panelAsignar.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 261, 196, 10));
-        panelAsignar.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(267, 261, 196, 10));
+        panelAsignar.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, 196, 10));
 
         jPanel3.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -356,14 +358,23 @@ public class VistaLocal extends javax.swing.JFrame {
         jLabel14.setText("Fecha Inicio");
         panelAsignar.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(267, 43, -1, -1));
         panelAsignar.add(chooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 100, -1));
-        panelAsignar.add(txtNombreLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, 190, -1));
+
+        txtNombreLocal.setBorder(null);
+        panelAsignar.add(txtNombreLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, 190, 20));
+
+        txtCorrAdicional.setBackground(new java.awt.Color(255, 255, 255));
+        txtCorrAdicional.setForeground(new java.awt.Color(0, 0, 0));
+        txtCorrAdicional.setText("@adminL.com");
+        txtCorrAdicional.setBorder(null);
+        panelAsignar.add(txtCorrAdicional, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, 90, -1));
+        panelAsignar.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(267, 261, 196, 10));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelAsignar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -409,7 +420,7 @@ public class VistaLocal extends javax.swing.JFrame {
 
         if (txtNombre.getText().isEmpty() || txtDocumento.getText().isEmpty()
                 || txtCorreo.getText().isEmpty() || txtTelefono.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtContra.getText().isEmpty() || txtNombreLocal.getText().isEmpty()
-                || comboSexo.getSelectedIndex() == 0 || txtApellido.getText().isEmpty()) {
+                || comboSexo.getSelectedIndex() == 0 || txtApellido.getText().isEmpty() || chooser.isValid()|| chooserFinal.isValid()) {
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
 
         } else {
@@ -421,7 +432,7 @@ public class VistaLocal extends javax.swing.JFrame {
             String telefono = txtTelefono.getText();
             Date inicio = chooser.getDate();
             Date fin = chooserFinal.getDate();
-            String correo = txtCorreo.getText();
+            String correo = txtCorreo.getText() + txtCorrAdicional.getText();;
             String contraseña = txtContra.getText();
             String sexo = comboSexo.getSelectedItem().toString();
             Date fechaInicio = new Date(inicio.getYear(), inicio.getMonth(), inicio.getDay());
@@ -429,7 +440,7 @@ public class VistaLocal extends javax.swing.JFrame {
 
             String apellido = txtApellido.getText();
             String direccion = txtDireccion.getText();
-
+            String adicional = txtCorrAdicional.getText();
             Usuario admin1 = new AdminLocal(nombre, documento, telefono, correo, contraseña, apellido, direccion, sexo);
             AdminLocal admin = (AdminLocal) admin1;
             Contrato contrato = new Contrato(nombre, admin, fechaInicio, fechaFinal);
@@ -437,7 +448,7 @@ public class VistaLocal extends javax.swing.JFrame {
             admin.setLocal(local);
             try {
                 controlador.agregarLocal(local, fila, columna);
-                controladorU.registrarUsuario(admin1);
+                controladorU.registrarUsuario(admin1, adicional);
                 JOptionPane.showMessageDialog(null, "El local" + nombreLocal + " se ha registrado con éxito");
                 limpiar();
                 ventana.validarPosiciones();
@@ -517,9 +528,11 @@ public class VistaLocal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JPanel panelAsignar;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtContra;
+    private javax.swing.JTextField txtCorrAdicional;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtDocumento;

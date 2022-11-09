@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import modelos.Casilla;
 import modelos.EmpleadoGeneral;
 import vistas.InicioSesion;
+import vistas.administrador.InfoLocal;
+import vistas.administrador.VistaLocal;
 
 /**
  *
@@ -28,7 +30,7 @@ public class VistaParqueadero extends javax.swing.JFrame implements ActionListen
         initComponents();
         this.setLocationRelativeTo(this);
         this.empleado = empleado;
-        lblNombre.setText(empleado.getNombre() +" "+ empleado.getApellido());
+        lblNombre.setText(empleado.getNombre() + " " + empleado.getApellido());
         controlador = new ControladorParking();
         cargarBotones();
         validarPosiciones();
@@ -435,16 +437,16 @@ public class VistaParqueadero extends javax.swing.JFrame implements ActionListen
         int ancho = 60;
         int alto = 80;
         int separado = 30;
-      
-         int num = 1;
+
+        int num = 1;
         char texto = 'A';
         for (int i = 0; i < botones.length; i++) {
-            
+
             for (int j = 0; j < botones[i].length; j++) {
-                   if(i ==1 || i ==3 || i == 5 ||(i==2&&j==0) ||(i==2&&j==14)||(i==4&&j==0) ||(i==4&&j==14) ||(i==6 &&j<=2) ||(i==6 &&j>=12)){
-                        botones[i][j] = new JButton();
-                   }else{
-                        botones[i][j] = new JButton();
+                if (i == 1 || i == 3 || i == 5 || (i == 2 && j == 0) || (i == 2 && j == 14) || (i == 4 && j == 0) || (i == 4 && j == 14) || (i == 6 && j <= 2) || (i == 6 && j >= 12)) {
+                    botones[i][j] = new JButton();
+                } else {
+                    botones[i][j] = new JButton();
                     botones[i][j].setBounds((j * ancho + separado), (i * alto + separado), ancho, alto);
                     botones[i][j].setText(String.valueOf("P" + num));
                     botones[i][j].setForeground(Color.white);
@@ -452,21 +454,21 @@ public class VistaParqueadero extends javax.swing.JFrame implements ActionListen
                     panelPisoUno.add(botones[i][j]);
 
                     num++;
-                   }
-             
-                   
-               
-                
+                }
 
             }
 
         }
 
     }
+
     /**
      * @param args the command line arguments
      */
-  
+    public ControladorParking getControlador() {
+        return controlador;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar4;
@@ -500,5 +502,23 @@ public class VistaParqueadero extends javax.swing.JFrame implements ActionListen
     @Override
     public void actionPerformed(ActionEvent e) {
 
+         for (int i = 0; i < botones.length; i++) {
+            for (int j = 0; j < botones[i].length; j++) {
+                if (e.getSource().equals(botones[i][j])) {
+                    Casilla casilla = controlador.obtenerCasilla(i, j);
+                    if (casilla.getEstado().equals(Casilla.DISPONIBLE)) {
+                       AsignarPuesto vista = new AsignarPuesto(this, i, j);
+                        vista.setVisible(true);
+                        this.dispose();
+                    }else{
+                        
+                       /* InfoLocal ventana = new InfoLocal(this, casilla);
+                        this.dispose();
+                        ventana.setVisible(true);*/
+                    }
+                }
+            }
+
+        }
     }
 }

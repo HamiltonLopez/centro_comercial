@@ -26,15 +26,17 @@ public class ControladorUsuario {
 
     Lista<Usuario> usuarios;
 
-    Administrador admin1 = new Administrador("Alejandro", "1", "313529085", "alejandro@gmail.com", "123", "Cañón", "Quimbaya", "Viudo");
-    Administrador admin2 = new Administrador("Hamilton", "2", "3135451977", "hamilton@gmail.com", "123", "Lopez", "Armenia", "Soltero");
+    // Administrador admin1 = new Administrador("Alejandro", "1", "313529085", "alejandro@gmail.com", "123", "Cañón", "Quimbaya", "Viudo");
+    Administrador admin1 = new Administrador("Hamilton", "2", "3135451977", "hamilton@admin.com", "123", "Lopez", "Armenia", "Masculino");
 
     public ControladorUsuario() {
 
         usuarios = SingletonUsuario.getINSTANCIA().getUsuarios();
+       // if (usuarios.obtener(0) == null) {
+            usuarios.add(admin1);
+        
 
-        usuarios.add(admin1);
-        usuarios.add(admin2);
+        // usuarios.add(admin2);
     }
 
     /**
@@ -46,10 +48,10 @@ public class ControladorUsuario {
      * @return Un usuario: AdminLocal, Empleado interno, Cliente,Administrador o
      * EmpleadoGeneral contrario null
      */
-    public Usuario ValidarAcceso(String documento, String contraseña) {
+    public Usuario ValidarAcceso(String correo, String contraseña) {
         for (int i = 0; i < usuarios.Size(); i++) {
 
-            if (usuarios.obtener(i).getDocumento().equals(documento) && usuarios.obtener(i).getContrasena().equals(contraseña)) {
+            if (usuarios.obtener(i).getCorreo().equals(correo) && usuarios.obtener(i).getContrasena().equals(contraseña)) {
 
                 if (usuarios.obtener(i) instanceof AdminLocal) {
                     AdminLocal admin = (AdminLocal) usuarios.obtener(i);
@@ -72,30 +74,8 @@ public class ControladorUsuario {
         return null;
     }
 
-    /*public Lista<Usuario> validarAccesoLista(String documento, String contraseña) {
-        Lista<Usuario> lista = new Lista<>();
-        for (int i = 0; i < usuarios.Size(); i++) {
-
-            if (usuarios.obtener(i).getDocumento().equals(documento) && usuarios.obtener(i).getContrasena().equals(contraseña)) {
-
-                if (usuarios.obtener(i) instanceof EmpleadoInterno) {
-                    EmpleadoInterno interno = (EmpleadoInterno) usuarios.obtener(i);
-                    lista.add(interno);
-                } else if (usuarios.obtener(i) instanceof Cliente) {
-                    Cliente cliente = (Cliente) usuarios.obtener(i);
-                    lista.add(admin1);
-
-                } else if (usuarios.obtener(i) instanceof EmpleadoGeneral) {
-                    EmpleadoGeneral empleado = (EmpleadoGeneral) usuarios.obtener(i);
-                    lista.add(admin1);
-
-                }
-            }
-        }
-        return lista;
-    }*/
-
-    public Usuario validarCliente(String documento) {
+  
+    public Usuario BuscarCliente(String documento) {
         for (int i = 0; i < usuarios.Size(); i++) {
             if (usuarios.obtener(i).getDocumento().equals(documento) && usuarios.obtener(i) instanceof Cliente) {
                 Cliente cliente = (Cliente) usuarios.obtener(i);
@@ -105,7 +85,10 @@ public class ControladorUsuario {
         }
         return null;
     }
-      public Usuario validarEmpleadoGeneral(String documento) {
+
+
+   
+    public Usuario BuscarEmpleadoGeneral(String documento) {
         for (int i = 0; i < usuarios.Size(); i++) {
             if (usuarios.obtener(i).getDocumento().equals(documento) && usuarios.obtener(i) instanceof EmpleadoGeneral) {
                 EmpleadoGeneral empleado = (EmpleadoGeneral) usuarios.obtener(i);
@@ -115,6 +98,8 @@ public class ControladorUsuario {
         }
         return null;
     }
+ 
+     
 
     /**
      * Este metodo nos permite buscar a un usuario por su documento
@@ -125,13 +110,7 @@ public class ControladorUsuario {
      * contrario null
      */
     public Usuario buscarUsuario(String documento) {
-        /*for (int i = 0; i < usuarios.Size(); i++) {
-            if (usuarios.obtener(i).getDocumento().equals(documento) && usuarios.obtener(i) instanceof Cliente) {
-                Cliente pac = (Cliente) usuarios.obtener(i);
-                return pac;
-            }
-        }*/
-       
+    
         for (int i = 0; i < usuarios.Size(); i++) {
             if (usuarios.obtener(i).getDocumento().equals(documento)) {
                 if (usuarios.obtener(i) instanceof AdminLocal) {
@@ -173,7 +152,7 @@ public class ControladorUsuario {
      * @throws CorreoExistenteException esta excepcion le permite al usuario dar
      * un manejo cuando ingresa mal un correo
      */
-    public boolean registrarUsuario(Usuario usuario) throws UsuarioExistenteException, TelefonoInvalidoException, CorreoExistenteException {
+    public boolean registrarUsuario(Usuario usuario, String adicional) throws UsuarioExistenteException, TelefonoInvalidoException, CorreoExistenteException {
         Usuario aux = buscarUsuario(usuario.getDocumento());
         String x = "0123456789";
 
@@ -188,7 +167,7 @@ public class ControladorUsuario {
         }*/
         boolean validar = ValidarCorreo(usuario);
 
-        if (aux != null) {
+        if (aux != null && aux.getCorreo().equals(adicional)) {
             throw new UsuarioExistenteException();
         } else if (validar) {
             throw new CorreoExistenteException();
