@@ -15,10 +15,11 @@ import modelos.Local;
 public class ControladorCasilla {
 
     Casilla[][] casillas;
+  
 
     public ControladorCasilla() {
         casillas = SingletonCasillas.getINSTANCIA().getLista();
-
+        
         if (casillas[0][0] == null) {
             initCasillas();
         }
@@ -44,6 +45,7 @@ public class ControladorCasilla {
 
     /**
      * Este metodo nos permite agregar un local en un posicion de las casillas
+     *
      * @param local el objeto al cual vamos a agregar en las casilas
      * @param fila es la posicion vertical en la que guardaremos el local
      * @param columna es la posicion horizontal en la que guardaremos el local
@@ -56,7 +58,9 @@ public class ControladorCasilla {
     }
 
     /**
-     * Este método permite buscar u obtener una casilla dada la fila y la columna
+     * Este método permite buscar u obtener una casilla dada la fila y la
+     * columna
+     *
      * @param fila
      * @param columna
      * @return retorna la casilla que buscamos
@@ -65,4 +69,19 @@ public class ControladorCasilla {
         SingletonCasillas.getINSTANCIA().escribirObjeto();
         return casillas[fila][columna];
     }
+
+    /***
+     * 
+     * @param casilla 
+     */
+    public void eliminarNegocio(Casilla casilla) {
+        casilla.setEstado(Casilla.DISPONIBLE);
+        
+        casilla = new Casilla();
+        Local local = new Local();
+        casilla.setLocal(local);
+
+        SingletonCasillas.getINSTANCIA().escribirObjeto();
+    }
+
 }

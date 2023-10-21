@@ -4,21 +4,20 @@
  */
 package vistas;
 
-import controladores.ControladorLocal;
+import controladores.ControladorAdminLocal;
+import controladores.ControladorLogin;
 import controladores.ControladorUsuario;
 import java.awt.Color;
 import javax.swing.JOptionPane;
-import modelos.AdminLocal;
 import modelos.Administrador;
 import modelos.Cliente;
-import modelos.EmpleadoGeneral;
-import modelos.EmpleadoInterno;
+import modelos.Empleado;
 import modelos.Local;
 import modelos.Usuario;
 import util.Lista;
-import vistas.adminLocal.GestionarLocal;
-import vistas.administrador.GestionAdministrador;
-import vistas.cliente.RegistrarCliente;
+import vistas.adminLocal.GestionLocal;
+import vistas.administrador.AdministradorGeneral;
+import vistas.cliente.RegistrarInicio;
 import vistas.cliente.VentanaCliente;
 import vistas.encargadoInventario.Encargado;
 import vistas.parqueadero.VistaParqueadero;
@@ -30,12 +29,12 @@ import vistas.vendedor.Vendedor;
  */
 public class InicioSesion extends javax.swing.JFrame {
 
-    ControladorUsuario controlador;
+    ControladorLogin controlador;
 
     public InicioSesion() {
         initComponents();
-        controlador = new ControladorUsuario();
-
+        this.setResizable(false);
+        controlador = new ControladorLogin();
         this.setLocationRelativeTo(null);
     }
 
@@ -53,18 +52,18 @@ public class InicioSesion extends javax.swing.JFrame {
         txtDocumento = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtContra = new javax.swing.JPasswordField();
-        jLabel2 = new javax.swing.JLabel();
         btnInicio = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         btnRegistrarse = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        jLabel5 = new javax.swing.JLabel();
         lblError = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -78,7 +77,8 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel4.setText("INICIO DE SESIÓN");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, -1));
 
-        txtDocumento.setForeground(new java.awt.Color(0, 0, 0));
+        txtDocumento.setForeground(new java.awt.Color(153, 153, 153));
+        txtDocumento.setText("Correo electrónico");
         txtDocumento.setBorder(null);
         txtDocumento.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -95,22 +95,18 @@ public class InicioSesion extends javax.swing.JFrame {
                 txtDocumentoActionPerformed(evt);
             }
         });
-        jPanel3.add(txtDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 228, -1));
+        jPanel3.add(txtDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 220, 190, -1));
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, -1));
 
-        txtContra.setForeground(new java.awt.Color(0, 0, 0));
+        txtContra.setForeground(new java.awt.Color(153, 153, 153));
+        txtContra.setText("*******");
         txtContra.setBorder(null);
         txtContra.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 txtContraMousePressed(evt);
             }
         });
-        jPanel3.add(txtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 228, -1));
-
-        jLabel2.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("CONTRASEÑA ");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, -1, -1));
+        jPanel3.add(txtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 290, 190, -1));
 
         btnInicio.setBackground(new java.awt.Color(0, 153, 153));
         btnInicio.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
@@ -141,11 +137,6 @@ public class InicioSesion extends javax.swing.JFrame {
         jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 230, 20));
         jPanel3.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 230, -1));
 
-        jLabel5.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("CORREO ELECTRONICO");
-        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, -1, -1));
-
         lblError.setForeground(new java.awt.Color(255, 255, 255));
         lblError.setText("jLabel6");
         jPanel3.add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
@@ -173,6 +164,13 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel8.setBackground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("\"1\"");
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 220, -1, -1));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/email (1).png"))); // NOI18N
+        jLabel9.setText("jLabel9");
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 20, 30));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lock (2) (1).png"))); // NOI18N
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 30, 30));
 
         jPanel4.setBackground(new java.awt.Color(0, 153, 153));
         jPanel4.setForeground(new java.awt.Color(0, 153, 153));
@@ -207,14 +205,14 @@ public class InicioSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtDocumentoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDocumentoMousePressed
-      /*  if (txtDocumento.getText().equals("Ingrese el número de documento")) {
+        if (txtDocumento.getText().equals("Correo electrónico")) {
             txtDocumento.setText("");
             txtDocumento.setForeground(Color.black);
         }
         if (String.valueOf(txtContra.getPassword()).isEmpty()) {
             txtContra.setText("*******");
             txtContra.setForeground(Color.gray);
-        }*/
+        }
 
     }//GEN-LAST:event_txtDocumentoMousePressed
 
@@ -223,15 +221,15 @@ public class InicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDocumentoActionPerformed
 
     private void txtContraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtContraMousePressed
-      /*  if (String.valueOf(txtContra.getPassword()).equals("*******")) {
+        if (String.valueOf(txtContra.getPassword()).equals("*******")) {
             txtContra.setText("");
             txtContra.setForeground(Color.black);
 
         }
         if (txtDocumento.getText().isEmpty()) {
-            txtDocumento.setText("Ingrese el número de documento");
+            txtDocumento.setText("Correo electrónico");
             txtDocumento.setForeground(Color.gray);
-        }*/
+        }
 
     }//GEN-LAST:event_txtContraMousePressed
 
@@ -245,55 +243,37 @@ public class InicioSesion extends javax.swing.JFrame {
             String contraseña = txtContra.getText();
 
             Usuario usuario = controlador.ValidarAcceso(documento, contraseña);
-            /*Lista<Usuario> lista = controlador.validarAccesoLista(documento, contraseña);
-            if (lista.Size() == 2) {
-                if (lista.obtener(0) instanceof EmpleadoGeneral) {
 
-                    this.dispose();
-                } else if (lista.obtener(0) instanceof EmpleadoInterno) {
-                    EmpleadoInterno empleado = (EmpleadoInterno) lista.obtener(0);
-                    new ElegirManera(empleado).setVisible(true);
-                    this.dispose();
-                } else if (lista.obtener(1) instanceof EmpleadoGeneral) {
-                } else if (lista.obtener(1) instanceof EmpleadoInterno) {
-                    EmpleadoInterno empleado = (EmpleadoInterno) lista.obtener(1);
-                    new ElegirManera(empleado).setVisible(true);
-                    this.dispose();
-                } else {
-                    lblError.setText("Tu cargo no condece nigun permiso");
-                    lblError.setForeground(Color.red);
-                }
-            } else {*/
             if (usuario instanceof Administrador) {
                 Administrador admin = (Administrador) usuario;
-                new GestionAdministrador(admin).setVisible(true);
+                new AdministradorGeneral(admin).setVisible(true);
                 this.dispose();
-            } else if (usuario instanceof AdminLocal) {
-                AdminLocal admin = (AdminLocal) usuario;
-                new GestionarLocal(admin).setVisible(true);
-                this.dispose();
-            } else if (usuario instanceof EmpleadoGeneral) {
-                EmpleadoGeneral empleado = (EmpleadoGeneral) usuario;
-                if (empleado.getCargo().equalsIgnoreCase("Administrador Parqueadero")) {
-                    new VistaParqueadero(empleado).setVisible(true);
-                    this.dispose();
-                } else {
-                    lblError.setText("Tu cargo no condece nigun permiso");
-                    lblError.setForeground(Color.red);
-                }
             } else if (usuario instanceof Cliente) {
                 Cliente cliente = (Cliente) usuario;
                 new VentanaCliente(cliente).setVisible(true);
                 this.dispose();
-            } else if (usuario instanceof EmpleadoInterno) {
-                EmpleadoInterno empleado = (EmpleadoInterno) usuario;
-                if (empleado.getCargo().equalsIgnoreCase("Vendedor")) {
-                    new Vendedor(empleado).setVisible(true);
+            } else if (usuario instanceof Empleado) {
+                Empleado empleado = (Empleado) usuario;
+                if (empleado.getCargo().equalsIgnoreCase("Administrador de Local")) {
+                    Local local = controlador.retornarLocal(empleado);
+                    new GestionLocal(empleado, local).setVisible(true);
+                    this.dispose();
+                } else if (empleado.getCargo().equalsIgnoreCase("Vendedor")) {
+                    Local local = controlador.retornarLocal(empleado);
+                    new Vendedor(empleado, local).setVisible(true);
+                    this.dispose();
+                } else if (empleado.getCargo().equalsIgnoreCase("Encargado de inventario")) {
+                    Local local = controlador.retornarLocal(empleado);
+                    new Encargado(empleado, local).setVisible(true);
+                    this.dispose();
+                } else if (empleado.getCargo().equalsIgnoreCase("Administrador parqueadero")) {
+                    new VistaParqueadero(empleado).setVisible(true);
                     this.dispose();
                 } else {
-                    new Encargado(empleado).setVisible(true);
-                    this.dispose();
+                    lblError.setText("Tu cargo actual no concede ningun pemiso");
+                    lblError.setForeground(Color.red);
                 }
+
             } else {
 
                 lblError.setText("El documento o la contraseña no son correctas");
@@ -306,7 +286,7 @@ public class InicioSesion extends javax.swing.JFrame {
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
 
-        new RegistrarCliente().setVisible(true);
+        new RegistrarInicio().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
@@ -360,13 +340,13 @@ public class InicioSesion extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistrarse;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;

@@ -4,6 +4,7 @@
  */
 package vistas.administrador;
 
+import controladores.ControladorUsuario;
 import javax.swing.JOptionPane;
 import modelos.Casilla;
 
@@ -13,14 +14,17 @@ import modelos.Casilla;
  */
 public class InfoLocal extends javax.swing.JFrame {
 
-    GestionAdministrador ventana;
+    Locales ventana;
     Casilla casilla;
+    ControladorUsuario controlador;
 
-    public InfoLocal(GestionAdministrador ventana, Casilla casilla) {
+    public InfoLocal(Locales ventana, Casilla casilla) {
         initComponents();
         setLocationRelativeTo(this);
+        controlador = new ControladorUsuario();
         this.casilla = casilla;
         this.ventana = ventana;
+
     }
 
     /**
@@ -38,7 +42,7 @@ public class InfoLocal extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         btnInfo1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -53,7 +57,7 @@ public class InfoLocal extends javax.swing.JFrame {
 
         btnCance.setBackground(new java.awt.Color(0, 153, 153));
         btnCance.setForeground(new java.awt.Color(255, 255, 255));
-        btnCance.setText("MARCAR COMO DESOCUPADO");
+        btnCance.setText("ELIMINAR NEGOCIO ");
         btnCance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCanceActionPerformed(evt);
@@ -129,16 +133,34 @@ public class InfoLocal extends javax.swing.JFrame {
                 + "\nInicio de contrato : " + casilla.getLocal().getContrato().getFechaInicio()
                 + "\nFin de contrato : " + casilla.getLocal().getContrato().getFechaFinal()
                 + "\nPrecio acordado : $" + casilla.getLocal().getPrecioArriendo();
-        
+
         JOptionPane.showMessageDialog(null, mensaje);
     }//GEN-LAST:event_btnInfoActionPerformed
 
     private void btnCanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanceActionPerformed
-  
+
+        if (casilla.getEstado().equalsIgnoreCase("Desocupado")) {
+            int resultado = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar el negocio?", "ALERTA", JOptionPane.YES_NO_OPTION);
+            if (resultado == JOptionPane.YES_OPTION) {
+                ventana.getControlador().eliminarNegocio(casilla);
+                
+                ventana.validarPosiciones();
+                ventana.cargarBotones();
+                
+                String docu = casilla.getLocal().getContrato().getAdmin().getDocumento();
+                controlador.eliminarUsuario(docu);
+                this.dispose();
+            } else {
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "El local no ha sido desocupado");
+        }
+
     }//GEN-LAST:event_btnCanceActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        ventana.setVisible(true);
+
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 

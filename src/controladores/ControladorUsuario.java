@@ -4,16 +4,21 @@
  */
 package controladores;
 
+import Singleton.SingletonCC;
+import Singleton.SingletonCasillas;
 import Singleton.SingletonUsuario;
+import excepciones.AdministradorYaExisteException;
 import excepciones.CorreoExistenteException;
 import excepciones.TelefonoInvalidoException;
 import excepciones.UsuarioExistenteException;
 import java.util.ArrayList;
-import modelos.AdminLocal;
 import modelos.Administrador;
+import modelos.Casilla;
+import modelos.CentroComercial;
 import modelos.Cliente;
-import modelos.EmpleadoGeneral;
-import modelos.EmpleadoInterno;
+import modelos.Concurso;
+import modelos.Empleado;
+import modelos.Local;
 
 import modelos.Usuario;
 import util.Lista;
@@ -25,56 +30,18 @@ import util.Lista;
 public class ControladorUsuario {
 
     Lista<Usuario> usuarios;
-
-    // Administrador admin1 = new Administrador("Alejandro", "1", "313529085", "alejandro@gmail.com", "123", "Cañón", "Quimbaya", "Viudo");
-    Administrador admin1 = new Administrador("Hamilton", "2", "3135451977", "hamilton@admin.com", "123", "Lopez", "Armenia", "Masculino");
+    ControladorCasilla controlador;
+    CentroComercial cComercial;
+    Lista<Concurso> concursos;
 
     public ControladorUsuario() {
-
+        controlador = new ControladorCasilla();
         usuarios = SingletonUsuario.getINSTANCIA().getUsuarios();
-       // if (usuarios.obtener(0) == null) {
-            usuarios.add(admin1);
-        
+        cComercial = SingletonCC.getINSTANCIA().getInstancia();
+        concursos = cComercial.getConcursos();
 
-        // usuarios.add(admin2);
     }
 
-    /**
-     * Este metodo nos permite buscar un usuario
-     *
-     * @param documento es con que vamos a identificar el usuario
-     * @param contraseña es con que identificamos tambien a un usuario para que
-     * ingrese sesion
-     * @return Un usuario: AdminLocal, Empleado interno, Cliente,Administrador o
-     * EmpleadoGeneral contrario null
-     */
-    public Usuario ValidarAcceso(String correo, String contraseña) {
-        for (int i = 0; i < usuarios.Size(); i++) {
-
-            if (usuarios.obtener(i).getCorreo().equals(correo) && usuarios.obtener(i).getContrasena().equals(contraseña)) {
-
-                if (usuarios.obtener(i) instanceof AdminLocal) {
-                    AdminLocal admin = (AdminLocal) usuarios.obtener(i);
-                    return admin;
-                } else if (usuarios.obtener(i) instanceof EmpleadoInterno) {
-                    EmpleadoInterno interno = (EmpleadoInterno) usuarios.obtener(i);
-                    return interno;
-                } else if (usuarios.obtener(i) instanceof Cliente) {
-                    Cliente cliente = (Cliente) usuarios.obtener(i);
-                    return cliente;
-                } else if (usuarios.obtener(i) instanceof Administrador) {
-                    Administrador admin = (Administrador) usuarios.obtener(i);
-                    return admin;
-                } else if (usuarios.obtener(i) instanceof EmpleadoGeneral) {
-                    EmpleadoGeneral empleado = (EmpleadoGeneral) usuarios.obtener(i);
-                    return empleado;
-                }
-            }
-        }
-        return null;
-    }
-
-  
     public Usuario BuscarCliente(String documento) {
         for (int i = 0; i < usuarios.Size(); i++) {
             if (usuarios.obtener(i).getDocumento().equals(documento) && usuarios.obtener(i) instanceof Cliente) {
@@ -86,20 +53,38 @@ public class ControladorUsuario {
         return null;
     }
 
-
-   
-    public Usuario BuscarEmpleadoGeneral(String documento) {
+    public Lista<Empleado> getEmpleados() {
+        Lista<Empleado> empleados = new Lista<>();
         for (int i = 0; i < usuarios.Size(); i++) {
-            if (usuarios.obtener(i).getDocumento().equals(documento) && usuarios.obtener(i) instanceof EmpleadoGeneral) {
-                EmpleadoGeneral empleado = (EmpleadoGeneral) usuarios.obtener(i);
-                return empleado;
+            if (usuarios.obtener(i) instanceof Empleado) {
+                Empleado empleado = (Empleado) usuarios.obtener(i);
+                if (empleado.getCargo().equalsIgnoreCase("Administrador Parqueadero")
+                        || empleado.getCargo().equalsIgnoreCase("Celador")
+                        || empleado.getCargo().equalsIgnoreCase("Aseo") || empleado.getCargo().equalsIgnoreCase("Administrador de Local")) {
 
+                    empleados.add(empleado);
+                }
             }
+        }
+        return empleados;
+    }
+
+    public Empleado BuscarEmpleadoGeneral(String documento) {
+        for (int i = 0; i < usuarios.Size(); i++) {
+            if (usuarios.obtener(i) instanceof Empleado) {
+                Empleado empleado = (Empleado) usuarios.obtener(i);
+                if (empleado.getDocumento().equals(documento)  && empleado.getCargo().equalsIgnoreCase("Administrador Parqueadero")
+                        | empleado.getCargo().equalsIgnoreCase("Celador")
+                        | empleado.getCargo().equalsIgnoreCase("Aseo") | empleado.getCargo().equalsIgnoreCase("Administrador de Local")) {
+
+                    return empleado;
+
+                }
+            }
+
         }
         return null;
     }
- 
-     
 
     /**
      * Este metodo nos permite buscar a un usuario por su documento
@@ -110,30 +95,23 @@ public class ControladorUsuario {
      * contrario null
      */
     public Usuario buscarUsuario(String documento) {
-    
+
         for (int i = 0; i < usuarios.Size(); i++) {
             if (usuarios.obtener(i).getDocumento().equals(documento)) {
-                if (usuarios.obtener(i) instanceof AdminLocal) {
-                    AdminLocal doc = (AdminLocal) usuarios.obtener(i);
-                    return doc;
-                }
+
                 if (usuarios.obtener(i) instanceof Cliente) {
                     Cliente clie = (Cliente) usuarios.obtener(i);
                     return clie;
                 }
-                if (usuarios.obtener(i) instanceof EmpleadoInterno) {
-                    EmpleadoInterno emple = (EmpleadoInterno) usuarios.obtener(i);
+                if (usuarios.obtener(i) instanceof Empleado) {
+                    Empleado emple = (Empleado) usuarios.obtener(i);
                     return emple;
                 }
-
                 if (usuarios.obtener(i) instanceof Administrador) {
                     Administrador admin = (Administrador) usuarios.obtener(i);
                     return admin;
                 }
-                if (usuarios.obtener(i) instanceof EmpleadoGeneral) {
-                    EmpleadoGeneral empleado = (EmpleadoGeneral) usuarios.obtener(i);
-                    return empleado;
-                }
+
             }
         }
 
@@ -152,31 +130,46 @@ public class ControladorUsuario {
      * @throws CorreoExistenteException esta excepcion le permite al usuario dar
      * un manejo cuando ingresa mal un correo
      */
-    public boolean registrarUsuario(Usuario usuario, String adicional) throws UsuarioExistenteException, TelefonoInvalidoException, CorreoExistenteException {
+    public boolean registrarUsuario(Usuario usuario, String adicional) throws UsuarioExistenteException, TelefonoInvalidoException, CorreoExistenteException, AdministradorYaExisteException {
         Usuario aux = buscarUsuario(usuario.getDocumento());
         String x = "0123456789";
 
-        /* if (aux instanceof EmpleadoGeneral || aux instanceof EmpleadoInterno && usuario instanceof Cliente) {
-            if (usuario.getTelefono().length() != x.length()) {
-                throw new TelefonoInvalidoException();
-            } else {
-                usuarios.add(usuario);
-                SingletonUsuario.getINSTANCIA().escribirUsuarios();
-                return true;
-            }
-        }*/
         boolean validar = ValidarCorreo(usuario);
-
-        if (aux != null && aux.getCorreo().equals(adicional)) {
+        boolean local = validarAdministrador(usuario);
+        if (aux != null ) {
             throw new UsuarioExistenteException();
+        } else if (local) {
+            throw new AdministradorYaExisteException();
         } else if (validar) {
             throw new CorreoExistenteException();
-        } else if (usuario.getTelefono().length() != x.length()) {
+        } else if (usuario.getTelefono().length() < x.length() || usuario.getTelefono().length() > x.length()) {
             throw new TelefonoInvalidoException();
         } else {
             usuarios.add(usuario);
             SingletonUsuario.getINSTANCIA().escribirUsuarios();
             return true;
+        }
+    }
+
+    public boolean validarAdministrador(Usuario usuario) {
+        Casilla[][] locales = SingletonCasillas.getINSTANCIA().getLista();
+        if (usuario instanceof Empleado) {
+            Empleado empleado = (Empleado) usuario;
+            for (int i = 0; i < locales.length; i++) {
+                for (int j = 0; j < locales[i].length; j++) {
+                    Casilla casilla = controlador.obtenerCasilla(i, j);
+                    Local local = casilla.getLocal();
+                    if (local.getContrato() != null) {
+                        if (local.getContrato().getAdmin().getDocumento().equals(empleado.getDocumento())) {
+                            return true;
+                        }
+                    }
+
+                }
+            }
+            return false;
+        } else {
+            return false;
         }
     }
 
@@ -224,23 +217,6 @@ public class ControladorUsuario {
                 usuarios.obtener(i).setSexo(usuario.getSexo());
                 usuarios.obtener(i).setApellido(usuario.getApellido());
 
-                if (usuarios.obtener(i) instanceof AdminLocal) {
-                    AdminLocal admin = (AdminLocal) usuarios.obtener(i);
-
-                    SingletonUsuario.getINSTANCIA().escribirUsuarios();
-
-                    return true;
-                }
-                if (usuarios.obtener(i) instanceof EmpleadoInterno) {
-                    EmpleadoInterno empleado = (EmpleadoInterno) usuarios.obtener(i);
-                    EmpleadoInterno usuarioN = (EmpleadoInterno) usuario;
-                    empleado.setCargo(usuarioN.getCargo());
-
-                    SingletonUsuario.getINSTANCIA().escribirUsuarios();
-
-                    return true;
-                }
-
                 if (usuarios.obtener(i) instanceof Cliente) {
                     Cliente pacient = (Cliente) usuarios.obtener(i);
                     Cliente usuarioN = (Cliente) usuario;
@@ -250,9 +226,9 @@ public class ControladorUsuario {
                     return true;
 
                 }
-                if (usuarios.obtener(i) instanceof EmpleadoGeneral) {
-                    EmpleadoGeneral empleado = (EmpleadoGeneral) usuarios.obtener(i);
-                    EmpleadoGeneral usuarioN = (EmpleadoGeneral) usuario;
+                if (usuarios.obtener(i) instanceof Empleado) {
+                    Empleado empleado = (Empleado) usuarios.obtener(i);
+                    Empleado usuarioN = (Empleado) usuario;
                     empleado.setCargo(usuarioN.getCargo());
                     SingletonUsuario.getINSTANCIA().escribirUsuarios();
                     return true;

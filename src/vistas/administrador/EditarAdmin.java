@@ -7,10 +7,10 @@ package vistas.administrador;
 import ValidarCampos.ValidarCampos;
 import controladores.ControladorUsuario;
 import javax.swing.JOptionPane;
-import modelos.AdminLocal;
 import modelos.Administrador;
 import modelos.Casilla;
 import modelos.Cliente;
+import modelos.Empleado;
 import modelos.Usuario;
 
 /**
@@ -29,7 +29,7 @@ public class EditarAdmin extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         this.info = info;
         this.casilla = casilla;
-        AdminLocal admin = casilla.getLocal().getContrato().getAdmin();
+        Empleado admin = casilla.getLocal().getContrato().getAdmin();
         controlador = new ControladorUsuario();
         llenar(admin);
         txtDocumento.setEditable(false);
@@ -316,9 +316,10 @@ public class EditarAdmin extends javax.swing.JFrame {
 
             String apellido = txtApellido.getText();
             String direccion = txtDireccion.getText();
-
-            Usuario cliente = new Cliente(nombre, documento, telefono, correo, contraseña, apellido, direccion, sexo);
-            boolean es = controlador.editarUsuario(cliente);
+             String cargo = "Administrador de Local";
+            
+            Usuario admin = new Empleado(nombre, documento, telefono, correo, contraseña, apellido, direccion, sexo,cargo);
+            boolean es = controlador.editarUsuario(admin);
             if (es) {
                 JOptionPane.showMessageDialog(null, "El administrador se ha editado con éxito");
             } else {
@@ -332,7 +333,7 @@ public class EditarAdmin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    public void llenar(AdminLocal admin) {
+    public void llenar(Empleado admin) {
 
         txtApellido.setText(admin.getApellido());
         txtContra.setText(admin.getContrasena());

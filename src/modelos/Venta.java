@@ -12,9 +12,52 @@ import java.util.List;
  *
  * @author Asus
  */
-public class Venta implements Serializable{
-    private List<Producto> productos;
+public class Venta implements Serializable {
+
     private Cliente cliente;
     private Date fechaVenta;
-    private double totalCompra;
+    private int  totalCompra;
+    private Compra compra;
+
+    public Venta(Cliente cliente, Date fechaVenta, int totalCompra, Compra compra) {
+        this.cliente = cliente;
+        this.fechaVenta = fechaVenta;
+        this.totalCompra = totalCompra;
+        this.compra = compra;
+    }
+    
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Date getFechaVenta() {
+        return fechaVenta;
+    }
+
+    public void setFechaVenta(Date fechaVenta) {
+        this.fechaVenta = fechaVenta;
+    }
+
+    public int getTotalCompra() {
+        return totalCompra;
+    }
+
+    public void setTotalCompra(int totalCompra) {
+        this.totalCompra = totalCompra;
+    }
+
+    public Compra getCompra() {
+        return compra;
+    }
+
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
+    
+
 }

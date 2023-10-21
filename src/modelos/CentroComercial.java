@@ -6,20 +6,27 @@ package modelos;
 
 import java.io.Serializable;
 import util.Lista;
+import util.Queue;
 
 /**
  *
  * @author Asus
  */
-public class CentroComercial implements Serializable{
-    
+public class CentroComercial implements Serializable {
+
     Lista<Producto> productos;
+    Lista<Concurso> concursos;
+    Lista<SolicitudMantenimiento> nuevo;
+    Queue<SolicitudMantenimiento> solicitudes;
 
     public CentroComercial() {
-        if(productos==null){
-            productos = new Lista<>();
-        }
-       
+        nuevo = new Lista<>();
+        productos = new Lista<>();
+
+        concursos = new Lista<>();
+
+        solicitudes = new Queue<>();
+
     }
 
     public Lista<Producto> getProductos() {
@@ -29,6 +36,30 @@ public class CentroComercial implements Serializable{
     public void setProductos(Lista<Producto> productos) {
         this.productos = productos;
     }
+
+    public Lista<Concurso> getConcursos() {
+        return concursos;
+    }
+
+    public void setConcursos(Lista<Concurso> concursos) {
+        this.concursos = concursos;
+    }
+
+    public Queue<SolicitudMantenimiento> getSolicitudes() {
+        return solicitudes;
+    }
+
+    public void setSolicitudes(Queue<SolicitudMantenimiento> solicitudes) {
+        this.solicitudes = solicitudes;
+    }
+
+    public Lista<SolicitudMantenimiento> getNuevo() {
+        return nuevo;
+    }
+
+    public void setNuevo(Lista<SolicitudMantenimiento> nuevo) {
+        this.nuevo = nuevo;
+    }
     
-    
+
 }

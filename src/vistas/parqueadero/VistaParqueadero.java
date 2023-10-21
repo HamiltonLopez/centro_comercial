@@ -5,12 +5,17 @@
 package vistas.parqueadero;
 
 import controladores.ControladorParking;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import modelos.Casilla;
-import modelos.EmpleadoGeneral;
+import modelos.Empleado;
 import vistas.InicioSesion;
 import vistas.administrador.InfoLocal;
 import vistas.administrador.VistaLocal;
@@ -19,21 +24,41 @@ import vistas.administrador.VistaLocal;
  *
  * @author Asus
  */
-public class VistaParqueadero extends javax.swing.JFrame implements ActionListener {
+public class VistaParqueadero extends javax.swing.JFrame {
 
     JButton[][] botones;
-    ControladorParking controlador;
-    EmpleadoGeneral empleado;
+   ControladorParking controlador;
+    Empleado empleado;
 
-    public VistaParqueadero(EmpleadoGeneral empleado) {
+    public VistaParqueadero(Empleado empleado) {
         botones = new JButton[7][15];
         initComponents();
         this.setLocationRelativeTo(this);
+        controlador = new ControladorParking();
         this.empleado = empleado;
         lblNombre.setText(empleado.getNombre() + " " + empleado.getApellido());
-        controlador = new ControladorParking();
-        cargarBotones();
-        validarPosiciones();
+        txtFecha.setText(String.valueOf(fechaActual()));
+        if(controlador.getVehiculos().Size()<=50){
+            bntEntrar.setVisible(false);
+        }else{
+             bntEntrar.setVisible(true);
+        }
+
+    }
+    public void showPanel(JPanel panel) {
+        panel.setSize(1012, 636);
+        panel.setLocation(0, 0);
+        content.removeAll();
+        content.add(panel, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
+
+    }
+     public static Date fechaActual() {
+        Date fecha = new Date();
+        
+        return fecha;
+
     }
 
     /**
@@ -45,242 +70,118 @@ public class VistaParqueadero extends javax.swing.JFrame implements ActionListen
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pestañas = new javax.swing.JTabbedPane();
-        panelPisoUno = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel63 = new javax.swing.JLabel();
-        txtNombre5 = new javax.swing.JTextField();
-        btnRegistrar5 = new javax.swing.JButton();
-        jPanel16 = new javax.swing.JPanel();
-        btnBuscar4 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaClientes = new javax.swing.JTable();
-        jLabel74 = new javax.swing.JLabel();
-        jSeparator21 = new javax.swing.JSeparator();
-        jPanel6 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        btnRegresar1 = new javax.swing.JButton();
+        btnEstacionamientos = new javax.swing.JButton();
+        btnVehiculos = new javax.swing.JButton();
+        btnVehiculos1 = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        lblNombreLocal = new javax.swing.JLabel();
+        txtFecha = new javax.swing.JTextField();
+        bntEntrar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        lblNombreLocal = new javax.swing.JLabel();
+        btnRegresar1 = new javax.swing.JButton();
+        content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        pestañas.setBackground(new java.awt.Color(255, 255, 0));
-        pestañas.setForeground(new java.awt.Color(0, 0, 0));
-
-        panelPisoUno.setBackground(new java.awt.Color(102, 102, 102));
-
-        javax.swing.GroupLayout panelPisoUnoLayout = new javax.swing.GroupLayout(panelPisoUno);
-        panelPisoUno.setLayout(panelPisoUnoLayout);
-        panelPisoUnoLayout.setHorizontalGroup(
-            panelPisoUnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1038, Short.MAX_VALUE)
-        );
-        panelPisoUnoLayout.setVerticalGroup(
-            panelPisoUnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 699, Short.MAX_VALUE)
-        );
-
-        pestañas.addTab("ESTACIONAMIETOS", panelPisoUno);
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel63.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        jLabel63.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel63.setText("PLACA");
-
-        txtNombre5.setBorder(null);
-        txtNombre5.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNombre5KeyTyped(evt);
-            }
-        });
-
-        btnRegistrar5.setBackground(new java.awt.Color(0, 153, 153));
-        btnRegistrar5.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrar5.setText("REGISTRAR");
-        btnRegistrar5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrar5ActionPerformed(evt);
-            }
-        });
-
-        jPanel16.setBackground(new java.awt.Color(0, 153, 153));
-
-        btnBuscar4.setBackground(new java.awt.Color(255, 255, 255));
-        btnBuscar4.setForeground(new java.awt.Color(0, 0, 0));
-        btnBuscar4.setText("BUSCAR");
-        btnBuscar4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscar4ActionPerformed(evt);
-            }
-        });
-
-        tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tablaClientes);
-
-        jLabel74.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel74.setText("VEHICULOS REGISTRADOS");
-
-        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
-        jPanel16.setLayout(jPanel16Layout);
-        jPanel16Layout.setHorizontalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                .addGap(0, 202, Short.MAX_VALUE)
-                .addComponent(btnBuscar4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(195, 195, 195))
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addGap(160, 160, 160)
-                        .addComponent(jLabel74, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        jPanel16Layout.setVerticalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel74)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(94, 94, 94)
-                .addComponent(btnBuscar4)
-                .addContainerGap(151, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(188, 188, 188)
-                        .addComponent(btnRegistrar5, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addGap(55, 55, 55)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtNombre5, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel4Layout.createSequentialGroup()
-                                    .addGap(10, 10, 10)
-                                    .addComponent(jLabel63))))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                            .addGap(43, 43, 43)
-                            .addComponent(jSeparator21, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
-                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(jLabel63)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNombre5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(jSeparator21, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(255, 255, 255)
-                .addComponent(btnRegistrar5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(141, 141, 141))
-        );
-
-        pestañas.addTab("GENERAR SALIDA", jPanel3);
-
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(448, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(169, Short.MAX_VALUE))
-        );
-
-        pestañas.addTab("VEHICULOS EN COLA", jPanel6);
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 153));
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnRegresar1.setBackground(new java.awt.Color(204, 0, 51));
-        btnRegresar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegresar1.setText("CERRAR SESIÓN");
-        btnRegresar1.addActionListener(new java.awt.event.ActionListener() {
+        btnEstacionamientos.setBackground(new java.awt.Color(0, 153, 153));
+        btnEstacionamientos.setForeground(new java.awt.Color(255, 255, 255));
+        btnEstacionamientos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/aparcamiento (1).png"))); // NOI18N
+        btnEstacionamientos.setText("ESTACIONAMIENTOS");
+        btnEstacionamientos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnEstacionamientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresar1ActionPerformed(evt);
+                btnEstacionamientosActionPerformed(evt);
             }
         });
-        jPanel2.add(btnRegresar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        jPanel2.add(btnEstacionamientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 180, 40));
+
+        btnVehiculos.setBackground(new java.awt.Color(0, 153, 153));
+        btnVehiculos.setForeground(new java.awt.Color(255, 255, 255));
+        btnVehiculos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/coche (2).png"))); // NOI18N
+        btnVehiculos.setText("GESTIONAR");
+        btnVehiculos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnVehiculos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVehiculosActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnVehiculos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 180, 40));
+
+        btnVehiculos1.setBackground(new java.awt.Color(0, 153, 153));
+        btnVehiculos1.setForeground(new java.awt.Color(255, 255, 255));
+        btnVehiculos1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/coche (2).png"))); // NOI18N
+        btnVehiculos1.setText("AUTO EN ESPERA");
+        btnVehiculos1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnVehiculos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVehiculos1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnVehiculos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 180, 40));
+
+        jPanel5.setBackground(new java.awt.Color(0, 153, 153));
+
+        lblNombreLocal.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
+        lblNombreLocal.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombreLocal.setText("PARQUEADERO");
+
+        txtFecha.setBackground(new java.awt.Color(0, 153, 153));
+        txtFecha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtFecha.setForeground(new java.awt.Color(255, 255, 255));
+        txtFecha.setText("jTextField1");
+        txtFecha.setBorder(null);
+        txtFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFechaActionPerformed(evt);
+            }
+        });
+
+        bntEntrar.setBackground(new java.awt.Color(255, 255, 255));
+        bntEntrar.setForeground(new java.awt.Color(0, 0, 0));
+        bntEntrar.setText("ENTRAR");
+        bntEntrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntEntrarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(bntEntrar)
+                .addGap(256, 256, 256)
+                .addComponent(lblNombreLocal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblNombreLocal)
+                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(bntEntrar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -291,45 +192,43 @@ public class VistaParqueadero extends javax.swing.JFrame implements ActionListen
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/administrador/punto verde.jpg"))); // NOI18N
         jLabel2.setText("Conectado");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 90, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 90, -1));
 
         lblNombre.setForeground(new java.awt.Color(0, 0, 0));
         lblNombre.setText("Name");
-        jPanel1.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
+        jPanel1.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
 
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/cliente/74472 (1).png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, 115));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/perfil (1).png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, 115));
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 33, -1, -1));
 
         jLabel4.setBackground(new java.awt.Color(0, 204, 204));
         jLabel4.setForeground(new java.awt.Color(153, 0, 153));
         jLabel4.setText("ENC. PARQUEADERO");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 180, 220));
+        btnRegresar1.setBackground(new java.awt.Color(204, 0, 51));
+        btnRegresar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegresar1.setText("CERRAR SESIÓN");
+        btnRegresar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresar1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRegresar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jPanel5.setBackground(new java.awt.Color(0, 153, 153));
+        content.setBackground(new java.awt.Color(255, 255, 255));
 
-        lblNombreLocal.setFont(new java.awt.Font("Segoe UI Black", 0, 48)); // NOI18N
-        lblNombreLocal.setForeground(new java.awt.Color(255, 255, 255));
-        lblNombreLocal.setText("PARQUEADERO");
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(303, 303, 303)
-                .addComponent(lblNombreLocal)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
+        content.setLayout(contentLayout);
+        contentLayout.setHorizontalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblNombreLocal)
-                .addContainerGap(18, Short.MAX_VALUE))
+        contentLayout.setVerticalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -337,19 +236,24 @@ public class VistaParqueadero extends javax.swing.JFrame implements ActionListen
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pestañas, javax.swing.GroupLayout.PREFERRED_SIZE, 1038, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pestañas, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE))
         );
 
         pack();
@@ -361,164 +265,55 @@ public class VistaParqueadero extends javax.swing.JFrame implements ActionListen
         this.dispose();
     }//GEN-LAST:event_btnRegresar1ActionPerformed
 
-    private void btnRegistrar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrar5ActionPerformed
-        /*if (txtNombre5.getText().isEmpty() || txtDocumento5.getText().isEmpty() || txtTelefono5.getText().isEmpty() || comboSexo5.getSelectedIndex() == 0) {
+    private void btnEstacionamientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstacionamientosActionPerformed
+       Estacionamientos esta = new Estacionamientos();
+        showPanel(esta);
+    }//GEN-LAST:event_btnEstacionamientosActionPerformed
 
-            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
+    private void btnVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVehiculosActionPerformed
+       GestionarVehiculos gestionar = new GestionarVehiculos();
+        showPanel(gestionar);
+    }//GEN-LAST:event_btnVehiculosActionPerformed
 
-        } else {
-            String nombre = txtNombre5.getText();
-            String documento = txtDocumento5.getText();
-            String telefono = txtTelefono5.getText();
-            String correo = txtCorreo5.getText();
-            String contraseña = txtContra5.getText();
-            String sexo = comboSexo5.getSelectedItem().toString();
-            String apellido = txtApellido5.getText();
-            String direccion = txtDireccion5.getText();
+    private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaActionPerformed
 
-            Usuario cliente = new Cliente(nombre, documento, telefono, correo, contraseña, apellido, direccion, sexo);
+    private void btnVehiculos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVehiculos1ActionPerformed
+     VehiculoEnCola vehi = new VehiculoEnCola();
+        showPanel(vehi);
+    }//GEN-LAST:event_btnVehiculos1ActionPerformed
 
-            try {
-                controladorU.registrarUsuario(cliente);
-                JOptionPane.showMessageDialog(null, "El cliente " + cliente.getNombre() + " se ha registrado con éxito");
-                limpiar();
+    private void bntEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntEntrarActionPerformed
+        new AsignarVehiculo().setVisible(true);
+    }//GEN-LAST:event_bntEntrarActionPerformed
 
-            } catch (UsuarioExistenteException | TelefonoInvalidoException | CorreoExistenteException ex) {
-                ex.getMessage();
-            }
-        }*/
-    }//GEN-LAST:event_btnRegistrar5ActionPerformed
-
-    private void txtNombre5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre5KeyTyped
-        //   new ValidarCampos().validarLetras(evt);
-    }//GEN-LAST:event_txtNombre5KeyTyped
-
-    private void btnBuscar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar4ActionPerformed
-        /* if (txtDocuEliminar.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Ingrese el número de documento del cliente.\nIntente nuevamente");
-        } else {
-            String buscado = txtDocuEliminar.getText();
-
-            Cliente busc = (Cliente) controladorU.buscarUsuario(buscado);
-            if (busc != null) {
-
-                btnEditar5.setVisible(true);
-                btnEliminar5.setVisible(true);
-                txtDocumento5.setText(busc.getDocumento());
-                txtNombre5.setText(busc.getNombre());
-                txtTelefono5.setText(busc.getTelefono());
-                txtCorreo5.setText(busc.getCorreo());
-                txtDireccion5.setText(busc.getDireccion());
-                txtContra5.setText(busc.getContrasena());
-                txtApellido5.setText(busc.getApellido());
-                comboSexo5.setSelectedItem(busc.getSexo());
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró el usuario.\nIntente nuevamente.");
-            }*/
-    }//GEN-LAST:event_btnBuscar4ActionPerformed
-    public void validarPosiciones() {
-        for (int i = 0; i < botones.length; i++) {
-            for (int j = 0; j < botones[i].length; j++) {
-                Casilla casilla = controlador.obtenerCasilla(i, j);
-                if (casilla.getEstado().equals(Casilla.DISPONIBLE)) {
-                    botones[i][j].setBackground(Color.green);
-                    botones[i][j].setForeground(Color.black);
-                } else {
-                    botones[i][j].setBackground(Color.red);
-                }
-
-            }
-
-        }
-
-    }
-
-    public void cargarBotones() {
-        int ancho = 60;
-        int alto = 80;
-        int separado = 30;
-
-        int num = 1;
-        char texto = 'A';
-        for (int i = 0; i < botones.length; i++) {
-
-            for (int j = 0; j < botones[i].length; j++) {
-                if (i == 1 || i == 3 || i == 5 || (i == 2 && j == 0) || (i == 2 && j == 14) || (i == 4 && j == 0) || (i == 4 && j == 14) || (i == 6 && j <= 2) || (i == 6 && j >= 12)) {
-                    botones[i][j] = new JButton();
-                } else {
-                    botones[i][j] = new JButton();
-                    botones[i][j].setBounds((j * ancho + separado), (i * alto + separado), ancho, alto);
-                    botones[i][j].setText(String.valueOf("P" + num));
-                    botones[i][j].setForeground(Color.white);
-                    botones[i][j].addActionListener(this);
-                    panelPisoUno.add(botones[i][j]);
-
-                    num++;
-                }
-
-            }
-
-        }
-
-    }
-
+    
     /**
      * @param args the command line arguments
      */
-    public ControladorParking getControlador() {
-        return controlador;
-    }
+
+    
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar4;
-    private javax.swing.JButton btnRegistrar5;
+    private javax.swing.JButton bntEntrar;
+    private javax.swing.JButton btnEstacionamientos;
     private javax.swing.JButton btnRegresar1;
+    private javax.swing.JButton btnVehiculos;
+    private javax.swing.JButton btnVehiculos1;
+    private javax.swing.JPanel content;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel63;
-    private javax.swing.JLabel jLabel74;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator21;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblNombreLocal;
-    private javax.swing.JPanel panelPisoUno;
-    private javax.swing.JTabbedPane pestañas;
-    private javax.swing.JTable tablaClientes;
-    private javax.swing.JTextField txtNombre5;
+    private javax.swing.JTextField txtFecha;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-         for (int i = 0; i < botones.length; i++) {
-            for (int j = 0; j < botones[i].length; j++) {
-                if (e.getSource().equals(botones[i][j])) {
-                    Casilla casilla = controlador.obtenerCasilla(i, j);
-                    if (casilla.getEstado().equals(Casilla.DISPONIBLE)) {
-                       AsignarPuesto vista = new AsignarPuesto(this, i, j);
-                        vista.setVisible(true);
-                        this.dispose();
-                    }else{
-                        
-                       /* InfoLocal ventana = new InfoLocal(this, casilla);
-                        this.dispose();
-                        ventana.setVisible(true);*/
-                    }
-                }
-            }
-
-        }
-    }
 }

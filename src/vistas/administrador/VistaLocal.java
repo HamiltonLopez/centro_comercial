@@ -7,6 +7,7 @@ package vistas.administrador;
 import ValidarCampos.ValidarCampos;
 import controladores.ControladorCasilla;
 import controladores.ControladorUsuario;
+import excepciones.AdministradorYaExisteException;
 import excepciones.CorreoExistenteException;
 import excepciones.TelefonoInvalidoException;
 import excepciones.UsuarioExistenteException;
@@ -14,9 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
-import modelos.AdminLocal;
 import modelos.Casilla;
 import modelos.Contrato;
+import modelos.Empleado;
 import modelos.Local;
 import modelos.Usuario;
 
@@ -28,15 +29,15 @@ public class VistaLocal extends javax.swing.JFrame {
 
     private int fila;
     private int columna;
-    private GestionAdministrador ventana;
+    private Locales ventana;
     private ControladorCasilla controlador;
     private ControladorUsuario controladorU;
 
-    public VistaLocal(GestionAdministrador ventana, int fila, int columna) {
+    public VistaLocal(Locales ventana, int fila, int columna) {
         initComponents();
         setLocationRelativeTo(this);
         this.ventana = ventana;
-        controlador = ventana.controlador;
+        controlador = ventana.getControlador();
         Casilla casilla = controlador.obtenerCasilla(fila, columna);
         panelAsignar.setVisible(false);
         controladorU = new ControladorUsuario();
@@ -102,7 +103,7 @@ public class VistaLocal extends javax.swing.JFrame {
         txtCorrAdicional = new javax.swing.JTextField();
         jSeparator9 = new javax.swing.JSeparator();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -173,7 +174,7 @@ public class VistaLocal extends javax.swing.JFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jButton2)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         panelAsignar.setBackground(new java.awt.Color(255, 255, 255));
@@ -297,7 +298,7 @@ public class VistaLocal extends javax.swing.JFrame {
                 btnRegistrarActionPerformed(evt);
             }
         });
-        panelAsignar.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 360, 171, -1));
+        panelAsignar.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 400, 171, -1));
         panelAsignar.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 92, 196, 10));
         panelAsignar.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 148, 196, 10));
         panelAsignar.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(268, 148, 195, 10));
@@ -381,7 +382,7 @@ public class VistaLocal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelAsignar, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE))
+                .addComponent(panelAsignar, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE))
         );
 
         pack();
@@ -420,48 +421,43 @@ public class VistaLocal extends javax.swing.JFrame {
 
         if (txtNombre.getText().isEmpty() || txtDocumento.getText().isEmpty()
                 || txtCorreo.getText().isEmpty() || txtTelefono.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtContra.getText().isEmpty() || txtNombreLocal.getText().isEmpty()
-                || comboSexo.getSelectedIndex() == 0 || txtApellido.getText().isEmpty() || chooser.isValid()|| chooserFinal.isValid()) {
+                || comboSexo.getSelectedIndex() == 0 || txtApellido.getText().isEmpty() || chooser.getDate()==null || chooserFinal.getDate() ==null) {
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
 
         } else {
 
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/YYYY");
             String nombreLocal = txtNombreLocal.getText();
             String nombre = txtNombre.getText();
             String documento = txtDocumento.getText();
             String telefono = txtTelefono.getText();
             Date inicio = chooser.getDate();
             Date fin = chooserFinal.getDate();
-            String correo = txtCorreo.getText() + txtCorrAdicional.getText();;
+            String correo = txtCorreo.getText() + txtCorrAdicional.getText();
             String contraseña = txtContra.getText();
             String sexo = comboSexo.getSelectedItem().toString();
             Date fechaInicio = new Date(inicio.getYear(), inicio.getMonth(), inicio.getDay());
             Date fechaFinal = new Date(fin.getYear(), fin.getMonth(), fin.getDay());
-
+            String cargo = "Administrador de Local";
             String apellido = txtApellido.getText();
             String direccion = txtDireccion.getText();
             String adicional = txtCorrAdicional.getText();
-            Usuario admin1 = new AdminLocal(nombre, documento, telefono, correo, contraseña, apellido, direccion, sexo);
-            AdminLocal admin = (AdminLocal) admin1;
+            Usuario admin1 = new Empleado(nombre, documento, telefono, correo, contraseña, apellido, direccion, sexo, cargo);
+            Empleado admin = (Empleado) admin1;
             Contrato contrato = new Contrato(nombre, admin, fechaInicio, fechaFinal);
             Local local = new Local(nombreLocal, contrato);
-            admin.setLocal(local);
+
             try {
-                controlador.agregarLocal(local, fila, columna);
                 controladorU.registrarUsuario(admin1, adicional);
+                controlador.agregarLocal(local, fila, columna);
+                
                 JOptionPane.showMessageDialog(null, "El local" + nombreLocal + " se ha registrado con éxito");
                 limpiar();
                 ventana.validarPosiciones();
                 ventana.setVisible(true);
                 this.dispose();
-            } catch (UsuarioExistenteException ex) {
+            } catch (UsuarioExistenteException | AdministradorYaExisteException | TelefonoInvalidoException | CorreoExistenteException ex) {
 
                 ex.getMessage();
-            } catch (TelefonoInvalidoException ex) {
-                ex.getMessage();
-            } catch (CorreoExistenteException ex) {
-                ex.getMessage();
-
             }
 
         }

@@ -4,12 +4,15 @@
  */
 package vistas.parqueadero;
 
+import excepciones.PlacaYaRegistradaException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import modelos.Casilla;
 import modelos.Puesto;
 import modelos.Vehiculo;
+import util.Pila;
 
 /**
  *
@@ -17,17 +20,21 @@ import modelos.Vehiculo;
  */
 public class AsignarPuesto extends javax.swing.JFrame {
 
-    VistaParqueadero ventana;
+    Estacionamientos ventana;
     private int fila;
     private int columna;
+    Pila<Vehiculo> pilaZ;
+    Pila<Vehiculo> pilaY;
 
-    public AsignarPuesto(VistaParqueadero ventana, int fila, int columna) {
+    public AsignarPuesto(Estacionamientos ventana, int fila, int columna) {
         initComponents();
         setLocationRelativeTo(this);
         this.ventana = ventana;
         this.columna = columna;
         this.fila = fila;
-        
+        pilaZ = new Pila<>();
+        pilaY = new Pila<>();
+
         iniciarHora();
         txtHora.setEditable(false);
     }
@@ -64,8 +71,9 @@ public class AsignarPuesto extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         label1 = new javax.swing.JLabel();
         label2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         panel.setBackground(new java.awt.Color(255, 255, 255));
         panel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ASIGNACIÓN DE PUESTO", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
@@ -77,6 +85,8 @@ public class AsignarPuesto extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("NUMERO DE PLACA :");
 
+        txtHora.setBackground(new java.awt.Color(255, 255, 255));
+        txtHora.setForeground(new java.awt.Color(0, 0, 0));
         txtHora.setBorder(null);
 
         txtPlaca.setBorder(null);
@@ -90,7 +100,7 @@ public class AsignarPuesto extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 102, 102));
+        jButton1.setBackground(new java.awt.Color(204, 0, 0));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("CANCELAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -113,6 +123,13 @@ public class AsignarPuesto extends javax.swing.JFrame {
         label2.setForeground(new java.awt.Color(255, 0, 0));
         label2.setText("*");
 
+        jButton2.setText("CONTROL Z");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
@@ -120,36 +137,43 @@ public class AsignarPuesto extends javax.swing.JFrame {
             .addGroup(panelLayout.createSequentialGroup()
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton1))
-                    .addGroup(panelLayout.createSequentialGroup()
                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                            .addGroup(panelLayout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jLabel2))
+                                .addComponent(jButton1))
                             .addGroup(panelLayout.createSequentialGroup()
-                                .addGap(56, 56, 56)
                                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel1))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelLayout.createSequentialGroup()
-                                .addComponent(label1)
-                                .addGap(17, 17, 17)
-                                .addComponent(jLabel5))
-                            .addComponent(label2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSeparator1)
-                            .addComponent(txtHora)
-                            .addComponent(txtPlaca)
-                            .addComponent(comboTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jSeparator2)))
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addGap(132, 132, 132)
-                        .addComponent(btnGuardar)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(jLabel2))
+                                    .addGroup(panelLayout.createSequentialGroup()
+                                        .addGap(56, 56, 56)
+                                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel1))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelLayout.createSequentialGroup()
+                                        .addComponent(label1)
+                                        .addGap(17, 17, 17)
+                                        .addComponent(jLabel5))
+                                    .addComponent(label2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jSeparator1)
+                                    .addComponent(txtHora)
+                                    .addComponent(txtPlaca)
+                                    .addComponent(comboTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jSeparator2))))
+                        .addGap(0, 27, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton2)))
+                .addContainerGap())
+            .addGroup(panelLayout.createSequentialGroup()
+                .addGap(125, 125, 125)
+                .addComponent(btnGuardar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,9 +201,11 @@ public class AsignarPuesto extends javax.swing.JFrame {
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(btnGuardar)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -197,7 +223,7 @@ public class AsignarPuesto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        if (txtHora.getText().isEmpty() || txtPlaca.getText().isEmpty()) {
+        if (txtHora.getText().isEmpty() || txtPlaca.getText().isEmpty() || comboTipo.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Complete todos los campos");
             label1.setVisible(true);
             label2.setVisible(true);
@@ -210,11 +236,18 @@ public class AsignarPuesto extends javax.swing.JFrame {
             Vehiculo vehiculo = new Vehiculo(tipoVehiculo, placa, fecha);
             Puesto puesto = new Puesto(vehiculo);
 
-            ventana.getControlador().agregarPuesto(puesto, fila, columna);
-            JOptionPane.showMessageDialog(null, "Puesto asignado correctamente");
-            ventana.validarPosiciones();
-            ventana.setVisible(true);
-            this.dispose();
+            try {
+                ventana.getControlador().agregarPuesto(puesto, fila, columna);
+                JOptionPane.showMessageDialog(null, "Puesto asignado correctamente");
+                ventana.validarPosiciones();
+                pilaZ.push(vehiculo);
+                //  ventana.setVisible(true);
+                
+              
+            } catch (PlacaYaRegistradaException ex) {
+                ex.getMessage();
+            }
+
         }
 
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -224,15 +257,23 @@ public class AsignarPuesto extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Vehiculo vehi = pilaZ.pop();
+       
+        ventana.getControlador().registrarSalida(vehi.getPlaca());
+        ventana.validarPosiciones();
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

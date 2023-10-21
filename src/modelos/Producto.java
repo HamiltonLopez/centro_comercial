@@ -20,8 +20,9 @@ public class Producto implements Serializable {
     private int precio;
     private String pesoBruto;
     private String marca;
+    private int descuento;
 
-    public Producto(String nombreProducto, String identificador, String categoria, int precio, String pesoNeto, int cantBodega, String marca) {
+    public Producto(String nombreProducto, String identificador, String categoria, int precio, String pesoNeto, int cantBodega, String marca, int descuento) {
         this.nombreProducto = nombreProducto;
         this.identificador = identificador;
         this.categoria = categoria;
@@ -29,7 +30,17 @@ public class Producto implements Serializable {
         this.pesoBruto = pesoNeto;
         this.cantBodega = cantBodega;
         this.marca = marca;
+        this.descuento = descuento;
     }
+
+    public int getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(int descuento) {
+        this.descuento = descuento;
+    }
+    
 
     public String getNombreProducto() {
         return nombreProducto;
@@ -86,5 +97,14 @@ public class Producto implements Serializable {
     public void setMarca(String marca) {
         this.marca = marca;
     }
+
+  
+    public static Producto clone(Producto producto)  {
+        return new Producto(producto.getNombreProducto(), producto.getIdentificador(), producto.getCategoria(), producto.getPrecio(), producto.getPesoBruto(), producto.getCantBodega(), producto.getMarca(),producto.getDescuento());
+    }
+
+   
+    
+    
 
 }

@@ -40,9 +40,7 @@ public class Lista<T> implements Serializable{
     }
 
     public T obtener(int index)throws ListaVaciaException {
-        if (primero == null) {
-          
-                    
+        if (primero == null) {            
             throw new ListaVaciaException();
         } else {
           

@@ -8,24 +8,34 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Vehiculo implements Serializable {
+
     private String tipo;
-  
     private String placa;
     private Date horaEntrada;
     private Date horaSalida;
-    private double precio;
+    private double precioTarifa;
+    private double total;
+    private int horasTotales;
 
     public Vehiculo(String tipo, String placa, Date horaEntrada) {
         this.tipo = tipo;
-       
         this.placa = placa;
         this.horaEntrada = horaEntrada;
-        horaSalida =null;
+        horaSalida = null;
     }
 
     public String getTipo() {
         return tipo;
     }
+
+    public int getHorasTotales() {
+        return horasTotales;
+    }
+
+    public void setHorasTotales(int horasTotales) {
+        this.horasTotales = horasTotales;
+    }
+    
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
@@ -55,14 +65,20 @@ public class Vehiculo implements Serializable {
         this.horaSalida = horaSalida;
     }
 
-    public double getPrecio() {
-        return precio;
+    public double getPrecioTarifa() {
+        return precioTarifa;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setPrecioTarifa(double precio) {
+        this.precioTarifa = precio;
     }
-    
-    
-    
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
 }

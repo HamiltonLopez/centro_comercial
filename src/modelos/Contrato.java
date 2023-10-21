@@ -13,11 +13,11 @@ import java.util.Date;
  */
 public class Contrato implements Serializable{
       
-    private AdminLocal admin;
+    private Empleado admin;
     private Date fechaInicio;
     private Date fechaFinal;
 
-    public Contrato(String nombre, AdminLocal admin, Date fechaInicio, Date fechaFinal) {
+    public Contrato(String nombre, Empleado admin, Date fechaInicio, Date fechaFinal) {
       
         this.admin = admin;
         this.fechaInicio = fechaInicio;
@@ -25,11 +25,11 @@ public class Contrato implements Serializable{
     }
 
     
-    public AdminLocal getAdmin() {
+    public Empleado getAdmin() {
         return admin;
     }
 
-    public void setAdmin(AdminLocal admin) {
+    public void setAdmin(Empleado admin) {
         this.admin = admin;
     }
 

@@ -12,8 +12,9 @@ import java.io.Serializable;
  */
 public class Casilla implements Serializable {
 
-    public static final String DISPONIBLE = " Disponible ";
-    public static final String OCUPADO = " Ocupado ";
+    public static final String DISPONIBLE = "Disponible";
+    public static final String OCUPADO = "Ocupado";
+    public static final String DESOCUPADO = "Desocupado";
 
     private String estado;
     private Local local;
@@ -46,7 +47,5 @@ public class Casilla implements Serializable {
     public void setPuesto(Puesto puesto) {
         this.puesto = puesto;
     }
-    
-    
-    
+
 }

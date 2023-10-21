@@ -12,7 +12,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import modelos.CentroComercial;
 
-import util.Cola;
 
 /**
  *
