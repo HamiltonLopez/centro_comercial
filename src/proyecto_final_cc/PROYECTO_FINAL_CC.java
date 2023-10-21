@@ -7,6 +7,7 @@ package proyecto_final_cc;
 import exepciones.ListaVaciaException;
 import modelos.Usuario;
 import util.Lista;
+import vistas.Inicio;
 import vistas.InicioSesion;
 
 /**
@@ -19,7 +20,7 @@ public class PROYECTO_FINAL_CC {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        InicioSesion inicio = new InicioSesion();
+        Inicio inicio = new Inicio();
         inicio.setVisible(true);
     }
     

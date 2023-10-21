@@ -17,6 +17,7 @@ public class Casilla implements Serializable {
 
     private String estado;
     private Local local;
+    private Puesto puesto;
 
     public Casilla() {
         this.estado = DISPONIBLE;
@@ -37,6 +38,15 @@ public class Casilla implements Serializable {
     public void setLocal(Local local) {
         this.local = local;
     }
+
+    public Puesto getPuesto() {
+        return puesto;
+    }
+
+    public void setPuesto(Puesto puesto) {
+        this.puesto = puesto;
+    }
+    
     
     
 }

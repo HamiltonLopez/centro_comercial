@@ -13,6 +13,7 @@ import excepciones.UsuarioExistenteException;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -45,7 +46,9 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         botones = new JButton[5][4];
         controlador = new ControladorCasilla();
         admin = administrador;
-        lblNombre.setText(admin.getNombre());
+        lblNombre.setText(admin.getNombre() + "(Administrador)");
+        txtCorrAdicional1.setEditable(false);
+        txtCorrAdicional2.setEditable(false);
         controladorU = new ControladorUsuario();
         btnEditar5.setVisible(false);
         btnEliminar5.setVisible(false);
@@ -75,14 +78,14 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
             for (int j = 0; j < botones[i].length; j++) {
                 Casilla casilla = controlador.obtenerCasilla(i, j);
                 if (casilla.getEstado().equals(Casilla.DISPONIBLE)) {
-                    botones[i][j].setBackground(Color.green);
-                    botones[i][j].setForeground(Color.black);
+                    botones[i][j].setBackground(new Color(73, 156, 61));
+                    botones[i][j].setForeground(Color.white);
                 } else {
-                    botones[i][j].setBackground(Color.red);
+
+                    botones[i][j].setBackground(new Color(204, 0, 51));
+                    botones[i][j].setText(casilla.getLocal().getNombre());
                 }
-
             }
-
         }
 
     }
@@ -90,7 +93,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     public void cargarBotones() {
         int ancho = 180;
         int alto = 80;
-        int separado = 60;
+        int separado = 90;
         int num = 1;
         char texto = 'A';
         for (int i = 0; i < botones.length; i++) {
@@ -121,6 +124,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     private void initComponents() {
 
         jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         panelBtnLocales = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -128,6 +132,11 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         jLabel3 = new javax.swing.JLabel();
         panelBtnEmpleados = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        lblNombre = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnRegresar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
         pestañas = new javax.swing.JTabbedPane();
         panelBotones2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -166,6 +175,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         jSeparator19 = new javax.swing.JSeparator();
         jSeparator20 = new javax.swing.JSeparator();
         jSeparator21 = new javax.swing.JSeparator();
+        txtCorrAdicional1 = new javax.swing.JTextField();
         jPanel17 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         jLabel68 = new javax.swing.JLabel();
@@ -204,11 +214,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         jSeparator28 = new javax.swing.JSeparator();
         comboCargo = new javax.swing.JComboBox<>();
         jLabel83 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        lblNombre = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        btnRegresar = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
+        txtCorrAdicional2 = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -223,9 +229,23 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel6.setBackground(new java.awt.Color(0, 153, 153));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 67, Short.MAX_VALUE)
+        );
+
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
-        panelBtnLocales.setBackground(new java.awt.Color(255, 255, 51));
+        panelBtnLocales.setBackground(new java.awt.Color(0, 153, 153));
+        panelBtnLocales.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelBtnLocales.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 panelBtnLocalesMouseMoved(evt);
@@ -241,7 +261,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         });
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("LOCALES");
 
         javax.swing.GroupLayout panelBtnLocalesLayout = new javax.swing.GroupLayout(panelBtnLocales);
@@ -261,7 +281,8 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelBtnClientes.setBackground(new java.awt.Color(255, 255, 51));
+        panelBtnClientes.setBackground(new java.awt.Color(0, 153, 153));
+        panelBtnClientes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelBtnClientes.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 panelBtnClientesMouseMoved(evt);
@@ -279,7 +300,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
             }
         });
 
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("GESTIONAR CLIENTES");
 
         javax.swing.GroupLayout panelBtnClientesLayout = new javax.swing.GroupLayout(panelBtnClientes);
@@ -299,7 +320,8 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelBtnEmpleados.setBackground(new java.awt.Color(255, 255, 51));
+        panelBtnEmpleados.setBackground(new java.awt.Color(0, 153, 153));
+        panelBtnEmpleados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelBtnEmpleados.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 panelBtnEmpleadosMouseMoved(evt);
@@ -317,7 +339,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
             }
         });
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("GESTIONAR EMPLEADOS");
 
         javax.swing.GroupLayout panelBtnEmpleadosLayout = new javax.swing.GroupLayout(panelBtnEmpleados);
@@ -357,19 +379,49 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                 .addContainerGap(325, Short.MAX_VALUE))
         );
 
-        pestañas.setBackground(new java.awt.Color(255, 255, 0));
+        jPanel2.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelBotones2.setBackground(new java.awt.Color(102, 102, 102));
+        lblNombre.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombre.setText("Name");
+        jPanel2.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
+
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/administrador/punto verde.jpg"))); // NOI18N
+        jLabel2.setText("Conectado");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 90, -1));
+
+        btnRegresar.setBackground(new java.awt.Color(204, 0, 51));
+        btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegresar.setText("CERRRAR SESIÓN");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/cliente/74472 (1).png"))); // NOI18N
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, -1));
+
+        pestañas.setBackground(new java.awt.Color(255, 255, 0));
+        pestañas.setForeground(new java.awt.Color(0, 0, 0));
+
+        panelBotones2.setBackground(new java.awt.Color(255, 255, 255));
+        panelBotones2.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout panelBotones2Layout = new javax.swing.GroupLayout(panelBotones2);
         panelBotones2.setLayout(panelBotones2Layout);
         panelBotones2Layout.setHorizontalGroup(
             panelBotones2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1031, Short.MAX_VALUE)
+            .addGap(0, 1073, Short.MAX_VALUE)
         );
         panelBotones2Layout.setVerticalGroup(
             panelBotones2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 515, Short.MAX_VALUE)
+            .addGap(0, 613, Short.MAX_VALUE)
         );
 
         pestañas.addTab("LOCALES", panelBotones2);
@@ -521,43 +573,50 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                        .addComponent(txtDocuEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(151, 151, 151))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                        .addComponent(btnBuscar4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(195, 195, 195))))
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(jLabel85))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(181, 181, 181)
+                        .addComponent(jLabel74, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addGap(160, 160, 160)
-                        .addComponent(jLabel74, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addGap(166, 166, 166)
+                        .addComponent(txtDocuEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addGap(209, 209, 209)
+                        .addComponent(btnBuscar4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addGap(152, 152, 152)
+                        .addComponent(jLabel85)))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel74)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(43, 43, 43)
                 .addComponent(jLabel85)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(txtDocuEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnBuscar4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        txtCorrAdicional1.setBackground(new java.awt.Color(255, 255, 255));
+        txtCorrAdicional1.setForeground(new java.awt.Color(0, 0, 0));
+        txtCorrAdicional1.setText("@cliente.com");
+        txtCorrAdicional1.setBorder(null);
+        txtCorrAdicional1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCorrAdicional1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -574,7 +633,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(172, 172, 172)
                         .addComponent(jLabel73))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(55, 55, 55)
@@ -604,15 +663,18 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                                 .addComponent(jLabel69)
                                 .addComponent(jLabel70)
                                 .addComponent(jLabel71)
-                                .addComponent(txtCorreo5, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
                                 .addComponent(txtContra5)
-                                .addComponent(txtDireccion5))))
+                                .addComponent(txtDireccion5)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                    .addComponent(txtCorreo5, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtCorrAdicional1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addComponent(jSeparator15, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jSeparator19, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -638,7 +700,8 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtApellido5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCorreo5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtCorreo5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCorrAdicional1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(2, 2, 2)
                                 .addComponent(jSeparator15, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator19, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -676,7 +739,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                 .addComponent(btnEditar5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEliminar5)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(149, Short.MAX_VALUE))
             .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -684,7 +747,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1040, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1073, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -838,55 +901,66 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel19Layout.createSequentialGroup()
-                .addGap(150, 150, 150)
-                .addComponent(jLabel82)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                .addGap(0, 37, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel82)
+                .addGap(197, 197, 197))
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel19Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                        .addComponent(btnBuscar5, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(186, 186, 186))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                        .addComponent(txtDocuEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(144, 144, 144))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                        .addComponent(jLabel84)
-                        .addGap(134, 134, 134))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
+                                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtDocuEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel84))
+                                .addGap(164, 164, 164))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
+                                .addComponent(btnBuscar5, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(217, 217, 217))))))
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel19Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel82)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addGap(64, 64, 64)
                 .addComponent(jLabel84)
-                .addGap(18, 18, 18)
-                .addComponent(txtDocuEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtDocuEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnBuscar5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        comboCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione el cargo", "Administrador Parquedaero", "Celador", "Area de Aseo" }));
+        comboCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione el cargo", "Administrador Parqueadero", "Celador", "Area de Aseo" }));
 
         jLabel83.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
         jLabel83.setForeground(new java.awt.Color(0, 0, 0));
         jLabel83.setText("Cargo:");
+
+        txtCorrAdicional2.setBackground(new java.awt.Color(255, 255, 255));
+        txtCorrAdicional2.setForeground(new java.awt.Color(0, 0, 0));
+        txtCorrAdicional2.setText("@empleadoC.com");
+        txtCorrAdicional2.setBorder(null);
+        txtCorrAdicional2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCorrAdicional2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel18Layout.createSequentialGroup()
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addGap(188, 188, 188)
                         .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -898,46 +972,49 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                         .addComponent(jLabel81))
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel18Layout.createSequentialGroup()
+                                    .addGap(55, 55, 55)
+                                    .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(comboSexo6, 0, 214, Short.MAX_VALUE)
+                                        .addComponent(txtTelefono6)
+                                        .addComponent(txtDocumento6)
+                                        .addComponent(txtApellido6)
+                                        .addComponent(jLabel77)
+                                        .addComponent(jLabel76)
+                                        .addComponent(jLabel75)
+                                        .addComponent(txtNombre6)
+                                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel72, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel68))))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
+                                    .addGap(43, 43, 43)
+                                    .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jSeparator23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jSeparator24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jSeparator28, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel18Layout.createSequentialGroup()
-                                .addGap(55, 55, 55)
-                                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(comboSexo6, 0, 214, Short.MAX_VALUE)
-                                    .addComponent(txtTelefono6)
-                                    .addComponent(txtDocumento6)
-                                    .addComponent(txtApellido6)
-                                    .addComponent(jLabel77)
-                                    .addComponent(jLabel76)
-                                    .addComponent(jLabel75)
-                                    .addComponent(txtNombre6)
-                                    .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel72, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel68))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
-                                .addGap(43, 43, 43)
-                                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSeparator23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSeparator24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSeparator28, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(56, 56, 56)
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jSeparator25, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator27, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel78, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel79, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel80, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCorreo6, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtContra6, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDireccion6, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboCargo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel83, javax.swing.GroupLayout.Alignment.LEADING)))
-                    .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jSeparator22, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSeparator26, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                                .addGap(46, 46, 46)
+                                .addComponent(jSeparator22, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(31, 31, Short.MAX_VALUE)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator26, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jSeparator25, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jSeparator27, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel78, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel79, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel80, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtContra6, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtDireccion6, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(comboCargo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel83, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                .addComponent(txtCorreo6, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCorrAdicional2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -965,7 +1042,8 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtApellido6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCorreo6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtCorreo6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCorrAdicional2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(2, 2, 2)
                                 .addComponent(jSeparator22, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator26, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1003,7 +1081,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                 .addComponent(btnEditar6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEliminar6)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
             .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -1011,9 +1089,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1021,43 +1097,6 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         );
 
         pestañas.addTab("GESTION DE EMPLEADOS", jPanel17);
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblNombre.setForeground(new java.awt.Color(0, 0, 0));
-        lblNombre.setText("Name");
-        jPanel2.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
-
-        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/administrador/punto verde.jpg"))); // NOI18N
-        jLabel2.setText("Conectado");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 90, -1));
-
-        btnRegresar.setBackground(new java.awt.Color(204, 0, 51));
-        btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegresar.setText("REGRESAR");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
-        jPanel6.setBackground(new java.awt.Color(0, 153, 153));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1031, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 94, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1069,20 +1108,22 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pestañas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(pestañas)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pestañas, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pestañas))))
         );
 
         pack();
@@ -1093,11 +1134,11 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     }//GEN-LAST:event_panelBtnLocalesMouseClicked
 
     private void panelBtnLocalesMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnLocalesMouseMoved
-        panelBtnLocales.setBackground(new Color(153, 153, 153));
+        panelBtnLocales.setBackground(new Color(0, 102, 102));
     }//GEN-LAST:event_panelBtnLocalesMouseMoved
 
     private void panelBtnLocalesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnLocalesMouseExited
-        panelBtnLocales.setBackground(new Color(255,255,51));
+        panelBtnLocales.setBackground(new Color(0, 153, 153));
     }//GEN-LAST:event_panelBtnLocalesMouseExited
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -1107,7 +1148,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void panelBtnClientesMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnClientesMouseMoved
-        panelBtnClientes.setBackground(new Color(153, 153, 153));
+        panelBtnClientes.setBackground(new Color(0, 102, 102));
     }//GEN-LAST:event_panelBtnClientesMouseMoved
 
     private void panelBtnClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnClientesMouseClicked
@@ -1119,11 +1160,11 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     }//GEN-LAST:event_panelBtnClientesMouseEntered
 
     private void panelBtnClientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnClientesMouseExited
-        panelBtnClientes.setBackground(new Color(255,255,51));
+        panelBtnClientes.setBackground(new Color(0, 153, 153));
     }//GEN-LAST:event_panelBtnClientesMouseExited
 
     private void panelBtnEmpleadosMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEmpleadosMouseMoved
-        panelBtnEmpleados.setBackground(new Color(153, 153, 153));
+        panelBtnEmpleados.setBackground(new Color(0, 102, 102));
     }//GEN-LAST:event_panelBtnEmpleadosMouseMoved
 
     private void panelBtnEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEmpleadosMouseClicked
@@ -1135,7 +1176,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     }//GEN-LAST:event_panelBtnEmpleadosMouseEntered
 
     private void panelBtnEmpleadosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEmpleadosMouseExited
-        panelBtnEmpleados.setBackground(new Color(255,255,51));
+        panelBtnEmpleados.setBackground(new Color(0, 153, 153));
     }//GEN-LAST:event_panelBtnEmpleadosMouseExited
 
     private void txtNombre5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre5KeyTyped
@@ -1163,7 +1204,8 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     }//GEN-LAST:event_comboSexo5ActionPerformed
 
     private void btnRegistrar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrar5ActionPerformed
-        if (txtNombre5.getText().isEmpty() || txtDocumento5.getText().isEmpty() || txtTelefono5.getText().isEmpty() || comboSexo5.getSelectedIndex() == 0) {
+        if (txtNombre5.getText().isEmpty() || txtDocumento5.getText().isEmpty() || txtTelefono5.getText().isEmpty() || comboSexo5.getSelectedIndex() == 0
+                || txtCorreo5.getText().isEmpty() || txtTelefono5.getText().isEmpty() || txtDireccion5.getText().isEmpty() || txtContra5.getText().isEmpty()) {
 
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
 
@@ -1171,16 +1213,16 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
             String nombre = txtNombre5.getText();
             String documento = txtDocumento5.getText();
             String telefono = txtTelefono5.getText();
-            String correo = txtCorreo5.getText();
+            String correo = txtCorreo5.getText() + txtCorrAdicional1.getText();
             String contraseña = txtContra5.getText();
             String sexo = comboSexo5.getSelectedItem().toString();
             String apellido = txtApellido5.getText();
             String direccion = txtDireccion5.getText();
-
+            String adicional = txtCorrAdicional1.getText();
             Usuario cliente = new Cliente(nombre, documento, telefono, correo, contraseña, apellido, direccion, sexo);
 
             try {
-                controladorU.registrarUsuario(cliente);
+                controladorU.registrarUsuario(cliente, adicional);
                 JOptionPane.showMessageDialog(null, "El cliente " + cliente.getNombre() + " se ha registrado con éxito");
                 limpiar();
 
@@ -1191,7 +1233,8 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     }//GEN-LAST:event_btnRegistrar5ActionPerformed
 
     private void btnEditar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar5ActionPerformed
-        if (txtNombre5.getText().isEmpty() || txtDocumento5.getText().isEmpty() || txtTelefono5.getText().isEmpty() || comboSexo5.getSelectedIndex() == 0) {
+        if (txtNombre5.getText().isEmpty() || txtDocumento5.getText().isEmpty() || txtTelefono5.getText().isEmpty() || comboSexo5.getSelectedIndex() == 0
+                || txtCorreo5.getText().isEmpty() || txtTelefono5.getText().isEmpty() || txtDireccion5.getText().isEmpty() || txtContra5.getText().isEmpty()) {
 
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
 
@@ -1209,24 +1252,27 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
             Usuario cliente = new Cliente(nombre, documento, telefono, correo, contraseña, apellido, direccion, sexo);
             boolean es = controladorU.editarUsuario(cliente);
             if (es) {
-                JOptionPane.showMessageDialog(null, "La secretaria se ha editado con éxito");
+                JOptionPane.showMessageDialog(null, "El cliente se ha editado con éxito");
                 limpiar();
+                txtDocumento5.setEditable(true);
                 btnEditar5.setVisible(false);
                 btnEliminar5.setVisible(false);
             } else {
-                JOptionPane.showMessageDialog(null, "La secretaria no se ha podido modificar");
+                JOptionPane.showMessageDialog(null, "El cliente no se ha podido modificar");
             }
     }//GEN-LAST:event_btnEditar5ActionPerformed
     }
     private void btnEliminar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar5ActionPerformed
+
         if (txtDocumento5.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Vefique que campo de documento sea valido");
         } else {
             String documento = txtDocumento5.getText();
             boolean resp = controladorU.eliminarUsuario(documento);
             if (resp) {
-                JOptionPane.showMessageDialog(null, "La secretaria ha sido eliminado exitosamente");
+                JOptionPane.showMessageDialog(null, "El cliente ha sido eliminado exitosamente");
                 limpiar();
+                txtDocumento5.setEditable(true);
                 btnEditar5.setVisible(false);
                 btnEliminar5.setVisible(false);
             } else {
@@ -1241,9 +1287,9 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         } else {
             String buscado = txtDocuEliminar.getText();
 
-            Cliente busc = (Cliente) controladorU.buscarUsuario(buscado);
+            Cliente busc = (Cliente) controladorU.BuscarCliente(buscado);
             if (busc != null) {
-
+                txtDocumento5.setEditable(false);
                 btnEditar5.setVisible(true);
                 btnEliminar5.setVisible(true);
                 txtDocumento5.setText(busc.getDocumento());
@@ -1284,22 +1330,23 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     }//GEN-LAST:event_comboSexo6ActionPerformed
 
     private void btnRegistrar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrar6ActionPerformed
-        if (txtNombre6.getText().isEmpty() || txtDocumento6.getText().isEmpty() || txtTelefono6.getText().isEmpty() || comboSexo6.getSelectedIndex() == 0 || comboCargo.getSelectedIndex() == 0) {
+        if (txtNombre6.getText().isEmpty() || txtDocumento6.getText().isEmpty() || txtTelefono6.getText().isEmpty() || comboSexo6.getSelectedIndex() == 0 || comboCargo.getSelectedIndex() == 0
+                || txtCorreo6.getText().isEmpty() || txtTelefono6.getText().isEmpty() || txtDireccion6.getText().isEmpty() || txtContra6.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
         } else {
             String nombre = txtNombre6.getText();
             String documento = txtDocumento6.getText();
             String telefono = txtTelefono6.getText();
-            String correo = txtCorreo6.getText();
+            String correo = txtCorreo6.getText() + txtCorrAdicional2.getText();
             String contraseña = txtContra6.getText();
             String sexo = comboSexo6.getSelectedItem().toString();
             String apellido = txtApellido6.getText();
             String direccion = txtDireccion6.getText();
             String cargo = comboCargo.getSelectedItem().toString();
-
+            String adicional = txtCorrAdicional2.getText();
             Usuario empleado = new EmpleadoGeneral(nombre, documento, telefono, correo, contraseña, apellido, direccion, sexo, cargo);
             try {
-                controladorU.registrarUsuario(empleado);
+                controladorU.registrarUsuario(empleado, adicional);
                 JOptionPane.showMessageDialog(null, "El empleado " + empleado.getNombre() + " se ha registrado con éxito");
                 limpiar();
 
@@ -1319,7 +1366,8 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     }//GEN-LAST:event_btnRegistrar6ActionPerformed
 
     private void btnEditar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar6ActionPerformed
-        if (txtNombre6.getText().isEmpty() || txtDocumento6.getText().isEmpty() || txtTelefono6.getText().isEmpty() || comboSexo6.getSelectedIndex() == 0) {
+        if (txtNombre6.getText().isEmpty() || txtDocumento6.getText().isEmpty() || txtTelefono6.getText().isEmpty() || comboSexo6.getSelectedIndex() == 0
+                || txtCorreo6.getText().isEmpty() || txtTelefono6.getText().isEmpty() || txtDireccion6.getText().isEmpty() || txtContra6.getText().isEmpty() || comboCargo.getSelectedIndex() == 0) {
 
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
 
@@ -1340,6 +1388,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
             if (es) {
                 JOptionPane.showMessageDialog(null, "El empleado se ha editado con éxito");
                 limpiar();
+                txtDocumento5.setEditable(true);
                 btnEditar6.setVisible(false);
                 btnEliminar6.setVisible(false);
             } else {
@@ -1358,6 +1407,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
             if (resp) {
                 JOptionPane.showMessageDialog(null, "El empleado ha sido eliminado exitosamente");
                 limpiar();
+                txtDocumento5.setEditable(true);
                 btnEditar6.setVisible(false);
                 btnEliminar6.setVisible(false);
             } else {
@@ -1372,9 +1422,10 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         } else {
             String buscado = txtDocuEliminar1.getText();
 
-            EmpleadoGeneral busc = (EmpleadoGeneral) controladorU.buscarUsuario(buscado);
+            EmpleadoGeneral busc = (EmpleadoGeneral) controladorU.BuscarEmpleadoGeneral(buscado);
             if (busc != null) {
 
+                txtDocumento6.setEditable(false);
                 btnEditar6.setVisible(true);
                 btnEliminar6.setVisible(true);
                 txtDocumento6.setText(busc.getDocumento());
@@ -1392,6 +1443,14 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
             }
         }
     }//GEN-LAST:event_btnBuscar5ActionPerformed
+
+    private void txtCorrAdicional1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorrAdicional1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCorrAdicional1ActionPerformed
+
+    private void txtCorrAdicional2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorrAdicional2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCorrAdicional2ActionPerformed
 
     public void llenarTablaEmpleados() {
         removerTablaE();
@@ -1459,8 +1518,17 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
         txtCorreo5.setText("");
         txtContra5.setText("");
         txtDireccion5.setText("");
-
         comboSexo5.setSelectedIndex(0);
+        ///////////////////////////////
+        txtDocumento6.setText("");
+        txtNombre6.setText("");
+        txtTelefono6.setText("");
+        txtApellido6.setText("");
+        txtCorreo6.setText("");
+        txtContra6.setText("");
+        txtDireccion6.setText("");
+        comboCargo.setSelectedIndex(0);
+        comboSexo6.setSelectedIndex(0);
         removerTabla();
         removerTablaE();
         llenarTablaClientes();
@@ -1512,8 +1580,9 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
                         vista.setVisible(true);
                         this.dispose();
                     } else {
-                        botones[i][j].setText(casilla.getLocal().getAdmin().getDocumento() + " " + casilla.getLocal().getAdmin().getContrasena() + " ");
-
+                        InfoLocal ventana = new InfoLocal(this, casilla);
+                        this.dispose();
+                        ventana.setVisible(true);
                     }
                 }
             }
@@ -1538,6 +1607,7 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
@@ -1599,6 +1669,8 @@ public class GestionAdministrador extends javax.swing.JFrame implements ActionLi
     private javax.swing.JTextField txtApellido6;
     private javax.swing.JTextField txtContra5;
     private javax.swing.JTextField txtContra6;
+    private javax.swing.JTextField txtCorrAdicional1;
+    private javax.swing.JTextField txtCorrAdicional2;
     private javax.swing.JTextField txtCorreo5;
     private javax.swing.JTextField txtCorreo6;
     private javax.swing.JTextField txtDireccion5;
